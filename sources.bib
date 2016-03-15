@@ -1,55 +1,3 @@
-@misc{Bentov2014,
-abstract = {We study cryptocurrency protocols that do not make use of \{$\backslash$em Proof of Work\}. Such protocols commonly rely on \{$\backslash$em Proof of Stake\}, i.e., on mechanisms that extend voting power to the stakeholders of the system. We offer analysis of existing protocols that have a substantial amount of popularity. We then present our novel pure \{$\backslash$em Proof of Stake\} protocols, and argue that the they help in mitigating problems that the existing protocols suffer from.},
-archivePrefix = {arXiv},
-arxivId = {1406.5694},
-author = {Bentov, Iddo and Gabizon, Ariel and Mizrahi, Alex},
-eprint = {1406.5694},
-keywords = {blockchain building,consensus,proof-pf-stake},
-mendeley-tags = {blockchain building,consensus,proof-pf-stake},
-number = {240258},
-pages = {1--10},
-title = {{Cryptocurrencies without Proof of Work}},
-url = {http://arxiv.org/pdf/1406.5694.pdf},
-urldate = {2015-09-28},
-year = {2014}
-}
-@misc{Bentov2013,
-abstract = {We propose a new protocol for a cryptocurrency, that builds upon the Bitcoin protocol by combining its Proof of Work component with a Proof of Stake type of system. Our Proof of Activity (PoA) protocol offers good security against possibly practical future attacks on Bitcoin, and has a relatively low penalty in terms of network communication and storage space. We explore various attack scenarios and suggest remedies to potential vulnerabilities of the PoA protocol, as well as evaluate the performance of its core subroutine.},
-author = {Bentov, Iddo and Lee, Charles and Mizrahi, Alex and Rosenfeld, Meni},
-keywords = {bitcoin,proof of activity,proof of stake},
-mendeley-tags = {bitcoin,proof of activity,proof of stake},
-number = {3},
-pages = {1--19},
-title = {{Proof of Activity: Extending Bitcoin’s Proof of Work via Proof of Stake}},
-url = {http://eprint.iacr.org/2014/452.pdf},
-urldate = {2015-10-20},
-volume = {42},
-year = {2013}
-}
-@misc{Garay2015,
-abstract = {Bitcoin is the first andmost popular decentralized cryptocur- rency to date. In this work, we extract and analyze the core of the Bitcoin protocol, which we term the Bitcoin backbone, and prove two of its fun- damental properties which we call common prefix and chain quality in the static setting where the number of players remains fixed. Our proofs hinge on appropriate and novel assumptions on the “hashing power” of the adversary relative to network synchronicity; we show our results to be tight under high synchronization. Next, we propose and analyze applications that can be built “on top” of the backbone protocol, specifically focusing on Byzantine agreement (BA) and on the notion of a public transaction ledger. Regarding BA, we observe that Nakamoto’s suggestion falls short of solving it, and present a simple alternative which works assuming that the adversary’s hashing power is bounded by 1/3. The public transaction ledger captures the essence of Bitcoin’s operation as a cryptocurrency, in the sense that it guarantees the liveness and persistence of committed transactions. Based on this notion we describe and analyze the Bitcoin system as well as a more elaborate BA protocol, proving them secure assuming high net- work synchronicity and that the adversary’s hashing power is strictly less than 1/2, while the adversarial bound needed for security decreases as the network desynchronizes. 1},
-author = {Garay, Juan and B, Aggelos Kiayias and Leonardos, Nikos},
-booktitle = {Advances in Cryptology -EUROCRYPT 2015},
-doi = {10.1007/978-3-662-46803-6},
-isbn = {978-3-662-46802-9},
-keywords = {Bitcoin,Decentralized Consensus,Formal Modelling,PoW},
-mendeley-tags = {Bitcoin,Decentralized Consensus,Formal Modelling,PoW},
-pages = {281--310},
-title = {{The Bitcoin Backbone Protocol: Analysis and Applications}},
-url = {http://link.springer.com/10.1007/978-3-662-46803-6},
-urldate = {2015-10-11},
-volume = {9057},
-year = {2015}
-}
-@misc{Kwon,
-author = {Kwon, Jae},
-keywords = {byzantine agreement,proof-of-stake,tendermint},
-mendeley-tags = {byzantine agreement,proof-of-stake,tendermint},
-pages = {1--10},
-title = {{TenderMint : Consensus without Mining}},
-url = {http://tendermint.com/docs/tendermint\_v04.pdf},
-urldate = {2015-10-26}
-}
 @misc{Nakamoto2008,
 abstract = {A purely peer-to-peer version of electronic cash would allow online payments to be sent directly from one party to another without going through a financial institution. Digital signatures provide part of the solution, but the main benefits are lost if a trusted third party is still required to prevent double-spending. We propose a solution to the double-spending problem using a peer-to-peer network. The network timestamps transactions by hashing them into an ongoing chain of hash-based proof-of-work, forming a record that cannot be changed without redoing the proof-of-work. The longest chain not only serves as proof of the sequence of events witnessed, but proof that it came from the largest pool of CPU power. As long as a majority of CPU power is controlled by nodes that are not cooperating to attack the network, they'll generate the longest chain and outpace attackers. The network itself requires minimal structure. Messages are broadcast on a best effort basis, and nodes can leave and rejoin the network at will, accepting the longest proof-of-work chain as proof of what happened while they were gone.},
 archivePrefix = {arXiv},
@@ -69,20 +17,68 @@ url = {http://s.kwma.kr/pdf/Bitcoin/bitcoin.pdf},
 urldate = {2015-10-21},
 year = {2008}
 }
-@misc{Mills1991,
-abstract = {The network time protocol (NTP), which is designed to distribute$\backslash$ntime information in a large, diverse system, is described. It uses a$\backslash$nsymmetric architecture in which a distributed subnet of time servers$\backslash$noperating in a self-organizing, hierarchical configuration synchronizes$\backslash$nlocal clocks within the subnet and to national time standards via wire,$\backslash$nradio, or calibrated atomic clock. The servers can also redistribute$\backslash$ntime information within a network via local routing algorithms and time$\backslash$ndaemons. The NTP synchronization system, which has been in regular$\backslash$noperation in the Internet for the last several years, is described,$\backslash$nalong with performance data which show that timekeeping accuracy$\backslash$nthroughout most portions of the Internet can be ordinarily maintained to$\backslash$nwithin a few milliseconds, even in cases of failure or disruption of$\backslash$nclocks, time servers, or networks},
-author = {Mills, D.L.},
-booktitle = {IEEE Transactions on Communications},
-doi = {10.1109/26.103043},
-isbn = {0090-6778},
-issn = {0090-6778},
-keywords = {ntp},
-mendeley-tags = {ntp},
-number = {10},
-pages = {1482--1493},
-title = {{Internet time synchronization: the network time protocol}},
-url = {http://roxanageambasu.github.io/ds2-class/papers/mills-ntp.pdf},
-urldate = {2015-11-06},
-volume = {39},
-year = {1991}
+@inproceedings{decker2013information,
+  title={Information propagation in the bitcoin network},
+  author={Decker, Christian and Wattenhofer, Roger},
+  booktitle={Peer-to-Peer Computing (P2P), 2013 IEEE Thirteenth International Conference on},
+  pages={1--10},
+  year={2013},
+  organization={IEEE}
+}
+@inproceedings{miller2016,
+  title={On Scaling Decentralized Blockchains},
+  author={B{\"o}hme, Rainer and Okamoto, Tatsuaki},
+  url = {http://fc16.ifca.ai/bitcoin/papers/CDE+16.pdf},
+  year={2016},
+}
+@article{kraft2015difficulty,
+  title={Difficulty control for blockchain-based consensus systems},
+  author={Kraft, Daniel},
+  journal={Peer-to-Peer Networking and Applications},
+  pages={1--17},
+  year={2015},
+  publisher={Springer}
+}
+@misc{armstrong2016,
+  title={What Happened At The Satoshi Roundtable},
+  author={Armstrong, Brian},
+  url = {https://medium.com/@barmstrong/what-happened-at-the-satoshi-roundtable-6c11a10d8cdf#.pvoqt832u},
+  year={2016},
+}
+@article{moore2006cramming,
+  title={Cramming more components onto integrated circuits, Reprinted from Electronics, volume 38, number 8, April 19, 1965, pp. 114 ff.},
+  author={Moore, Gordon E},
+  journal={IEEE Solid-State Circuits Newsletter},
+  volume={3},
+  number={20},
+  pages={33--35},
+  year={2006}
+}
+@article{andruiman2014,
+  title={Nxt forging algorithm: simulating approach},
+  author={andruiman},
+  url = {https://www.scribd.com/doc/243341106/Nxt-forging-algorithm-simulating-approach},
+  year={2014}
+}
+@article{nxt,
+  title={Nxt forging algorithm: simulating approach},
+  author={andruiman},
+  url = {http://wiki.nxtcrypto.org/wiki/Whitepaper:Nxt}
+}
+@article{bahack2013theoretical,
+  title={Theoretical Bitcoin Attacks with less than Half of the Computational Power},
+  author={Bahack, Lear},
+  journal={arXiv preprint arXiv:1312.7013},
+  year={2013}
+}
+@misc{timejacking2011,
+  title={The Timejacking Attack},
+  url = {http://culubas.blogspot.com}
+  year={2011}
+}
+@misc{artforz2011,
+  title={The time Wrapping Attack},
+  author={ArtForz},
+  url = {https://bitcointalk.org/index.php?topic=43692.msg521772#msg521772}
+  year={2011}
 }
