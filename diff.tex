@@ -122,7 +122,18 @@ Is it possible to create such a function, stable for attackers manipulations?
 
 \section{Bitcoin Mining}
 
- \textbf{TODO or remove?}
+First, let us briefly describe how the mining process works.
+The original concept is described in section 4 of the Bitcoin whitepaper \cite{Nakamoto2008}, and disscussed in plenty of papers \cite{kraft2015difficulty, miller2014permacoin, eyal2014majority}.
+We refer to the basic unit of mining work in Bitcoin as a scratch-off puzzle (SOP).
+Miner generates candidates to the SOP by iterating thought \(nonse\) and calculating SHA-256 hash of a blocks header.
+For a block to be valid it must value hash value less than the current \(target\) that is which is usually expressed in terms of the network difficulty \(D\) as \(1\over D\).
+Thus, each hash attempt yields a valid block with probability \(1\over D\) and block frequency is \(R\over D\) where \(R\) is effective network hash rate.
+Every \(M\) blocks (\(M=2016\) for Bitcoin) difficulty is recalculated as
+\begin{equation}
+D_{i+1}=D_i*{MT\over S_m}
+\end{equation}
+where \(T\) is expected time interval between blocks and \(S_m\) is actual time, it took to generate \(M\) blocks
+\textbf{TODO complete + graph}
 
 \section{The Difficulty Manipulating Attack}
 
@@ -136,7 +147,9 @@ Of course in such a situation the attacker will create less blocks, that in situ
 However, lows of economy dictate that the cost of computational resourses invested into mining should be around the expected reward, and attackers profit, gained from every block may overbalance his wastes caused by decreasing number of created blocks.
 Moreover, in a situation with a lot cryptocurency forks he is able to mine other forks in epoches with big difficulty and gain more blocks with more profit from each, that in situation, when he mine single cryptocurrency permanently.
 
+ \textbf{TODO subsection?}
 
+Let's calculate attacker profit in circumstances of Bitcoin difficulty recalculation function and constant hash rate (which is natural for this function).
 
 \section{An Improved Difficulty Control}
 
