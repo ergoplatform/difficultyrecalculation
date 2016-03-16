@@ -88,7 +88,7 @@ Blockchain \sep Decentralized consensus \sep Peer-to-peer networks \sep Proof-of
 
 Blockchain systems have attracted a growing amount of interest from various communities after publication of Bitcoin whitepaper \cite{Nakamoto2008} in 2008.
 Bitcoin security relies on the distributed protocol that maintains the blockchain, called mining, in which network nodes tries to solve computational puzzle.
-Other blockchain systems may relies on different computational puzzles [??] or even on virtual mining [??], while all of them use some algorithm that changes puzzle difficulty dynamically.
+Other blockchain systems may relies on different computational puzzles \[??\] or even on virtual mining \[??\], while all of them use some algorithm that changes puzzle difficulty dynamically.
 This algorithm for retargeting the difficulty is required to make blockchain system predictable and fix latency between blocks.
 
 Fixed latency between blocks is important for several reasons.
@@ -104,10 +104,10 @@ Varying network computational power makes this algorithms inefficient for diffic
 Noteworthy, that exponential growth of computational power, which is the situation observed in practice in accordance with Moore’s law\cite{moore2006cramming}, is the absolutely worst case (regarding the maximal block rate) possible for Bitcoin’s difficulty retargeting algorithm\cite{kraft2015difficulty}.
 On the other side, target recalculation algorithm should be easy enough and use integer arithmetic for all computational steps, since all nodes in the peer-to-peer network have to agree absolutely on the calculated difficulty.
 
-Original Bitcoin white-paper, states that the security of the system is guaranteed as long as there is no attacker in possession of half or more of the total computational power used to maintain the system {Nakamoto2008}.
-Most of the models used in the literature to discuss double-spending attacks assume that mining difficulty is constant [??].
+Original Bitcoin white-paper, states that the security of the system is guaranteed as long as there is no attacker in possession of half or more of the total computational power used to maintain the system \cite{Nakamoto2008}.
+Most of the models used in the literature to discuss double-spending attacks assume that mining difficulty is constant \[??\].
 However difficulty is not constant, and can be manipulated by the attacker.
-The Difficulty Raising Attack, introduced in \cite{bahack2013theoretical}, enables the attacker to discard n-depth block, for any n and any attacker hash power, with probability 1 if he is willing to wait enough time.
+The Difficulty Raising Attack, introduced in \cite{bahack2013theoretical}, enables the attacker to discard n-depth block, for any n and any attacker hash power, with probability 1 if he\footnote{For simplicity we choose to adapt the male form. This was chosen by flipping a coin.} is willing to wait enough time.
 The fact that there is no way to determine whether a block have been computed on its declared time or not, have been used as part of other attacks \cite{timejacking2011, artforz2011}.
 In secton ?? we introduce new way of attack for blochcking systems, that manipulates difficulty for decreasing effective hash rate, required for block generation.
 
@@ -118,12 +118,24 @@ Is it possible to create such a function, suitable for random fluctuations in th
 Is it possible to create such a function, simple enough to use integer arithmetic for all computational steps?
 Is it possible to create such a function, stable for attackers manipulations?
 
- \textbf{TODO}
+ \textbf{TODO complete}
 
 \section{Bitcoin Mining}
 
+ \textbf{TODO or remove?}
 
-\section{The Difficulty Control Attack}
+\section{The Difficulty Manipulating Attack}
+
+On this section we show a new way of manipulating difficulty with profit to an attacker.
+The main idea is very simple.
+The attacker may disable his mining, and wait for the next difficulty racalculation.
+New difficulty will be lower, cause it don't include computational power of the attacker, and he turns on his mining again.
+After next difficulty recalculation (which will include the attacker computational power) he turns off his mining again, and wait for next difficulty recalculation.
+Such a simple algorithm allows him to mine during epochs with low difficulty, and don't mine during epoch with the low one, that will decrease computational resourses expended for block generation.
+Of course in such a situation the attacker will create less blocks, that in situation, when he mine all the time.
+However, lows of economy dictate that the cost of computational resourses invested into mining should be around the expected reward, and attackers profit, gained from every block may overbalance his wastes caused by decreasing number of created blocks.
+Moreover, in a situation with a lot cryptocurency forks he is able to mine other forks in epoches with big difficulty and gain more blocks with more profit from each, that in situation, when he mine single cryptocurrency permanently.
+
 
 
 \section{An Improved Difficulty Control}
