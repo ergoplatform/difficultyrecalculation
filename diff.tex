@@ -95,20 +95,30 @@ Fixed latency between blocks is important for several reasons.
 Too often blocks leads to situation, when for a lot of miners block propagation time become bigger, then latency between blocks.
 This leads to significant increasing of number of blockchain forks that complicates the consensus\cite{decker2013information} and reduce effective hash rate in blockchain system.
 On the other hand, increasing of the latency between blocks leads to decreasing of the network throughput\cite{miller2016} and may be critical for high-loaded blockchain systems like bitcoin, where blocks are already 70\% full today\cite{armstrong2016}.
-Increasing latency by 50% in bitcoin network will mean, that some transactions will be never included into blockchain.
+Increasing latency by 50\% in bitcoin network will mean, that some transactions will be never included into blockchain.
 Moreover this will lead to infinite growth of unconfirmed transactions pool, meaning it is likely that most bitcoin transactions will not even relay, much less confirm.
 
 Most of blockchain systems relies on quite a naive difficulty retargeting algorithm, that assumes, that total computational power, involved in mining process, don't change over time.
 Using more complicated retargeting algorithms with incorrect assumptions\cite{andruiman2014} may lead to incorrect time interval between blocks even for simple case of constant hash rate as, for example, observed in Nxt, where observed mean time between blocks is ~2 times bigger, then expected in whitepaper\cite{nxt}. Moreover, too ofter difficulty recalculation leads to wide distribution of time intervals between blocks and makes blockchain system unpredictable\cite{andruiman2014}.
 Varying network computational power makes this algorithms inefficient for difficulty recalculation, e.g. continuous growth of computational power leads to decreasing mean latency between blocks and average block time in Bitcoin network is ~1.07 times lower, then expected.
 Noteworthy, that exponential growth of computational power, which is the situation observed in practice in accordance with Moore’s law\cite{moore2006cramming}, is the absolutely worst case (regarding the maximal block rate) possible for Bitcoin’s difficulty retargeting algorithm\cite{kraft2015difficulty}.
+On the other side, target recalculation algorithm should be easy enough and use integer arithmetic for all computational steps, since all nodes in the peer-to-peer network have to agree absolutely on the calculated difficulty.
 
 Original Bitcoin white-paper, states that the security of the system is guaranteed as long as there is no attacker in possession of half or more of the total computational power used to maintain the system {Nakamoto2008}.
+Most of the models used in the literature to discuss double-spending attacks assume that mining difficulty is constant [??].
 However difficulty is not constant, and can be manipulated by the attacker.
 The Difficulty Raising Attack, introduced in \cite{bahack2013theoretical}, enables the attacker to discard n-depth block, for any n and any attacker hash power, with probability 1 if he is willing to wait enough time.
 The fact that there is no way to determine whether a block have been computed on its declared time or not, have been used as part of other attacks \cite{timejacking2011, artforz2011}.
+In secton ?? we introduce new way of attack for blochcking systems, that manipulates difficulty for decreasing effective hash rate, required for block generation.
 
-Thus difficulty recalculation is small, but important part of blockchain systems \textbf{TODO}
+New researches of difficulty control proposes better functions for difficulty recalculation.
+For example paper \cite{kraft2015difficulty} introduces target recalculation function, designed to work “perfectly” not just for constant hash rate but also if the hash rate grows exponentially (with a constant but unknown rate).
+Since it's good for situation, observed in practice in Bitcoin network, there are still a lot of open questions for future research.
+Is it possible to create such a function, suitable for random fluctuations in the hash rate?
+Is it possible to create such a function, simple enough to use integer arithmetic for all computational steps?
+Is it possible to create such a function, stable for attackers manipulations?
+
+ \textbf{TODO}
 
 \section{Bitcoin Mining}
 
