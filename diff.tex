@@ -24,7 +24,7 @@
 
 %% for url reference
 \usepackage{hyperref}
-
+\usepackage{graphicx}
 
 %% The lineno packages adds line numbers. Start line numbering with
 %% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
@@ -85,10 +85,11 @@ Blockchain \sep Decentralized consensus \sep Peer-to-peer networks \sep Proof-of
 
 
 \section{Introduction}
+\label{sec:intro}
 
 Blockchain systems have attracted a growing amount of interest from various communities after publication of Bitcoin whitepaper \cite{Nakamoto2008} in 2008.
 Bitcoin security relies on the distributed protocol that maintains the blockchain, called mining, in which network nodes tries to solve computational puzzle.
-Other blockchain systems may relies on different computational puzzles \[??\] or even on virtual mining \[??\], while all of them use some algorithm that changes puzzle difficulty dynamically.
+Other blockchain systems may relies on different computational puzzles \cite{??} or even on virtual mining \cite{??}, while all of them use some algorithm that changes puzzle difficulty dynamically.
 This algorithm for retargeting the difficulty is required to make blockchain system predictable and fix latency between blocks.
 
 Fixed latency between blocks is important for several reasons.
@@ -105,11 +106,11 @@ Noteworthy, that exponential growth of computational power, which is the situati
 On the other side, target recalculation algorithm should be easy enough and use integer arithmetic for all computational steps, since all nodes in the peer-to-peer network have to agree absolutely on the calculated difficulty.
 
 Original Bitcoin white-paper, states that the security of the system is guaranteed as long as there is no attacker in possession of half or more of the total computational power used to maintain the system \cite{Nakamoto2008}.
-Most of the models used in the literature to discuss double-spending attacks assume that mining difficulty is constant \[??\].
+Most of the models used in the literature to discuss double-spending attacks assume that mining difficulty is constant \cite{??}.
 However difficulty is not constant, and can be manipulated by the attacker.
 The Difficulty Raising Attack, introduced in \cite{bahack2013theoretical}, enables the attacker to discard n-depth block, for any n and any attacker hash power, with probability 1 if he\footnote{For simplicity we choose to adapt the male form. This was chosen by flipping a coin.} is willing to wait enough time.
 The fact that there is no way to determine whether a block have been computed on its declared time or not, have been used as part of other attacks \cite{timejacking2011, artforz2011}.
-In secton ?? we introduce new way of attack for blochcking systems, that manipulates difficulty for decreasing effective hash rate, required for block generation.
+In secton \ref{sec:bit} we introduce new way of attack for blochcking systems, that manipulates difficulty for decreasing effective hash rate, required for block generation.
 
 New researches of difficulty control proposes better functions for difficulty recalculation.
 For example paper \cite{kraft2015difficulty} introduces target recalculation function, designed to work “perfectly” not just for constant hash rate but also if the hash rate grows exponentially (with a constant but unknown rate).
@@ -118,9 +119,10 @@ Is it possible to create such a function, suitable for random fluctuations in th
 Is it possible to create such a function, simple enough to use integer arithmetic for all computational steps?
 Is it possible to create such a function, stable for attackers manipulations?
 
- \textbf{TODO complete}
+\textbf{TODO transition to newxt section}
 
 \section{Bitcoin Mining}
+\label{sec:bit}
 
 First, let us briefly describe how the mining process works.
 The original concept is described in section 4 of the Bitcoin whitepaper \cite{Nakamoto2008}, and disscussed in plenty of papers \cite{kraft2015difficulty, miller2014permacoin, eyal2014majority}.
@@ -128,14 +130,25 @@ We refer to the basic unit of mining work in Bitcoin as a scratch-off puzzle (SO
 Miner generates candidates to the SOP by iterating thought \(nonse\) and calculating SHA-256 hash of a blocks header.
 For a block to be valid it must value hash value less than the current \(target\) that is which is usually expressed in terms of the network difficulty \(D\) as \(1\over D\).
 Thus, each hash attempt yields a valid block with probability \(1\over D\) and block frequency is \(R\over D\) where \(R\) is effective network hash rate.
+
 Every \(M\) blocks (\(M=2016\) for Bitcoin) difficulty is recalculated as
 \begin{equation}
 D_{i+1}=D_i*{MT\over S_m}
 \end{equation}
-where \(T\) is expected time interval between blocks and \(S_m\) is actual time, it took to generate \(M\) blocks
-\textbf{TODO complete + graph}
+where \(T\) is expected time interval between blocks and \(S_m\) is actual time, it took to generate \(M\) blocks.
+Real time (\(~ 9 min 20 sec\)) interval is less, then desired time interval \(T=10 min\) because of continiuos growth of network computational power.
+Difficulty recalculation interval \(M=2016\) has been chosen in such a way to recalculate difficulty every 2 weeks, while for real network it is a bit smaller.
+This time intrerval is big enough to see increasing computational power of the network: right after target recalculation block time is close to desired 10 minutes, whereas at the end of \(epoch\) it's less then 9 minutes (see figure~\ref{fig:image}).
+\begin{figure}[h]
+\center{\includegraphics[scale=0.3]{interval.png}}
+\caption{Average block time between difficulty recalculation}
+\label{fig:image}
+\end{figure}
+
+\textbf{TODO transition to newxt section}
 
 \section{The Difficulty Manipulating Attack}
+\label{sec:attack}
 
 On this section we show a new way of manipulating difficulty with profit to an attacker.
 The main idea is very simple.
@@ -152,12 +165,13 @@ Moreover, in a situation with a lot cryptocurency forks he is able to mine other
 Let's calculate attacker profit in circumstances of Bitcoin difficulty recalculation function and constant hash rate (which is natural for this function).
 
 \section{An Improved Difficulty Control}
+\label{sec:improved}
 
 \section{Simulations}
-
+\label{sec:sim}
 
 \section{Conclusions}
-\label{prot_improv}
+\label{sec:concl}
 
 \section*{References}
 
