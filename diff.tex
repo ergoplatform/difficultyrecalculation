@@ -30,6 +30,7 @@
 %% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
 %% for the whole article with \linenumbers.
 %% \usepackage{lineno}
+\def\infinity{\rotatebox{90}{8}}
 
 \journal{??????????????????}
 
@@ -187,12 +188,31 @@ Note, that if attacker is able to switch between different forks his epoch profi
 
 Remarkable, that under such an attack mean time between blocks will be
 \begin{equation}
-{T_a={T\over 2}({R_0+R_a\over R_0} + {R_0\over R_0+R_a})=T({1+p+p^2/2\over 1+p})}
+{T_a={T\over 2}({R_0+R_a\over R_0} + {R_0\over R_0+R_a})=T(1 + {p^2\over 2(1+p)})}
 \end{equation}
 which is strictly bigger then desired time \(T\).
+Please notice that we regard \(p\) as the ratio between the hash-powers of the attacker and the honest network so it changes from 0 to \infinity.
+
+\textbf{TODO transition to next section}
 
 \section{An Improved Difficulty Control}
 \label{sec:improved}
+
+The difficulty-update algorithm employed by Bitcoin works as designed: If the hash rate is constant, it yields the desired block rate.
+However it does not achieve the desired block rate in other situations and vulnerable to attack, described in \ref{sec:attack}.
+In this section we are going to propose an alternative difficulty-update algorithm that works better, then Bitcoin's one.
+
+First, let us describe properties of \(ideal\) difficulty update algorithm:
+\begin{enumerate}
+\item{It should be resistant to known types of difficulty-update attacks.}
+\item{It should lead to desired block rate for random fluctuations in the hash rate.}
+\item{(Optional) It should be simple enough to use integer arithmetic for all computational steps.}
+\end{enumerate}
+Security is the most important feature of blockchain systems and should be regarded with the highest priority.
+Incorrect block rate is not considered a big problem in the Bitcoin community, but it may be important for more advanced applications of blockchain systems.
+Implementation of the \(ideal\) difficulty update algorithm in subclass of integer programming is desired for different platforms compatibility.
+This rule is not required, becaus, as mentioned in \cite{kraft2015difficulty}, it's possible to include non-integer algorithm parameters as part of the block, but it provides another way of difficulty manipulating to an attacker.
+
 
 \section{Simulations}
 \label{sec:sim}
