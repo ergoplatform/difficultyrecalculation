@@ -206,16 +206,35 @@ First, let us describe properties of \(ideal\) difficulty update algorithm:
 \begin{enumerate}
 \item{It should be resistant to known types of difficulty-update attacks.}
 \item{It should lead to desired block rate for random fluctuations in the hash rate.}
-\item{(Optional) It should be simple enough to use integer arithmetic for all computational steps.}
+\item{It should be simple enough to use integer arithmetic for all computational steps.}
 \end{enumerate}
 Security is the most important feature of blockchain systems and should be regarded with the highest priority.
 Incorrect block rate is not considered a big problem in the Bitcoin community, but it may be important for more advanced applications of blockchain systems.
 Implementation of the \(ideal\) difficulty update algorithm in subclass of integer programming is desired for different platforms compatibility.
-This rule is not required, becaus, as mentioned in \cite{kraft2015difficulty}, it's possible to include non-integer algorithm parameters as part of the block, but it provides another way of difficulty manipulating to an attacker.
+This rule is not required, because, as mentioned in \cite{kraft2015difficulty}, it's possible to include non-integer algorithm parameters as part of the block, but it provides another way of difficulty manipulating to an attacker.
 
+In this section we are going to regard difficulty update algorithm, based on well-knowen linear least squares method\cite(lawson1974solving).
+(linear regression is good enough, ... )
 
 \section{Simulations}
 \label{sec:sim}
+
+\begin{figure}[h]
+\center{\includegraphics[scale=0.3]{exp.png}}
+\caption{Real difficulty (red) and difficulties calculated from bitcoin (black) and linear (blue) algorithms in situation of exponential hash rate growth }
+\label{fig:exp}
+\end{figure}
+
+wtf?
+
+\begin{figure}[h]
+\center{\includegraphics[scale=0.3]{attack.png}}
+\caption{Real difficulty (red) and difficulties calculated from bitcoin (black) and linear (blue) algorithms in situation of attack, described in section \ref(sec:attack) }
+\label{fig:attack}
+\end{figure}
+
+ \textbf{TODO transition?}
+
 
 \section{Conclusions}
 \label{sec:concl}
