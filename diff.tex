@@ -21,6 +21,7 @@
 \usepackage{amssymb}
 %% The amsthm package provides extended theorem environments
 \usepackage{amsthm}
+\usepackage{amsmath}
 
 %% for url reference
 \usepackage{hyperref}
@@ -214,10 +215,30 @@ Implementation of the \(ideal\) difficulty update algorithm in subclass of integ
 This rule is not required, because, as mentioned in \cite{kraft2015difficulty}, it's possible to include non-integer algorithm parameters as part of the block, but it provides another way of difficulty manipulating to an attacker.
 
 In this section we are going to regard difficulty update algorithm, based on well-knowen linear least squares method\cite(lawson1974solving).
-(linear regression is good enough, ... )
+The simpliest case of pair linear regression (\(y=kx+b)\) is defined as follows:
+
+\begin{equation}
+  \begin{cases}
+    k= {{\overline{xy} - \overline{x}\overline{y}} \over {\overline{x^2} - \overline{x}^2}}  \\
+    b=\overline{y}-k\overline{x}
+  \end{cases}
+\end{equation}
+
+
+We regard it as the good candidate for difficulty update algorithm, because:
+\begin{enumerate}
+\item{It should reduce profit of the attack, described in Section \ref{sec:attack}.
+Calculations of the attacker profit are described is Section \ref{sec:sim}}
+\item{It leads to desired block rate for linear changes in the hash rate.
+This means, that regarding block rate, linear algorithm is better, then Bitcoin's one, in all cases, except constant hash rate, when they lead to the same result. }
+\item{It is simple enough to use integer arithmetic for all computational steps.}
+\end{enumerate}
+
 
 \section{Simulations}
 \label{sec:sim}
+
+Finally, we also want to present simulation results that that show how our method proposed in Section \ref{sec:improved} improves over Bitcoin’s difficulty update algorithm.
 
 \begin{figure}[h]
 \center{\includegraphics[scale=0.3]{exp.png}}
