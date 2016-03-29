@@ -149,7 +149,7 @@ This time intrerval is big enough to see increasing computational power of the n
 
 \textbf{TODO transition to next section}
 
-\section{The Difficulty Manipulating Attack}
+\section{Fork Switch Attack}
 \label{sec:attack}
 
 On this section we show a new way of manipulating difficulty with profit to an attacker.
@@ -189,6 +189,7 @@ Note, that if attacker is able to switch between different forks his epoch profi
 
 Remarkable, that under such an attack mean time between blocks will be
 \begin{equation}
+\label{eq:ati}
 {T_a={T\over 2}({R_0+R_a\over R_0} + {R_0\over R_0+R_a})=T(1 + {p^2\over 2(1+p)})}
 \end{equation}
 which is strictly bigger then desired time \(T\).
@@ -214,8 +215,8 @@ Incorrect block rate is not considered a big problem in the Bitcoin community, b
 Implementation of the \(ideal\) difficulty update algorithm in subclass of integer programming is desired for different platforms compatibility.
 This rule is not required, because, as mentioned in \cite{kraft2015difficulty}, it's possible to include non-integer algorithm parameters as part of the block, but it provides another way of difficulty manipulating to an attacker.
 
-In this section we are going to regard difficulty update algorithm, based on well-knowen linear least squares method\cite(lawson1974solving).
-The simpliest case of pair linear regression (\(y=kx+b)\) is defined as follows:
+In this section we are going to regard difficulty update algorithm, based on well-knowen linear least squares method\cite{lawson1974solving}.
+In the simpliest case of pair linear regression (\(y=kx+b)\) it's coefficients may be calculated as follows:
 
 \begin{equation}
   \begin{cases}
@@ -223,6 +224,7 @@ The simpliest case of pair linear regression (\(y=kx+b)\) is defined as follows:
     b=\overline{y}-k\overline{x}
   \end{cases}
 \end{equation}
+Note, that for accurate difficulty prediction we should use few last observed difficulties, rather than only one, as implemented in Bitcoin, but it's possible to use this algorithm right after second epoch.
 
 
 We regard it as the good candidate for difficulty update algorithm, because:
@@ -231,31 +233,56 @@ We regard it as the good candidate for difficulty update algorithm, because:
 Calculations of the attacker profit are described is Section \ref{sec:sim}}
 \item{It leads to desired block rate for linear changes in the hash rate.
 This means, that regarding block rate, linear algorithm is better, then Bitcoin's one, in all cases, except constant hash rate, when they lead to the same result. }
-\item{It is simple enough to use integer arithmetic for all computational steps.}
+\item{It is simple enough to use integer arithmetic for all computational steps with high fidelity.}
 \end{enumerate}
-
 
 \section{Simulations}
 \label{sec:sim}
 
-Finally, we also want to present simulation results that that show how our method proposed in Section \ref{sec:improved} improves over Bitcoin’s difficulty update algorithm.
+Finally, we want to present simulation results that show how our method proposed in Section \ref{sec:improved} improves over Bitcoin’s difficulty update algorithm.
+We'll regard \(difficulty\) growth in this section, keeping in mind the fact, that it's closely related with network hash rate, which is usually considered in literature.
+All calculations have been performed with open-sourced programs, avaliable at Scorex project GitHub page \cite{scorex}.
+
+\textbf{TODO Linear?}
+
+\subsection{Exponential Difficulty}
+
+First let us regard exponential difficulty growth, wich is the situation observed in practice in Bitcoin network.
+As we already mentioned, exponential difficulty growth is the absolutely worst case possible for Bitcoin’s difficulty retargeting algorithm.
+For simplicity we regard a situation, when hash rate growth 10\% each epoch, more complicated research of exponential difficulty growth can be found in \cite{kraft2015difficulty}.
+Figure \ref{fig:exp} presents difficulty as the function of epcoh, which is 2016 blocks in Bitcoin.
 
 \begin{figure}[h]
 \center{\includegraphics[scale=0.3]{exp.png}}
-\caption{Real difficulty (red) and difficulties calculated from bitcoin (black) and linear (blue) algorithms in situation of exponential hash rate growth }
+\caption{Real difficulty (red) and difficulties calculated from bitcoin (black) and linear (blue) algorithms in situation of exponential hash rate growth}
 \label{fig:exp}
 \end{figure}
 
-wtf?
+Note, that difficulty, calculated from Bitcoin algorithm is always significantly lower, then the real one.
+This leads to \(~ 9 min 5 sec\) time interval between blocks, which is ~10\% lower then desired \(~ 10 min\) interval.
+Difficulty, calculated from Linear algorithm is also always lower, then the real one, while it's much closer to it.
+Mean time interval between blocks is \(~ 9 min 45 sec\), which is much closer to the desired one.
+
+While difficulty update algorithm, proposed in \cite{kraft2015difficulty} leads to much better results for exponential difficulty growth, we should note, that our algorithm is much simplier and may be implemented with integer arithmetic only.
+Moreover, exponential difficulty growth is the simplification of the difficulty growth law, and it may be incorrect to expect it in some situations.
+
+\subsection{Fork Switch Attack}
+
+Now let's conside a situation, regarded in Section \ref{sec:attack}: an attacker, containing \(R_a\) computational power (for simplicity we suppose \(R_a=0.2 \cdot R_a \) in this section) turn on and turn off his mining to manipulate difficulty and minimize computational power, expended for block mining.
+Figure \ref{fig:exp} represents difficulty as the function of epcoh for this situation.
 
 \begin{figure}[h]
 \center{\includegraphics[scale=0.3]{attack.png}}
-\caption{Real difficulty (red) and difficulties calculated from bitcoin (black) and linear (blue) algorithms in situation of attack, described in section \ref(sec:attack) }
+\caption{Real difficulty (red) and difficulties calculated from bitcoin (black) and linear (blue) algorithms in situation of attack, described in section \ref(sec:attack)}
 \label{fig:attack}
 \end{figure}
 
- \textbf{TODO transition?}
+Note, that the difficulty, calculated from the Bitcoin algorithm is always in antiphase with the real one and the attacker spends his computational power only when difficulty is low.
+Bitcoin difficulty update algorithm leads to \(~ 10 min 10 sec\) mean delay between blocks, which is in good correlation with \ref{eq:ati}.
+Linear algorithm also leads to enlarged time interval between blocks  \(~ 10 min 5 sec\), but it's deviation from desired time is 2 times lower.
+Obviously, attacker profit is also 2 times lower in situation with linear difficuilty update algorithm, which may be regarded as a good result.
 
+Thus, linear difficulty control algorithm, proposed in Section \ref{sec:improved} is better, then the Bitcoin one in all situations both in terms of block rate and in terms of attacker profit.
 
 \section{Conclusions}
 \label{sec:concl}
