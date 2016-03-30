@@ -263,7 +263,7 @@ This leads to \(~ 9 min 5 sec\) time interval between blocks, which is ~10\% low
 Difficulty, calculated from Linear algorithm is also always lower, then the real one, while it's much closer to it.
 Mean time interval between blocks is \(~ 9 min 45 sec\), which is much closer to the desired one.
 
-While difficulty update algorithm, proposed in \cite{kraft2015difficulty} leads to much better results for exponential difficulty growth, we should note, that our algorithm is much simplier and may be implemented with integer arithmetic only.
+While difficulty update algorithm, proposed in \cite{kraft2015difficulty} leads to much better results for exponential difficulty growth with a constant rate, we should note, that our algorithm is much simplier and may be implemented with integer arithmetic only.
 Moreover, exponential difficulty growth is the simplification of the difficulty growth law, and it may be incorrect to expect it in some situations.
 
 \subsection{Fork Switch Attack}
@@ -286,6 +286,13 @@ Thus, linear difficulty control algorithm, proposed in Section \ref{sec:improved
 
 \section{Conclusions}
 \label{sec:concl}
+
+In this paper we analyze the new way of attack on the blockchain, based on manipulating mining difficulty.
+This attack decrease computational power, spended by the attacker for block mining and increase mean time interwal between blocks.
+It is especially favourable in situation, when the cost of computational resourses invested into mining is around the expected reward and there are enough forks to switch mining between them.
+
+To improve the stability of block times and decrease the attacker profit, we proposed an alternative difficulty update algorithm, based on linear regression.
+It was found that this algorithm is better then the Bitcoin one both in terms of block rate and in terms of attacker profit, while it's still simple enough to be computed with integer arithmetic only.
 
 \section*{References}
 
