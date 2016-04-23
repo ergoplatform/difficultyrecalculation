@@ -77,15 +77,12 @@
 
 \begin{abstract}
 
-The Bitcoin white-paper, states that the security of the system is guaranteed as long as honest miners control more then half of the total computational power used to maintain the system.
-In this paper we analyze the new way of attack on the blockchain, based on manipulating mining difficulty.
-In spite of the fact that it don't allow to break blockchain security by double-spending, the attacker receive significant profit from this attack and average time interval between blocks increases as a side-effect.
-To reduce the attacker profit and to improve the stability of block times, we proposed an alternative difficulty control, that performs much better both in terms of block rate and in terms of attacker profit.
+The Bitcoin whitepaper~\cite{Nakamoto2008} states that the security of the system is guaranteed as long as honest miners control more then half of the total computational power used to maintain the system. In this paper we analyze a new way of attack on the blockchain based on mining difficulty manipulations. In spite of the fact that it does not allow to break blockchain security by double-spending, the attacker receive significant profit from this attack and average time interval between blocks increases as a side-effect. To reduce the attacker profit and to improve the stability of block times, we propose an alternative difficulty adjustment algorithm. The novel approach performs much better both in terms of block rate and in terms of attacker profit.
 
 \end{abstract}
 
 \begin{keyword}
-Blockchain \sep Decentralized consensus \sep Peer-to-peer networks \sep Proof-of-Work
+Blockchain \sep Bitcoin \sep Decentralized consensus \sep Peer-to-peer networks \sep Proof-of-Work
 \end{keyword}
 
 \end{frontmatter}
@@ -94,9 +91,9 @@ Blockchain \sep Decentralized consensus \sep Peer-to-peer networks \sep Proof-of
 \section{Introduction}
 \label{sec:intro}
 
-Blockchain systems have attracted a growing amount of interest from various communities after publication of Bitcoin whitepaper \cite{Nakamoto2008} in 2008.
+Blockchain systems have attracted a significant amount of interest from various communities after publication of Bitcoin whitepaper~\cite{Nakamoto2008} in 2008.
 Bitcoin security relies on the distributed protocol that maintains the blockchain, called mining, in which network nodes tries to solve computational puzzle.
-Other blockchain systems may relies on different computational puzzles \cite{??} or even on virtual mining \cite{??}, while all of them use some algorithm that changes puzzle difficulty dynamically.
+Other blockchain systems may rely on different computational puzzles~\cite{??} or even on virtual mining~\cite{??} while all of them use some algorithm that changes puzzle difficulty dynamically.
 This algorithm for retargeting the difficulty is required to make blockchain system predictable and fix latency between blocks.
 
 Fixed latency between blocks is important for several reasons.
@@ -218,7 +215,7 @@ First, let us describe properties of \(ideal\) difficulty update algorithm:
 Security is the most important feature of blockchain systems and should be regarded with the highest priority.
 Incorrect block rate is not considered a big problem in the Bitcoin community, but it may be important for more advanced applications of blockchain systems.
 Implementation of the \(ideal\) difficulty update algorithm in subclass of integer programming is desired for different platforms compatibility.
-This rule is not required, because, as mentioned in \cite{kraft2015difficulty}, it's possible to include non-integer algorithm parameters as part of the block, but it provides another way of difficulty manipulating to an attacker.
+This rule is not required, because, as mentioned in \cite{kraft2015difficulty}, it is possible to include non-integer algorithm parameters as part of the block, but it provides another way of difficulty manipulating to an attacker.
 
 In this section we are going to regard difficulty update algorithm, based on well-knowen linear least squares method\cite{lawson1974solving}.
 In the simpliest case of pair linear regression (\(y=kx+b)\) it's coefficients may be calculated as follows:
