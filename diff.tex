@@ -89,20 +89,23 @@ Blockchain \sep Bitcoin \sep Decentralized consensus \sep Peer-to-peer networks 
 \section{Introduction}
 \label{sec:intro}
 
-Blockchain systems have attracted a significant amount of interest from various communities after publication of Bitcoin whitepaper~\cite{Nakamoto2008} in 2008.
-Bitcoin security relies on the distributed protocol that maintains the blockchain, called mining, in which network nodes tries to solve computational puzzle.
-Other blockchain systems may rely on different computational puzzles~\cite{??} or even on virtual mining~\cite{??} while all of them use some algorithm that changes puzzle difficulty dynamically.
-This algorithm for retargeting the difficulty is required to make blockchain system predictable and fix latency between blocks.
+Blockchain systems have attracted a significant amount of interest from various communities after the Bitcoin whitepaper~\cite{Nakamoto2008} published in 2008.
+Bitcoin security relies on a distributed protocol, called mining, that maintains the distributed ledger. In the protocol miners solve moderately hard computational puzzles in order to generate a block~\cite{}. In Bitcoin a puzzle is about to find a partial hash function collision~\cite{}. Alternative systems may rely on other types of computational puzzles~\cite{??} or even on virtual mining~\cite{??}. Nevertheless, all of them use some algorithm that changes a puzzle \textit{difficulty} dynamically. 
 
-Fixed latency between blocks is important for several reasons.
-Too frequent blocks leads to situation, when for a lot of miners block propagation time become bigger, then latency between blocks.
-This leads to significant increasing of number of blockchain forks that complicates the consensus~\cite{decker2013information} and reduce effective hash rate in blockchain system.
-On the other hand, increasing of the latency between blocks leads to decreasing of the network throughput~\cite{miller2016} and may be critical for high-loaded blockchain systems like bitcoin, where blocks are already 70\% full today~\cite{armstrong2016}.
-Increasing latency by 50\% in bitcoin network will mean, that some transactions will be never included into blockchain.
-Moreover this will lead to infinite growth of unconfirmed transactions pool, meaning it is likely that most bitcoin transactions will be not relayed.
+These algorithms for difficulty retargeting are required in order to make blockchain system predictable and fix latency between blocks.
+
+Fixed latency between blocks is important for several reasons:
+
+\begin{enumerate}
+\item{Too frequent blocks leads to the situation, when for a lot of miners block propagation time become bigger than latency between blocks. This leads to significant increasing of number of blockchain forks that complicates the consensus~\cite{decker2013information} and reduce effective hash rate in blockchain system.}
+
+\item{On the other hand, increasing latency leads to decreasing of the network throughput~\cite{miller2016} and may be critical for high-loaded blockchain systems like Bitcoin, where blocks are already 70\% full today~\cite{armstrong2016}.
+Increasing latency by 50\% in Bitcoin network will mean that some transactions will never be included into blockchain.
+Moreover this will lead to infinite growth of unconfirmed transactions pool, meaning it is likely that most bitcoin transactions will be not relayed.}
+\end{enumerate}
 
 Most of blockchain systems rely on difficulty retargeting algorithms assuming total computational power involved in mining process does not change over time.
-Using more complicated retargeting algorithms with incorrect assumptions~\cite{andruiman2014} may lead to incorrect time interval between blocks even for simple case of constant hash rate as, for example, observed in Nxt, where observed mean time between blocks is ~2 times bigger, then expected in the whitepaper~\cite{nxt}. Moreover, too ofter difficulty recalculation leads to wide distribution of time intervals between blocks and makes blockchain system unpredictable~\cite{andruiman2014}.
+Using more complicated retargeting algorithms with incorrect assumptions~\cite{andruiman2014} may lead to incorrect time interval between blocks even for simple case of constant hash rate. For example observed mean time between blocks in Nxt is ~2 times bigger than stated in the whitepaper~\cite{nxt}. Moreover, too ofter difficulty recalculation leads to wide distribution of time intervals between blocks and makes blockchain system unpredictable~\cite{andruiman2014}.
 Varying network computational power makes this algorithms inefficient for difficulty recalculation, e.g. continuous growth of computational power leads to decreasing mean latency between blocks and average block time in Bitcoin network is ~1.07 times lower, then expected.
 Noteworthy, that exponential growth of computational power, which is the situation observed in practice in accordance with Moore’s law~\cite{moore2006cramming}, is the absolutely worst case (regarding the maximal block rate) possible for Bitcoin’s difficulty retargeting algorithm~\cite{kraft2015difficulty}.
 On the other side, target recalculation algorithm should be simple enough and use integer arithmetic for all computational steps, since all nodes in the peer-to-peer network have to agree absolutely on the calculated difficulty.
