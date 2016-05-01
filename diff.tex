@@ -115,7 +115,7 @@ Most of the models used in the literature to discuss double-spending attacks ass
 However difficulty is not constant, and can be manipulated by the attacker.
 The Difficulty Raising Attack, introduced in~\cite{bahack2013theoretical}, enables the attacker to discard n-depth block, for any n and any attacker hash power, with probability 1 if he\footnote{For simplicity we choose to adapt the male form. This was chosen by flipping a coin.} is willing to wait enough time.
 The fact that there is no way to determine whether a block have been computed on its declared time or not, have been used as part of other attacks~\cite{timejacking2011, artforz2011}.
-In secton~\ref{sec:bit} we introduce a new attack for blockchain systems which manipulates difficulty for decreasing effective hash rate, required for block generation.
+In section~\ref{sec:bit} we introduce a new attack for blockchain systems which manipulates difficulty for decreasing effective hash rate, required for block generation.
 
 Novel studies of difficulty control proposes better functions for difficulty recalculation.
 For example, the paper~\cite{kraft2015difficulty} introduces target recalculation function, designed to work “perfectly” not just for constant hash rate but also if the hash rate grows exponentially (with a constant but unknown rate).
@@ -130,7 +130,7 @@ Is it possible to create such a function, stable for attackers manipulations?
 \label{sec:bit}
 
 First, let us briefly describe how the mining process works.
-The original concept is described in section 4 of the Bitcoin whitepaper~\cite{Nakamoto2008} and disscussed in plenty of papers~\cite{kraft2015difficulty, miller2014permacoin, eyal2014majority}.
+The original concept is described in section 4 of the Bitcoin whitepaper~\cite{Nakamoto2008} and discussed in plenty of papers~\cite{kraft2015difficulty, miller2014permacoin, eyal2014majority}.
 We refer to the basic unit of mining work in Bitcoin as a scratch-off puzzle (SOP).
 Miner generates candidates to the SOP by iterating thought \(nonse\) and calculating SHA-256 hash of a blocks header.
 For a block to be valid it must value hash value less than the current \(target\) that is which is usually expressed in terms of the network difficulty \(D\) as \(1\over D\).
@@ -141,9 +141,9 @@ Every \(M\) blocks (\(M=2016\) for Bitcoin) difficulty is recalculated as
 D_{i+1}=D_i\cdot {MT\over S_m}
 \end{equation}
 where \(T\) is expected time interval between blocks and \(S_m\) is actual time, it took to generate \(M\) blocks.
-Real time (\(~ 9 min 20 sec\)) interval is less, then desired time interval \(T=10 min\) because of continiuos growth of network computational power.
+Real time (\(~ 9 min 20 sec\)) interval is less, then desired time interval \(T=10 min\) because of continuous growth of network computational power.
 Difficulty recalculation interval \(M=2016\) has been chosen in such a way to recalculate difficulty every 2 weeks, while for real network it is a bit smaller.
-This time intrerval is big enough to see increasing computational power of the network: right after target recalculation block time is close to desired 10 minutes, whereas at the end of \(epoch\) it's less then 9 minutes (see figure~\ref{fig:image}).
+This time interval is big enough to see increasing computational power of the network: right after target recalculation block time is close to desired 10 minutes, whereas at the end of \(epoch\) it's less then 9 minutes (see figure~\ref{fig:image}).
 \begin{figure}[h]
 \center{\includegraphics[scale=0.3]{interval.png}}
 \caption{Average block time between difficulty recalculation}
@@ -157,13 +157,13 @@ This time intrerval is big enough to see increasing computational power of the n
 
 On this section we show a new way of manipulating difficulty with profit to an attacker.
 The main idea is very simple.
-The attacker may disable his mining, and wait for the next difficulty racalculation.
+The attacker may disable his mining, and wait for the next difficulty recalculation.
 New difficulty will be lower, cause it don't include computational power of the attacker, and he turns on his mining again.
 After next difficulty recalculation (which will include the attacker computational power) he turns off his mining again, and wait for next difficulty recalculation.
-Such a simple algorithm allows him to mine during epochs with low difficulty, and don't mine during epoch with the low one, that will decrease computational resourses expended for block generation.
+Such a simple algorithm allows him to mine during epochs with low difficulty, and don't mine during epoch with the low one, that will decrease computational resources expended for block generation.
 Of course in such a situation the attacker will create less blocks, that in situation, when he mine all the time.
-However, lows of economy dictate that the cost of computational resourses invested into mining should be around the expected reward, and attackers profit, gained from every block may overbalance his wastes caused by decreasing number of created blocks.
-Moreover, in a situation with a lot cryptocurency forks he is able to mine other forks in epoches with big difficulty and gain more blocks with more profit from each, that in situation, when he mine single cryptocurrency permanently.
+However, lows of economy dictate that the cost of computational resources invested into mining should be around the expected reward, and attackers profit, gained from every block may overbalance his wastes caused by decreasing number of created blocks.
+Moreover, in a situation with a lot cryptocurency forks he is able to mine other forks in epochs with big difficulty and gain more blocks with more profit from each, that in situation, when he mine single cryptocurrency permanently.
 
  \textbf{TODO subsection?}
 
@@ -173,7 +173,7 @@ Usual miner with such a power will mine all the time with difficulty \(D_0=(R_0+
 The attacker will start mining when difficulty \(D_0=R_0\cdot T\) is calculated from honest miners \(R_0\) only.
 He will mine \(M\cdot R_a\over 2(R_0+R_a)\) blocks per epoch in average spending \(M\cdot T\cdot R_a\cdot R_0\over 2(R_0+R_a)\) computational power for them.
 Consequently usual miner will spend \((R_0+R_a)T\) computational power per block, whereas attacker will just spend \(R_0T\) computational power per block.
-The cost of computational resourses invested into mining should be around the expected reward.
+The cost of computational resources invested into mining should be around the expected reward.
 If \(B\) is block reward and \(C\) is hash calculation cost, the usual miner profit is
 \begin{equation}
 {({M\cdot R_a\over R_0+R_a})\cdot B-M\cdot R_a\cdot T\cdot C=M\cdot R_a\cdot ({B\over R_0+R_a}-TC)}
@@ -218,7 +218,7 @@ Incorrect block rate is not considered a big problem in the Bitcoin community, b
 Implementation of the \(ideal\) difficulty update algorithm in subclass of integer programming is desired for different platforms compatibility.
 This rule is not required, because, as mentioned in \cite{kraft2015difficulty}, it is possible to include non-integer algorithm parameters as part of the block, but it provides another way of difficulty manipulating to an attacker.
 
-In this section we are going to regard difficulty update algorithm, based on well-knowen linear least squares method\cite{lawson1974solving}.
+In this section we are going to regard difficulty update algorithm, based on well-known linear least squares method\cite{lawson1974solving}.
 In the simpliest case of pair linear regression (\(y=kx+b)\) it's coefficients may be calculated as follows:
 
 \begin{equation}
@@ -244,16 +244,16 @@ This means, that regarding block rate, linear algorithm is better, then Bitcoin'
 
 Finally, we want to present simulation results that show how our method proposed in Section~\ref{sec:improved} improves over Bitcoin’s difficulty update algorithm.
 We'll regard \(difficulty\) growth in this section, keeping in mind the fact, that it's closely related with network hash rate, which is usually considered in literature.
-All calculations have been performed with open-sourced programs, avaliable at Scorex project GitHub page~\cite{scorex}.
+All calculations have been performed with open-sourced programs, available at Scorex project GitHub page~\cite{scorex}.
 
 \textbf{TODO Linear?}
 
 \subsection{Exponential Difficulty}
 
-First let us regard exponential difficulty growth, wich is the situation observed in practice in Bitcoin network.
+First let us regard exponential difficulty growth, which is the situation observed in practice in Bitcoin network.
 As we already mentioned, exponential difficulty growth is the absolutely worst case possible for Bitcoin’s difficulty retargeting algorithm.
 For simplicity we regard a situation, when hash rate growth 10\% each epoch, more complicated research of exponential difficulty growth can be found in~\cite{kraft2015difficulty}.
-Figure~\ref{fig:exp} presents difficulty as the function of epcoh, which is 2016 blocks in Bitcoin.
+Figure~\ref{fig:exp} presents difficulty as the function of epoch, which is 2016 blocks in Bitcoin.
 
 \begin{figure}[h]
 \center{\includegraphics[scale=0.3]{exp.png}}
@@ -280,10 +280,10 @@ Figure \ref{fig:exp} represents difficulty as the function of epcoh for this sit
 \label{fig:attack}
 \end{figure}
 
-Note, that the difficulty, calculated from the Bitcoin algorithm is always in antiphase with the real one and the attacker spends his computational power only when difficulty is low.
+Note that the difficulty calculated with the Bitcoin algorithm is always in antiphase with the real one and the attacker spends his computational power only when difficulty is low.
 Bitcoin difficulty update algorithm leads to \(~ 10 min 10 sec\) mean delay between blocks, which is in good correlation with \ref{eq:ati}.
 Linear algorithm also leads to enlarged time interval between blocks  \(~ 10 min 5 sec\), but it's deviation from desired time is 2 times lower.
-Obviously, attacker profit is also 2 times lower in situation with linear difficuilty update algorithm, which may be regarded as a good result.
+Obviously, attacker profit is also 2 times lower in situation with linear difficulty update algorithm, which may be regarded as a good result.
 
 Thus, linear difficulty control algorithm, proposed in Section \ref{sec:improved} is better than the Bitcoin's in all situations both in terms of block rate and in terms of attacker profit.
 
