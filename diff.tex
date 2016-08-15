@@ -27,6 +27,8 @@
 \usepackage{hyperref}
 \usepackage{graphicx}
 
+\usepackage{float}
+
 %% The lineno packages adds line numbers. Start line numbering with
 %% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
 %% for the whole article with \linenumbers.
@@ -130,26 +132,27 @@ Is it possible to create such a function, stable for attackers manipulations?
 
 \textbf{TODO transition to next section}
 
+Several parts are organizing the paper. 
+
 \section{Bitcoin Mining}
 \label{sec:bit}
 
-First, let us briefly describe how the mining process works.
-The original concept is described in section 4 of the Bitcoin whitepaper~\cite{Nakamoto2008} and discussed in plenty of papers~\cite{kraft2015difficulty, miller2014permacoin, eyal2014majority}.
+The concept of Bitcoin mining was introduced in the section 4 of the Bitcoin whitepaper~\cite{Nakamoto2008} and discussed then in plenty of papers~\cite{kraft2015difficulty, miller2014permacoin, eyal2014majority}.
 We refer to the basic unit of mining work in Bitcoin as a scratch-off puzzle (SOP).
-Miner generates candidates to the SOP by iterating thought \(nonse\) and calculating SHA-256 hash of a blocks header.
-For a block to be valid it must value hash value less than the current \(target\) that is which is usually expressed in terms of the network difficulty \(D\) as \(1\over D\).
-Thus, each hash attempt yields a valid block with probability \(1\over D\) and block frequency is \(R\over D\) where \(R\) is effective network hash rate.
+A miner generates SOPs by iterating through \(nonce\) and calculating SHA-256 hash of a blocks header with the nonce value included.
+For a block to be valid the hash must be less than current \(target\) which is expressed in terms of the network difficulty \(D\) as \(1\over D\).
+Each hash attempt yields a valid block with probability \(1\over D\) and block frequency is \(R\over D\) where \(R\) is effective network hash rate.
 
 Every \(M\) blocks (\(M=2016\) for Bitcoin) difficulty is recalculated as
 \begin{equation}
 D_{i+1}=D_i \cdot {MT\over S_m}
 \end{equation}
-where \(T\) is expected time interval between blocks and \(S_m\) is actual time, it took to generate \(M\) blocks.
-Real time interval $\approx$\textit{9 min 20 sec} is less, then desired time interval \textit{T=10 min} because of continuous growth of network computational power.
+where \(T\) is expected time interval between blocks and \(S_m\) is actual time spent to generate \(M\) blocks.
+Real time interval $\approx$\textit{9 min 20 sec} is less than desired time interval \textit{T=10 min} because of continuous growth of network computational power.
 Difficulty recalculation interval \(M=2016\) has been chosen in such a way to recalculate difficulty every 2 weeks, while for real network it is a bit smaller.
 This time interval is big enough to see increasing computational power of the network: right after target recalculation block time is close to desired 10 minutes, whereas at the end of \(epoch\) it's less then 9 minutes (see figure~\ref{fig:image}).
 
-\begin{figure}[h]
+\begin{figure}[H]
 \center{\includegraphics[scale=0.3]{interval.png}}
 \caption{Average block time between difficulty recalculation}
 \label{fig:image}
