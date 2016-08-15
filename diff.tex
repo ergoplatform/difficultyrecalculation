@@ -72,14 +72,15 @@
 \ead{dmitry.meshkov@iohk.io}
 
 \author[iohk]{Alexander Chepurnoy}
+\address[iohk]{IOHK Research}
 
 \begin{abstract}
 
 The Bitcoin whitepaper~\cite{Nakamoto2008} states that the security of the system is guaranteed as long as honest miners control more than half of the current total computational power.
-In this paper we analyze a new kind of attacks on the blockchain based on mining difficulty manipulations.
-The attacker is increasing his\footnote{For simplicity we choose to adapt the male form. This was chosen by flipping a coin.} mining profits from this attack and average time interval between blocks increases as a side-effect.
-To reduce the attacker profit and to improve the stability of block times we propose an alternative difficulty adjustment algorithm.
-The novel approach performs much better both in terms of blocks rate and in terms of attacker profit.
+
+In this paper we analyze a new kind of attacks on the blockchain based on mining difficulty manipulations.A malicious miner is increasing his mining profits from the attack. Also, an average time interval between blocks increases as a side-effect.
+
+We propose an alternative difficulty adjustment algorithm in order to reduce an incentive to attack and also to improve stability of inter-block delays. We show that the novel approach performs much better than original algorithm of Bitcoin.
 
 \end{abstract}
 
@@ -94,25 +95,21 @@ Blockchain \sep Bitcoin \sep Decentralized consensus \sep Peer-to-peer networks 
 \label{sec:intro}
 
 Blockchain systems have attracted a significant amount of interest from various communities after the Bitcoin whitepaper~\cite{Nakamoto2008} published in 2008.
-Bitcoin security relies on a distributed protocol, called mining, that maintains the distributed ledger.
-In the protocol miners solve moderately hard computational puzzles in order to generate a block~\cite{}. In Bitcoin a puzzle is about to find a partial hash function collision~\cite{}.
+Bitcoin security relies on a distributed protocol based on mining that maintains the distributed ledger.
+In the protocol miners solve moderately hard computational puzzles in order to generate a block~\cite{}. In Bitcoin solving a puzzle is about to find a partial hash function collision~\cite{}.
 Alternative systems may rely on other types of computational puzzles~\cite{??} or even on virtual mining~\cite{??}.
 Nevertheless, all of them use some algorithm that changes a puzzle \textit{difficulty} dynamically.
 
-These algorithms for difficulty retargeting are required in order to make blockchain system predictable and fix latency between blocks.
+These algorithms for difficulty retargeting are required in order to make blockchain system predictable and stabilize mean latency between blocks. The latter is important for several reasons:
 
-Fixed latency between blocks is important for several reasons:
+\begin{itemize}
+\item{With too frequent blocks it is possible for a lot of miners to have block propagation time bigger than latency between blocks. This weakens security guarantees of a blockchain system~\cite{decker2013information,garay2015bitcoin}.}
 
-\begin{enumerate}
-\item{Too frequent blocks leads to the situation, when for a lot of miners block propagation time become bigger than latency between blocks. This leads to significant increasing of number of blockchain forks that complicates the consensus~\cite{decker2013information} and reduce effective hash rate in blockchain system.}
+\item{Too big latency leads to decreasing of the network throughput~\cite{miller2016} and may be critical for high-loaded blockchain systems like Bitcoin, where blocks are already full today~\cite{armstrong2016}. Increasing latency by in Bitcoin network will mean that some transactions will never be included into blockchain. Moreover, this will lead to potentially infinite growth of unconfirmed transactions pool, preventing relaying for most of Bitcoin transactions.}
+\end{itemize}
 
-\item{On the other hand, increasing latency leads to decreasing of the network throughput~\cite{miller2016} and may be critical for high-loaded blockchain systems like Bitcoin, where blocks are already 70\% full today~\cite{armstrong2016}.
-Increasing latency by 50\% in Bitcoin network will mean that some transactions will never be included into blockchain.
-Moreover this will lead to infinite growth of unconfirmed transactions pool, meaning it is likely that most bitcoin transactions will be not relayed.}
-\end{enumerate}
-
-Most of blockchain systems rely on difficulty retargeting algorithms assuming total computational power involved in mining process does not change over time.
-Using more complicated retargeting algorithms with incorrect assumptions~\cite{andruiman2014} may lead to incorrect time interval between blocks even for simple case of constant hash rate. For example observed mean time between blocks in Nxt is ~2 times bigger than stated in the whitepaper~\cite{nxt}. Moreover, too ofter difficulty recalculation leads to wide distribution of time intervals between blocks and makes blockchain system unpredictable~\cite{andruiman2014}.
+Most of blockchain systems rely on difficulty retargeting algorithms assuming total computational power involved in mining process does not significantly change from epoch to epoch.
+Using more complicated retargeting algorithms with incorrect assumptions~\cite{andruiman2014} may lead to incorrect time interval between blocks even for simple case of constant hash rate. For example, it is observed that mean time between blocks in Nxt is ~2 times bigger than stated in the whitepaper~\cite{nxt}. Moreover, too ofter difficulty recalculation leads to wide distribution of time intervals between blocks and makes blockchain system unpredictable~\cite{andruiman2014}.
 Varying network computational power makes this algorithms inefficient for difficulty recalculation, e.g. continuous growth of computational power leads to decreasing mean latency between blocks and average block time in Bitcoin network is ~1.07 times lower, then expected.
 Noteworthy, that exponential growth of computational power, which is the situation observed in practice in accordance with Moore’s law~\cite{moore2006cramming}, is the absolutely worst case (regarding the maximal block rate) possible for Bitcoin’s difficulty retargeting algorithm~\cite{kraft2015difficulty}.
 On the other side, target recalculation algorithm should be simple enough and use integer arithmetic for all computational steps, since all nodes in the peer-to-peer network have to agree absolutely on the calculated difficulty.
@@ -145,7 +142,7 @@ Thus, each hash attempt yields a valid block with probability \(1\over D\) and b
 
 Every \(M\) blocks (\(M=2016\) for Bitcoin) difficulty is recalculated as
 \begin{equation}
-D_{i+1}=D_i\cdot {MT\over S_m}
+D_{i+1}=D_i \cdot {MT\over S_m}
 \end{equation}
 where \(T\) is expected time interval between blocks and \(S_m\) is actual time, it took to generate \(M\) blocks.
 Real time interval $\approx$\textit{9 min 20 sec} is less, then desired time interval \textit{T=10 min} because of continuous growth of network computational power.
@@ -160,7 +157,7 @@ This time interval is big enough to see increasing computational power of the ne
 
 \textbf{TODO transition to next section}
 
-\section{Fork Switch Attack}
+\section{Switching Attack}
 \label{sec:attack}
 
 On this section we show a new way of manipulating difficulty with profit to an attacker.
@@ -274,7 +271,7 @@ Mean time interval between blocks is \textit{9 min 45 sec}, which is much closer
 While difficulty update algorithm, proposed in~\cite{kraft2015difficulty} leads to much better results for exponential difficulty growth with a constant rate, we should note, that our algorithm is much simplier and may be implemented with integer arithmetic only.
 Moreover, exponential difficulty growth is the simplification of the difficulty growth law, and it may be incorrect to expect it in some situations.
 
-\subsection{Fork Switch Attack}
+\subsection{Switching Attack}
 
 Now let's conside a situation, regarded in Section~\ref{sec:attack}: an attacker, containing \(R_a\) computational power (for simplicity we suppose \(R_a=0.2 \cdot R_a \) in this section) turn on and turn off his mining to manipulate difficulty and minimize computational power, expended for block mining.
 Figure \ref{fig:exp} represents difficulty as the function of epcoh for this situation.
@@ -287,12 +284,12 @@ Figure \ref{fig:exp} represents difficulty as the function of epcoh for this sit
 
 Note that the difficulty calculated with the Bitcoin algorithm is always in antiphase with the real one and the attacker spends his computational power only when difficulty is low.
 Bitcoin difficulty update algorithm leads to \textit{10 min 10 sec} mean delay between blocks, which is in good correlation with \ref{eq:ati}.
-Linear algorithm also leads to enlarged time interval between blocks  \textit{10 min 5 sec}, but it's deviation from desired time is 2 times lower.
+Linear algorithm also leads to enlarged time interval between blocks \textit{10 min 5 sec}, but it's deviation from desired time is 2 times lower.
 Obviously, attacker profit is also 2 times lower in situation with linear difficulty update algorithm, which may be regarded as a good result.
 
 Thus, linear difficulty control algorithm, proposed in Section \ref{sec:improved} is better than the Bitcoin's in all situations both in terms of block rate and in terms of attacker profit.
 
-\section{Conclusions}
+\section{Conclusion}
 \label{sec:concl}
 
 In this paper we analyze a new kind of attacks on the blockchain based on manipulating mining difficulty.
@@ -301,6 +298,8 @@ It is especially favorable in situation, when the cost of computational resource
 
 To improve the stability of block times and decrease the attacker profit, we proposed an alternative difficulty update algorithm, based on linear regression.
 It was found that this algorithm is better then the Bitcoin one both in terms of block rate and in terms of attacker profit, while it's still simple enough to be computed with integer arithmetic only.
+
+\section*{Acknowledgments}
 
 \section*{References}
 
