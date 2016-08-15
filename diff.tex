@@ -163,10 +163,9 @@ This time interval is big enough to see increasing computational power of the ne
 \section{Switching Attack}
 \label{sec:attack}
 
-On this section we show a new way of manipulating difficulty with profit to an attacker.
-The main idea is very simple.
+The main idea behind the \textit{switching attack} we are going to cover is very simple.
 The attacker may disable his mining, and wait for the next difficulty recalculation.
-New difficulty will be lower, cause it don't include computational power of the attacker, and he turns on his mining again.
+New difficulty will be lower as it does not include computational power of the attacker. With a lower difficulty he turns on his mining again.
 After next difficulty recalculation (which will include the attacker computational power) he turns off his mining again, and wait for next difficulty recalculation.
 Such a simple algorithm allows him to mine during epochs with low difficulty, and don't mine during epoch with the low one, that will decrease computational resources expended for block generation.
 Of course in such a situation the attacker will create less blocks, that in situation, when he mine all the time.
@@ -208,13 +207,13 @@ Please notice that we regard \(p\) as the ratio between the hash-powers of the a
 \section{An Improved Difficulty Control}
 \label{sec:improved}
 
-The difficulty-update algorithm employed by Bitcoin works as designed: If the hash rate is constant, it yields the desired block rate.
+The difficulty adjustment algorithm employed by Bitcoin works as designed: If the hash rate is constant, it yields the desired block rate.
 However it does not achieve the desired block rate in other situations and vulnerable to attack, described in \ref{sec:attack}.
-In this section we are going to propose an alternative difficulty-update algorithm that works better, then Bitcoin's one.
+In this section we are going to propose an alternative difficulty adjustment algorithm that works better, then Bitcoin's one.
 
 First, we state properties of an \(ideal\) difficulty update algorithm:
 \begin{enumerate}
-\item{It should be resistant to known types of difficulty-update attacks.}
+\item{It should be resistant to known types of attacks against using difficulty.}
 \item{It should lead to desired block rate for random fluctuations in the hash rate.}
 \item{It should be simple enough to use integer arithmetic for all computational steps.}
 \end{enumerate}
@@ -223,7 +222,7 @@ Incorrect block rate is not considered a big problem in the Bitcoin community, b
 Implementation of the \(ideal\) difficulty update algorithm in subclass of integer programming is desired for different platforms compatibility.
 This rule is not required, because, as mentioned in \cite{kraft2015difficulty}, it is possible to include non-integer algorithm parameters as part of the block, but it provides another way of difficulty manipulating to an attacker.
 
-In this section we are going to regard difficulty update algorithm, based on well-known linear least squares method\cite{lawson1974solving}.
+In this section we are going to regard difficulty adjustment algorithm, based on well-known linear least squares method\cite{lawson1974solving}.
 In the simpliest case of pair linear regression (\(y=kx+b)\) it's coefficients may be calculated as follows:
 
 \begin{equation}
