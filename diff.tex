@@ -163,15 +163,19 @@ This time interval is big enough to see increasing computational power of the ne
 \section{Switching Attack}
 \label{sec:attack}
 
-The main idea behind the \textit{switching attack} we are going to cover is very simple.
-The attacker may disable his mining, and wait for the next difficulty recalculation.
-New difficulty will be lower as it does not include computational power of the attacker. With a lower difficulty he turns on his mining again.
-After next difficulty recalculation (which will include the attacker computational power) he turns off his mining again, and wait for next difficulty recalculation.
-Such a simple algorithm allows him to mine during epochs with low difficulty, and don't mine during epoch with the low one, that will decrease computational resources expended for block generation.
-Of course in such a situation the attacker will create less blocks, that in situation, when he mine all the time.
-However, lows of economy dictate that the cost of computational resources invested into mining should be around the expected reward, and attackers profit, gained from every block may overbalance his wastes caused by decreasing number of created blocks.
-Moreover, in a situation with a lot cryptocurency forks he is able to mine other forks in epochs with big difficulty and gain more blocks with more profit from each, then in situation, when he mine single cryptocurrency permanently.
-Let's calculate attacker profit in circumstances of Bitcoin difficulty recalculation function and constant hash rate (which is natural for this function).
+We consider the following adversarial experiment involving an adversarial miner \(\mathcal{A}\):
+
+\begin{itemize}
+\item There are \(N > 1\) possible coins \(\mathcal{A}\) can contribute to. Each of them has the same level of mining profitability. 
+\item \(\mathcal{A}\) is mining one of the coins before a beginning of an epoch, say, epoch A. At this moment he switches to other coins. 
+\item Without a contribution of \(\mathcal{A}\) mining power for the epoch goes down. 
+\item For an epoch B next to the epoch A where \(\mathcal{A}\) left difficulty re-adjusted to a lower value. So \(\mathcal{A}\) starts mining again with a lower difficulty. 
+\end{itemize}
+
+We call this strategy a \textit{switching attack}.
+
+To calculate attacker's profit we assume Bitcoin difficulty recalculation function and constant hash rate.
+
 Assume the situation when the network has some hash rate \(R_0\) provided by honest miners and the attacker has additional hash rate \(R_a=R_0\cdot p\) that it can turn on or off according to its purposes.
 Usual miner with such a power will mine all the time with difficulty \(D_0=(R_0+R_a)\cdot T\) and will mine \(M\cdot R_a\over R_0+R_a\) blocks per epoch (\(M\) blocks) in average spending \(M\cdot R_a\cdot T\) computational power for them.
 The attacker will start mining when difficulty \(D_0=R_0\cdot T\) is calculated from honest miners \(R_0\) only.
