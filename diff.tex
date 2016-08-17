@@ -176,9 +176,9 @@ We call this strategy a \textit{switching attack}.
 
 To calculate attacker's profit we assume Bitcoin difficulty recalculation function and constant hash rate.
 
-Assume the situation when the network has some hash rate \(R_0\) provided by honest miners and the attacker has additional hash rate \(R_a=R_0\cdot p\) that it can turn on or off according to its purposes.
-Usual miner with such a power will mine all the time with difficulty \(D_0=(R_0+R_a)\cdot T\) and will mine \(M\cdot R_a\over R_0+R_a\) blocks per epoch (\(M\) blocks) in average spending \(M\cdot R_a\cdot T\) computational power for them.
-The attacker will start mining when difficulty \(D_0=R_0\cdot T\) is calculated from honest miners \(R_0\) only.
+Assume the situation when the network has some hash rate \(R_0\) provided by honest miners and the adversary has additional hash rate \(R_a=R_0\cdot p\) to turn it on or.
+Before epoch A the adversary mines all the time with difficulty \(D_0=(R_0+R_a)\cdot T\) and will mine \(M\cdot R_a\over R_0+R_a\) blocks per epoch (\(M\) blocks) in average spending \(M\cdot R_a\cdot T\) computational power for them.
+During the epoch B the adversary mines with difficulty \(D_0=R_0\cdot T\) is calculated from honest miners \(R_0\) only.
 He will mine \(M\cdot R_a\over 2(R_0+R_a)\) blocks per epoch in average spending \(M\cdot T\cdot R_a\cdot R_0\over 2(R_0+R_a)\) computational power for them.
 Consequently usual miner will spend \((R_0+R_a)T\) computational power per block, whereas attacker will just spend \(R_0T\) computational power per block.
 The cost of computational resources invested into mining should be around the expected reward.
@@ -204,7 +204,7 @@ Remarkable, that under such an attack mean time between blocks will be
 {T_a={T\over 2}({R_0+R_a\over R_0} + {R_0\over R_0+R_a})=T(1 + {p^2\over 2(1+p)})}
 \end{equation}
 which is bigger then desired time \(T\).
-Please notice that we regard \(p\) as the ratio between the hash-powers of the attacker and the honest network so it changes from 0 to \infinity.
+Please notice that we regard \(p\) as the ratio between the hash-powers of the attacker and the honest network so it changes from 0 to 1.
 
 \textbf{TODO transition to next section}
 
