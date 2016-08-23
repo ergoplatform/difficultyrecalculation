@@ -166,37 +166,39 @@ This time interval is big enough to see increasing computational power of the ne
 We consider the following adversarial experiment involving an adversarial miner \(\mathcal{A}\):
 
 \begin{itemize}
-\item There are \(N > 1\) possible coins \(\mathcal{A}\) can contribute to. Each of them has the same level of mining profitability. 
-\item \(\mathcal{A}\) is mining one of the coins before a beginning of an epoch, say, epoch A. At this moment he switches to other coins. 
+\item There are \(N > 1\) possible coins \(\mathcal{A}\) can contribute to. Each of them is about the same mining profitability. 
+\item \(\mathcal{A}\) is mining one of the coins before a beginning of an epoch, say, epoch A. At this moment he switches to mine other coins. 
 \item Without a contribution of \(\mathcal{A}\) mining power for the epoch goes down. 
 \item For an epoch B next to the epoch A where \(\mathcal{A}\) left difficulty re-adjusted to a lower value. So \(\mathcal{A}\) starts mining again with a lower difficulty. 
 \end{itemize}
 
 We call this strategy a \textit{switching attack}.
 
-To calculate attacker's profit we assume Bitcoin difficulty recalculation function and constant hash rate.
+To calculate adversarial profit from the attack we assume Bitcoin difficulty recalculation function and constant hash rate.
 
-Assume the situation when the network has some hash rate \(R_0\) provided by honest miners and the adversary has additional hash rate \(R_a=R_0\cdot p\) to turn it on or.
+Consider the network has hash rate \(R_0\) provided by honest miners and the adversary has additional hash rate \(R_a=R_0\cdot p\) to turn it on or off.
 Before epoch A the adversary mines all the time with difficulty \(D_0=(R_0+R_a)\cdot T\) and will mine \(M\cdot R_a\over R_0+R_a\) blocks per epoch (\(M\) blocks) in average spending \(M\cdot R_a\cdot T\) computational power for them.
 During the epoch B the adversary mines with difficulty \(D_0=R_0\cdot T\) is calculated from honest miners \(R_0\) only.
 He will mine \(M\cdot R_a\over 2(R_0+R_a)\) blocks per epoch in average spending \(M\cdot T\cdot R_a\cdot R_0\over 2(R_0+R_a)\) computational power for them.
-Consequently usual miner will spend \((R_0+R_a)T\) computational power per block, whereas attacker will just spend \(R_0T\) computational power per block.
+Consequently honest miner will spend \((R_0+R_a)T\) computational power per block, whereas attacker will just spend \(R_0T\) computational power per block.
 The cost of computational resources invested into mining should be around the expected reward.
-If \(B\) is block reward and \(C\) is hash calculation cost, the usual miner profit is
+If \(B\) is block reward and \(C\) is hash calculation cost, the honest miner profit is
 \begin{equation}
 {({M\cdot R_a\over R_0+R_a})\cdot B-M\cdot R_a\cdot T\cdot C=M\cdot R_a\cdot ({B\over R_0+R_a}-TC)}
 \end{equation}
 per epoch.
-At the same time attackers profit is
+At the same time adversarial profit is
 \begin{equation}
 {{M\cdot R_a \over 2\cdot (R_0+R_a)}\cdot (B - T\cdot R_0\cdot C)}
 \end{equation}
 
-%and attack become profitable when
-%\begin{equation}
-%{{B\over C} < T\cdot (R_0+2\cdot R_a)}.
-%\end{equation}
-%Note, that if attacker is able to switch between different forks his epoch profit is twice bigger and is bigger then regular miner profit at any \(B\) and \(C\).
+
+Additional profit of the adversary is:
+[TODO: ???]
+\begin{equation}
+{{B\over C} < T\cdot (R_0+2\cdot R_a)}.
+\end{equation}
+
 
 
 Remarkable, that under such an attack mean time between blocks will be
