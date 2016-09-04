@@ -80,7 +80,7 @@
 
 The Bitcoin whitepaper~\cite{Nakamoto2008} states that the security of the system is guaranteed as long as honest miners control more than half of the current total computational power.
 
-In this paper we analyze a new kind of attacks on the blockchain based on mining difficulty manipulations.A malicious miner is increasing his mining profits from the attack. Also, an average time interval between blocks increases as a side-effect.
+In this paper we analyze a new kind of attacks on the blockchain based on mining difficulty manipulations. A malicious miner is increasing his mining profits from the attack. Also, an average time interval between blocks increases as a side-effect.
 
 We propose an alternative difficulty adjustment algorithm in order to reduce an incentive to attack and also to improve stability of inter-block delays. We show that the novel approach performs much better than original algorithm of Bitcoin.
 
@@ -98,9 +98,8 @@ Blockchain \sep Bitcoin \sep Decentralized consensus \sep Peer-to-peer networks 
 
 Blockchain systems have attracted a significant amount of interest from various communities after the Bitcoin whitepaper~\cite{Nakamoto2008} published in 2008.
 Bitcoin security relies on a distributed protocol based on mining that maintains the distributed ledger.
-In the protocol miners solve moderately hard computational puzzles in order to generate a block~\cite{}. In Bitcoin solving a puzzle is about to find a partial hash function collision~\cite{}.
-Alternative systems may rely on other types of computational puzzles~\cite{??} or even on virtual mining~\cite{??}.
-Nevertheless, all of them use some algorithm that changes a puzzle \textit{difficulty} dynamically.
+In the protocol miners solve moderately hard computational puzzles in order to generate a block~\cite{}. In Bitcoin solving a puzzle is about finding a partial hash function collision~\cite{}.
+Alternative systems may rely on other types of computational puzzles~\cite{??}. Nevertheless, all of them use some algorithm that changes a puzzle \textit{difficulty} dynamically.
 
 These algorithms for difficulty retargeting are required in order to make blockchain system predictable and stabilize mean latency between blocks. The latter is important for several reasons:
 
@@ -142,6 +141,8 @@ We refer to the basic unit of mining work in Bitcoin as a scratch-off puzzle (SO
 A miner generates SOPs by iterating through \(nonce\) and calculating SHA-256 hash of a blocks header with the nonce value included.
 For a block to be valid the hash must be less than current \(target\) which is expressed in terms of the network difficulty \(D\) as \(1\over D\).
 Each hash attempt yields a valid block with probability \(1\over D\) and block frequency is \(R\over D\) where \(R\) is effective network hash rate.
+
+It is shown in several works\cite{garay2015bitcoin,eyal2014majority} that an adversarial miner with \(p = \frac{R_a}{R}\) ratio of mining power could generate up to \(\mu \cdot p\) blocks in a long run. The subject of this paper is to define how an adversarial miner could achieve more than that.
 
 Every \(M\) blocks (\(M=2016\) for Bitcoin) difficulty is recalculated as
 \begin{equation}
