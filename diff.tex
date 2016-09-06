@@ -136,9 +136,9 @@ Several parts are organizing the paper.
 \section{Bitcoin Mining}
 \label{sec:bit}
 
-The concept of Bitcoin mining was introduced in the section 4 of the Bitcoin whitepaper~\cite{Nakamoto2008} and discussed then in plenty of papers~\cite{kraft2015difficulty, miller2014permacoin, eyal2014majority}.
-We refer to the basic unit of mining work in Bitcoin as a scratch-off puzzle (SOP).
-A miner generates SOPs by iterating through \(nonce\) and calculating SHA-256 hash of a blocks header with the nonce value included.
+The concept of Bitcoin mining was introduced in the section 4 of the Bitcoin whitepaper~\cite{Nakamoto2008} and discussed then in the papers~\cite{kraft2015difficulty, miller2014permacoin, eyal2014majority, garay2015bitcoin}. The paper~\cite{garay2015bitcoin} introduced \textit{chain quality} property for a blockchain system. The property states that if adversary holds (?) of total mining power then it could generate no more than (?) of total blocks in the long run. The result got under the assumption of static difficulty. In this paper we study what advantage an adversary could get by influencing difficulty parameter.
+
+In Bitcoin a miner generates a block by iterating through \(nonce\) and calculating SHA-256 hash of a blocks header with the nonce value included.
 For a block to be valid the hash must be less than current \(target\) which is expressed in terms of the network difficulty \(D\) as \(1\over D\).
 Each hash attempt yields a valid block with probability \(1\over D\) and block frequency is \(R\over D\) where \(R\) is effective network hash rate.
 
