@@ -149,9 +149,9 @@ Every \(M\) blocks (\(M=2016\) for Bitcoin) difficulty is recalculated as
 D_{i+1}=D_i \cdot {MT\over S_m}
 \end{equation}
 where \(T\) is expected time interval between blocks and \(S_m\) is actual time spent to generate \(M\) blocks.
-Real time interval $\approx$\textit{9 min 20 sec} is less than desired time interval \textit{T=10 min} because of continuous growth of network computational power.
-Difficulty recalculation interval \(M=2016\) has been chosen in such a way to recalculate difficulty every 2 weeks, while for real network it is a bit smaller.
-This time interval is big enough to see increasing computational power of the network: right after target recalculation block time is close to desired 10 minutes, whereas at the end of \(epoch\) it's less then 9 minutes (see figure~\ref{fig:image}).
+For Bitcoin observed time interval $\approx$\textit{9 min 20 sec} is less than planned \textit{T=10 min} because of continuous growth of network computational power.
+Difficulty recalculation interval \(M=2016\) has been chosen in such a way to recalculate difficulty every 2 weeks.
+This time interval is big enough to see computational power of the network being increased: right after target recalculation block time is close to desired 10 minutes, whereas at the end of \(epoch\) it is less than 9 minutes (see figure~\ref{fig:image}).
 
 \begin{figure}[H]
 \center{\includegraphics[scale=0.3]{interval.png}}
