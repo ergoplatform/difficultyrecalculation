@@ -140,7 +140,7 @@ The concept of Bitcoin mining was introduced in the section 4 of the Bitcoin whi
 
 In Bitcoin a miner generates a block by iterating through \(nonce\) and calculating SHA-256 hash of a blocks header with the nonce value included.
 For a block to be valid the hash must be less than current \(target\) which is expressed in terms of the network difficulty \(D\) as \(1\over D\).
-Each hash attempt yields a valid block with probability \(1\over D\) and block frequency is \(R\over D\) where \(R\) is effective network hash rate.
+Each hash attempt yields a valid block with a probability proportional to \(1 \over D\) and block frequency is proportional to \(R \over D\) where \(R\) is effective network hash rate~(total number of calls to the hash function across the network).
 
 %% It is shown in several works\cite{garay2015bitcoin,eyal2014majority} that an adversarial miner with \(p = \frac{R_a}{R}\) ratio of mining power could generate up to \(\mu \cdot p\) blocks in a long run. The subject of this paper is to define how an adversarial miner could achieve more than that.
 
