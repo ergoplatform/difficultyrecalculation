@@ -139,8 +139,7 @@ Several parts are organizing the paper.
 The concept of Bitcoin mining was introduced in the section 4 of the Bitcoin whitepaper~\cite{Nakamoto2008} and discussed then in the papers~\cite{kraft2015difficulty, miller2014permacoin, eyal2014majority, garay2015bitcoin}. The paper~\cite{garay2015bitcoin} introduced \textit{chain quality} property for a blockchain system. The property states that if adversary holds (?) of total mining power then it could generate no more than (?) of total blocks in the long run. The result got under the assumption of static difficulty. In this paper we study what advantage an adversary could get by influencing difficulty parameter.
 
 In Bitcoin a miner generates a block by iterating through \(nonce\) and calculating SHA-256 hash of a blocks header with the nonce value included.
-For a block to be valid the hash must be less than current \(target\) which is expressed in terms of the network difficulty \(D\) as \(1\over D\).
-Each hash attempt yields a valid block with a probability proportional to \(1 \over D\) and block frequency is proportional to \(R \over D\) where \(R\) is effective network hash rate~(total number of calls to the hash function across the network).
+For a block to be valid the hash of its header must be less than current \textit{target} \(T\): \( hash(blockheader) < T \). \textit{Difficulty} is expressed as \(\frac{1}{T}\). If output of \(hash\) function is \(\mu\) bits long then probability to generate a block by doing \(q\) requests is \(\frac{T \cdot q}{2^\mu} = \frac{q}{D \cdot 2^\mu}\). We choose a second as a time unit, and we define miner \textit{hashrate} \(R\) as \(R = \frac{q_s}{2^\mu}\), where \(q_s\) is number of queries done per time unit. The probability to generate a block within time unit then is \(\frac{R}{D}\)
 
 %% It is shown in several works\cite{garay2015bitcoin,eyal2014majority} that an adversarial miner with \(p = \frac{R_a}{R}\) ratio of mining power could generate up to \(\mu \cdot p\) blocks in a long run. The subject of this paper is to define how an adversarial miner could achieve more than that.
 
@@ -159,6 +158,7 @@ This time interval is big enough to see computational power of the network being
 \label{fig:image}
 \end{figure}
 
+\textbf{TODO the picture above is a mess}
 \textbf{TODO transition to next section}
 
 \section{Switching Attack}
@@ -178,8 +178,8 @@ We call this strategy a \textit{switching attack}.
 To calculate adversarial profit from the attack we assume Bitcoin difficulty recalculation function and constant hash rate.
 
 Consider the network has hash rate \(R_0\) provided by honest miners and the adversary has additional hash rate \(R_a=R_0\cdot p\) to turn it on or off.
-Before epoch A the adversary mines all the time with difficulty \(D_0=(R_0+R_a)\cdot T\) and will mine \(M\cdot R_a\over R_0+R_a\) blocks per epoch (\(M\) blocks) in average spending \(M\cdot R_a\cdot T\) computational power for them.
-During the epoch B the adversary mines with difficulty \(D_0=R_0\cdot T\) is calculated from honest miners \(R_0\) only.
+Before epoch A the adversary mines all the time with difficulty \(D_0 = (R_0+R_a) \cdot T\) and will mine \(M\cdot R_a\over R_0+R_a\) blocks per epoch (\(M\) blocks) in average spending \(M \cdot R_a \cdot T\) computational power for them.
+During the epoch B the adversary mines with difficulty \(D_1 = R_0 \cdot T\) is calculated from honest miners \(R_0\) only.
 He will mine \(M\cdot R_a\over 2(R_0+R_a)\) blocks per epoch in average spending \(M\cdot T\cdot R_a\cdot R_0\over 2(R_0+R_a)\) computational power for them.
 Consequently honest miner will spend \((R_0+R_a)T\) computational power per block, whereas attacker will just spend \(R_0T\) computational power per block.
 The cost of computational resources invested into mining should be around the expected reward.
