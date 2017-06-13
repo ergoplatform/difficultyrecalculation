@@ -1,8 +1,4 @@
-%%
-%% Copyright 2016 Dmitry Meshkov
-%%
-
-\documentclass[number,preprint,review]{elsarticle}
+\documentclass[]{llncs}
 
 %% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
 %% for a journal layout:
@@ -20,7 +16,7 @@
 %% The amssymb package provides various useful mathematical symbols
 \usepackage{amssymb}
 %% The amsthm package provides extended theorem environments
-\usepackage{amsthm}
+%\usepackage{amsthm}
 \usepackage{amsmath}
 
 %% for url reference
@@ -35,11 +31,10 @@
 %% \usepackage{lineno}
 \def\infinity{\rotatebox{90}{8}}
 
-\journal{??????????????????}
 
 \begin{document}
 
-\begin{frontmatter}
+%\begin{frontmatter}
 
 %% Title, authors and addresses
 
@@ -69,12 +64,12 @@
 %% \address[label1]{}
 %% \address[label2]{}
 
-\author[iohk]{Dmitry Meshkov}
-\address[iohk]{IOHK Research}
-\ead{dmitry.meshkov@iohk.io}
+\author{Dmitry Meshkov \and Alexander Chepurnoy}
+\institute{IOHK Research}
 
-\author[iohk]{Alexander Chepurnoy}
-\address[iohk]{IOHK Research}
+%\ead{dmitry.meshkov@iohk.io}
+
+\maketitle
 
 \begin{abstract}
 
@@ -86,11 +81,11 @@ We propose an alternative difficulty adjustment algorithm in order to reduce an 
 	
 \end{abstract}
 
-\begin{keyword}
-Blockchain \sep Bitcoin \sep Decentralized consensus \sep Peer-to-peer networks \sep Proof-of-Work
-\end{keyword}
+%	\begin{keyword}
+%	Blockchain \sep Bitcoin \sep Decentralized consensus \sep Peer-to-peer networks \sep Proof-of-Work
+%	\end{keyword}
 
-\end{frontmatter}
+%\end{frontmatter}
 
 
 \section{Introduction}
