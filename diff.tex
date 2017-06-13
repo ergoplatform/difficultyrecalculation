@@ -90,13 +90,15 @@ Bitcoin security relies on a distributed protocol based which maintains the dist
 
 Alternative systems may rely on other types of computational puzzles~\cite{??}. Nevertheless, all of them use some algorithm that changes a puzzle {\em difficulty} dynamically.
 
-The algorithms for difficulty retargeting are required in order to make an open blockchain system tolerant to participants joining and leaving the system, and also to stabilize mean latency between blocks. The latter is important for several reasons:
+The algorithms for difficulty retargeting are required in order to make an open blockchain system tolerant to participants joining and leaving the system, and also to stabilize mean latency between blocks. 
 
-\begin{itemize}
-\item{With too frequent blocks it is possible for a lot of miners to have block propagation time bigger than latency between blocks. Studies show that this weakens security guarantees of a blockchain system~\cite{decker2013information,garay2015bitcoin}.}
+%The latter is important for several reasons:
 
-\item{Too big latency leads to decreasing of the network throughput~\cite{miller2016} and may be critical for high-loaded blockchain systems like Bitcoin, where blocks are already full today~\cite{armstrong2016}. Increased latency in Bitcoin network means that some transactions will never be included into blockchain. Moreover, this will lead to potentially infinite growth of unconfirmed transactions pool, preventing relaying for most of Bitcoin transactions.}
-\end{itemize}
+%\begin{itemize}
+%\item{With too frequent blocks it is possible for a lot of miners to have block propagation time bigger than latency between blocks. Studies show that this weakens security guarantees of a blockchain system~\cite{decker2013information,garay2015bitcoin}.}
+
+%\item{Too big latency leads to decreasing of the network throughput~\cite{miller2016} and may be critical for high-loaded blockchain systems like Bitcoin, where blocks are already full today~\cite{armstrong2016}. Increased latency in Bitcoin network means that some transactions will never be included into blockchain. Moreover, this will lead to potentially infinite growth of unconfirmed transactions pool, preventing relaying for most of Bitcoin transactions.}
+%\end{itemize}
 
 Most of blockchain systems rely on difficulty retargeting algorithms assuming total computational power involved in mining process does not significantly change from epoch to epoch.
 Using more complicated retargeting algorithms with incorrect assumptions~\cite{andruiman2014} may lead to incorrect time interval between blocks even for simple case of constant hash rate. For example, it is observed that mean time between blocks in Nxt is ~2 times bigger than stated in the whitepaper~\cite{nxt}. Moreover, too ofter difficulty recalculation leads to wide distribution of time intervals between blocks and makes blockchain system unpredictable~\cite{andruiman2014}.
