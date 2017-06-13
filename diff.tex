@@ -86,16 +86,16 @@ We propose an alternative difficulty adjustment algorithm in order to reduce an 
 \label{sec:intro}
 
 Blockchain systems have attracted a significant amount of interest from various communities after the Bitcoin whitepaper~\cite{Nakamoto2008} published in 2008.
-Bitcoin security relies on a distributed protocol based on mining that maintains the distributed ledger.
-In the protocol miners solve moderately hard computational puzzles in order to generate a block~\cite{}. In Bitcoin solving a puzzle is about finding a partial hash function collision~\cite{}.
-Alternative systems may rely on other types of computational puzzles~\cite{??}. Nevertheless, all of them use some algorithm that changes a puzzle \textit{difficulty} dynamically.
+Bitcoin security relies on a distributed protocol based which maintains the distributed ledger. In the protocol miners solve moderately hard computational puzzles in order to generate a block~\cite{}. In Bitcoin solving a puzzle is about finding a partial hash function collision~\cite{}. That is, for a block $B$ with a random nonce included to be valid, condition $hash(B) < T$ should hold, where {\em target} parameter $T$ specifies expected hardness of a puzzle solution.
 
-These algorithms for difficulty retargeting are required in order to make blockchain system predictable and stabilize mean latency between blocks. The latter is important for several reasons:
+Alternative systems may rely on other types of computational puzzles~\cite{??}. Nevertheless, all of them use some algorithm that changes a puzzle {\em difficulty} dynamically.
+
+The algorithms for difficulty retargeting are required in order to make an open blockchain system tolerant to participants joining and leaving the system, and also to stabilize mean latency between blocks. The latter is important for several reasons:
 
 \begin{itemize}
-\item{With too frequent blocks it is possible for a lot of miners to have block propagation time bigger than latency between blocks. This weakens security guarantees of a blockchain system~\cite{decker2013information,garay2015bitcoin}.}
+\item{With too frequent blocks it is possible for a lot of miners to have block propagation time bigger than latency between blocks. Studies show that this weakens security guarantees of a blockchain system~\cite{decker2013information,garay2015bitcoin}.}
 
-\item{Too big latency leads to decreasing of the network throughput~\cite{miller2016} and may be critical for high-loaded blockchain systems like Bitcoin, where blocks are already full today~\cite{armstrong2016}. Increasing latency by in Bitcoin network will mean that some transactions will never be included into blockchain. Moreover, this will lead to potentially infinite growth of unconfirmed transactions pool, preventing relaying for most of Bitcoin transactions.}
+\item{Too big latency leads to decreasing of the network throughput~\cite{miller2016} and may be critical for high-loaded blockchain systems like Bitcoin, where blocks are already full today~\cite{armstrong2016}. Increased latency in Bitcoin network means that some transactions will never be included into blockchain. Moreover, this will lead to potentially infinite growth of unconfirmed transactions pool, preventing relaying for most of Bitcoin transactions.}
 \end{itemize}
 
 Most of blockchain systems rely on difficulty retargeting algorithms assuming total computational power involved in mining process does not significantly change from epoch to epoch.
