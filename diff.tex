@@ -67,9 +67,9 @@ For example, we show in this paper that continuous growth of computational power
 Noteworthy, exponential growth of computational power, often observed in practice, is the absolutely worst case~(regarding the mean block delay divergence) for Bitcoin’s difficulty retargeting algorithm~\cite{kraft2015difficulty}.
 On the other side, target recalculation algorithm should be simple enough. It is preferable to use integer arithmetic in the algorithm since all the nodes in the peer-to-peer network, implemented in different programming languages and running on different platforms, have to agree absolutely on the calculated difficulty.
 
-Original Bitcoin whitepaper states that the security of the system is guaranteed as long as there is no attacker in possession of half or more of the total computational power used to maintain the system~\cite{Nakamoto2008}.
-Most of the models used in the literature to discuss double-spending attacks assume that mining difficulty is constant~\cite{??}.
-However difficulty is not constant, and can be manipulated by the attacker.
+
+\textbf{Related work: GKL16, kraft2015, bahack2013, etc}
+
 The Difficulty Raising Attack, introduced in~\cite{bahack2013theoretical}, enables the attacker to discard n-depth block, for any n and any attacker hash power, with probability 1 if he is willing to wait enough time.
 The fact that there is no way to determine whether a block have been computed on its declared time or not, have been used as part of other attacks~\cite{timejacking2011, artforz2011}.
 In section~\ref{sec:bit} we introduce a new attack for blockchain systems which manipulates difficulty for decreasing effective hash rate, required for block generation.
