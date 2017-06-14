@@ -62,10 +62,9 @@ Bitcoin security relies on a distributed protocol based which maintains the dist
 
 Alternative systems may rely on other than finding a partial hash collision types of computational puzzles~\cite{miller2014permacoin,biryukov2017equihash}. Nevertheless, all of them assume some algorithm that changes a puzzle difficulty dynamically. The algorithms for difficulty retargeting are required in order to make an open blockchain system working stable in the face of participants joining and leaving the system, and also to stabilize mean latency between blocks. 
 
-Most of difficulty retargeting algorithms assume total computational power involved in mining process does not significantly change from epoch to epoch. 
-
-Varying network computational power makes this algorithms inefficient for difficulty recalculation, e.g. continuous growth of computational power leads to decreasing mean latency between blocks and average block time in Bitcoin network is ~1.07 times lower, then expected.
-Noteworthy, that exponential growth of computational power, which is the situation observed in practice in accordance with Moore’s law~\cite{moore2006cramming}, is the absolutely worst case (regarding the maximal block rate) possible for Bitcoin’s difficulty retargeting algorithm~\cite{kraft2015difficulty}.
+Most of difficulty retargeting algorithms assume total computational power involved in mining process does not significantly change from epoch to epoch. In contrast, real networks show that significant variance in computational power could happen for long periods.
+For example, we show in this paper that continuous growth of computational power in Bitcoin network leads to decreasing mean delay between blocks by 7\% from an expected value.
+Noteworthy, exponential growth of computational power, often observed in practice, is the absolutely worst case~(regarding the mean block delay divergence) for Bitcoin’s difficulty retargeting algorithm~\cite{kraft2015difficulty}.
 On the other side, target recalculation algorithm should be simple enough and use integer arithmetic for all computational steps, since all nodes in the peer-to-peer network have to agree absolutely on the calculated difficulty.
 
 Original Bitcoin white-paper, states that the security of the system is guaranteed as long as there is no attacker in possession of half or more of the total computational power used to maintain the system~\cite{Nakamoto2008}.
