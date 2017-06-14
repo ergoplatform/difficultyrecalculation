@@ -86,9 +86,9 @@ We propose an alternative difficulty adjustment algorithm in order to reduce an 
 \label{sec:intro}
 
 Blockchain systems have attracted a significant amount of interest from various communities after the Bitcoin whitepaper~\cite{Nakamoto2008} published in 2008.
-Bitcoin security relies on a distributed protocol based which maintains the distributed ledger. In the protocol miners solve moderately hard computational puzzles in order to generate a block~\cite{}. In Bitcoin solving a puzzle is about finding a partial hash function collision~\cite{}. That is, for a block $B$ with a random nonce included to be valid, condition $hash(B) < T$ should hold, where {\em target} parameter $T$ specifies expected hardness of a puzzle solution.
+Bitcoin security relies on a distributed protocol based which maintains the distributed ledger. In the protocol miners solve moderately hard computational puzzles in order to generate a block~\cite{}. In Bitcoin solving a puzzle is about finding a partial hash function collision~\cite{}. That is, for a block $\mathcal{B}$~(with a random nonce included to be valid), condition $hash(\mathcal{B}) < T$ should hold, where {\em target} parameter $T$ specifies expected hardness of a puzzle solution. This hardness can be viewed via {\em difficulty} parameter $D$.
 
-Alternative systems may rely on other types of computational puzzles~\cite{??}. Nevertheless, all of them use some algorithm that changes a puzzle {\em difficulty} dynamically.
+Alternative systems may rely on other than finding a partial hash collision types of computational puzzles~\cite{??}. Nevertheless, all of them use some algorithm that changes a puzzle {\em difficulty} dynamically.
 
 The algorithms for difficulty retargeting are required in order to make an open blockchain system tolerant to participants joining and leaving the system, and also to stabilize mean latency between blocks. 
 %The latter is important for several reasons:
