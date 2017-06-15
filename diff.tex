@@ -64,25 +64,19 @@ Alternative systems may rely on different than finding a partial hash collision 
 
 A difficulty readjustment algorithm in Bitcoin assumes that total computational power involved in mining process does not significantly change from epoch to epoch. In contrast, real networks show that significant variance in computational power could happen for long periods.
 For example, we show in this paper that due to continuous growth of computational power in Bitcoin network a mean delay between blocks by 7\% less than expected value.
-Noteworthy, exponential growth of computational power, often observed in practice, is the absolutely worst case~(regarding the mean block delay divergence) for Bitcoin’s difficulty retargeting algorithm~\cite{kraft2015difficulty}.
+Noteworthy, exponential growth of computational power, often observed in practice, is the absolutely worst case~(regarding the mean block delay divergence) for the Bitcoin’s difficulty readjustment algorithm~\cite{kraft2015difficulty}.
  
 In this paper we also consider a new type of miner behavior in regards with difficulty readjustment problematic for security guarantees of a blockchain system which we call a coin-hopping attack following the ``pool-hopping'' term raised in~\cite{rosenfeld2011analysis}. In this attack, an adversarial miner is switching from mining one coin to another in the beginning of an epoch, then he is switching back in the beginning of next epoch when difficulty becomes lower. We show how mining profit is increasing for Bitcoin's difficulty readjustment function, and how inter-block delay suffer from the coin-hopping attack.
 
 As a solution for significant variance in computational power and also in order to reduce incentive to follow coin-hopping strategy, we propose an alternative difficulty readjustment procedure. The new algorithm is using integer arithmetic for all the steps only, which is important since nodes in peer-to-peer network are running on different platforms. We show that the proposed solution is better suited for exponential growth of total mining power and also reduces profit and negative side-effects of the coin-hopping attack.
 
+\subsection{Related Work}
 
-\textbf{Related work: GKL16, kraft2015, bahack2013, poll-hopping etc}
+Here we observe known formal and informal studies of Bitcoin in regards with dynamic nature of difficulty parameter. Following the well known paper of Garay et al.~\cite{garay2015bitcoin} generalizing Bitcoin backbone protocol in static difficulty setting, a newer paper from the same authors~\cite{gkl16} is getting positive answer on whether basic security properties of the Bitcoin backbone protocol~(common prefix, chain quality and chain growth) hold in case of dynamic difficulty, in a cryptographic setting with an arbitrary adversary. Nevertheless, studying concrete attacks against the real protocol is still needed.      
 
-The Difficulty Raising Attack, introduced in~\cite{bahack2013theoretical}, enables the attacker to discard n-depth block, for any n and any attacker hash power, with probability 1 if he is willing to wait enough time.
-The fact that there is no way to determine whether a block have been computed on its declared time or not, have been used as part of other attacks~\cite{timejacking2011, artforz2011}.
-In section~\ref{sec:bit} we introduce a new attack for blockchain systems which manipulates difficulty for decreasing effective hash rate, required for block generation.
+Timejacking attack~\cite{timejacking2011} allows an attacker first shift network time at a victim node~(which is calculating network time by averaging timestamps got regularly from neighbors) and then force the victim node to reject a block with a specially crafted timestamp~(other network is accepting). The time wrapping attack~\cite{artforz2011} is exploiting the fact Bitcoin is using difference in timestamps between last and first block in an epoch, not last block in an epoch and last block in a previous epoch. By using specially crafted timestamps for the last block of each epoch, an attacker can produce more blocks for a time window with more work contributed to his chain. The difficulty raising attack, introduced in~\cite{bahack2013theoretical}, allows an attacker to discard $n$-depth block, for any $n$, and for any computational power of the attacker, with probability 1 if he is willing to wait enough time.
 
-Novel studies of difficulty control proposes better functions for difficulty recalculation.
-For example, the paper~\cite{kraft2015difficulty} introduces target recalculation function, designed to work “perfectly” not just for constant hash rate but also if the hash rate grows exponentially (with a constant but unknown rate).
-Since it's good for situation, observed in practice in Bitcoin network, there are still a lot of open questions for future research.
-Is it possible to create such a function, suitable for random fluctuations in the hash rate?
-Is it possible to create such a function, simple enough to use integer arithmetic for all computational steps?
-Is it possible to create such a function, stable for attackers manipulations?
+A paper~\cite{kraft2015difficulty} is introducing an alternative difficulty readjustment function designed to work better than Bitcoin's not just for almost constant mining power but also when the power is growing exponentially with time. We provide comparison with this function in the paper.  
 
 \textbf{TODO transition to next section}
 
