@@ -58,7 +58,7 @@ We propose an alternative difficulty adjustment algorithm in order to reduce an 
 \label{sec:intro}
 
 Blockchain systems have attracted a significant amount of interest after the Bitcoin whitepaper~\cite{Nakamoto2008} was published in 2008.
-Bitcoin security relies on a distributed protocol based which maintains the distributed ledger. In the protocol miners are trying to find a partial hash collision in order to generate a valid block by iterating over nonce field values. That is, for a block $\mathcal{B}$~(with a random nonce included) to be valid, condition $hash(\mathcal{B}) < T$ should hold, where {\em target} parameter $T$ specifies expected hardness of a valid block generation. This hardness can be also viewed via {\em difficulty} parameter $D = \frac{1}{T}$.
+Bitcoin security relies on a distributed protocol which maintains a distributed ledger. In the protocol miners are trying to find a partial hash collision in order to generate a valid block by iterating over nonce field values. That is, for a block $\mathcal{B}$~(with a random nonce included) to be valid, condition $hash(\mathcal{B}) < T$ should hold, where {\em target} parameter $T$ specifies expected hardness of a valid block generation. This hardness can be also viewed via {\em difficulty} parameter $D = \frac{1}{T}$.
 
 Alternative systems may rely on other than finding a partial hash collision types of computational puzzles~\cite{miller2014permacoin,biryukov2017equihash}. Nevertheless, all of them assume some algorithm that changes a puzzle difficulty dynamically. The algorithms for difficulty retargeting are required in order to make an open blockchain system working stable in the face of participants joining and leaving the system, and also to stabilize mean latency between blocks. 
 
@@ -68,7 +68,7 @@ Noteworthy, exponential growth of computational power, often observed in practic
 On the other side, target recalculation algorithm should be simple enough. It is preferable to use integer arithmetic in the algorithm since all the nodes in the peer-to-peer network, implemented in different programming languages and running on different platforms, have to agree absolutely on the calculated difficulty.
 
 
-\textbf{Related work: GKL16, kraft2015, bahack2013, etc}
+\textbf{Related work: GKL16, kraft2015, bahack2013, poll-hopping etc}
 
 The Difficulty Raising Attack, introduced in~\cite{bahack2013theoretical}, enables the attacker to discard n-depth block, for any n and any attacker hash power, with probability 1 if he is willing to wait enough time.
 The fact that there is no way to determine whether a block have been computed on its declared time or not, have been used as part of other attacks~\cite{timejacking2011, artforz2011}.
