@@ -1,18 +1,5 @@
 \documentclass[]{llncs}
 
-%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
-%% for a journal layout:
-%% \documentclass[final,1p,times]{elsarticle}
-%% \documentclass[final,1p,times,twocolumn]{elsarticle}
-%% \documentclass[final,3p,times]{elsarticle}
-%% \documentclass[final,3p,times,twocolumn]{elsarticle}
-%% \documentclass[final,5p,times]{elsarticle}
-%% \documentclass[final,5p,times,twocolumn]{elsarticle}
-
-%% For including figures, graphicx.sty has been loaded in
-%% elsarticle.cls. If you prefer to use the old commands
-%% please give \usepackage{epsfig}
-
 %% The amssymb package provides various useful mathematical symbols
 \usepackage{amssymb}
 %% The amsthm package provides extended theorem environments
@@ -24,12 +11,10 @@
 \usepackage{graphicx}
 
 \usepackage{float}
-
-%% The lineno packages adds line numbers. Start line numbering with
-%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
-%% for the whole article with \linenumbers.
-%% \usepackage{lineno}
 \def\infinity{\rotatebox{90}{8}}
+
+\newcommand{\texp}{|\Delta|}
+
 \begin{document}
 
 
@@ -78,9 +63,9 @@ Timejacking attack~\cite{timejacking2011} allows an attacker first shift network
 
 A paper~\cite{kraft2015difficulty} is introducing an alternative difficulty readjustment function designed to work better than Bitcoin's not just for almost constant mining power but also when the power is growing exponentially with time. We provide comparison with this function in the paper.  
 
-\textbf{TODO transition to next section}
+\subsection{Structure of the Paper}
 
-Several parts are organizing the paper. 
+Several parts are organizing the paper. In Section~\ref{sec:bit} we provide detailed view of Bitcoin readjustment function. In Section~\ref{sec:attack} we introduce the coin-hopping attack. In Section~\ref{sec:improved} an improved difficulty readjustment function is proposed and analyzed. Section~\ref{sec:sim} provides results of simulations. 
 
 \section{Bitcoin Mining}
 \label{sec:bit}
@@ -88,9 +73,8 @@ Several parts are organizing the paper.
 The concept of Bitcoin mining was introduced in the section 4 of the Bitcoin whitepaper~\cite{Nakamoto2008} and discussed then in the papers~\cite{kraft2015difficulty, miller2014permacoin, eyal2014majority, garay2015bitcoin}. The paper~\cite{garay2015bitcoin} introduced \textit{chain quality} property for a blockchain system. The property states that if adversary holds (?) of total mining power then it could generate no more than (?) of total blocks in the long run. The result got under the assumption of static difficulty. In this paper we study what advantage an adversary could get by influencing difficulty parameter.
 
 In Bitcoin a miner generates a block by iterating through \(nonce\) and calculating SHA-256 hash of a blocks header with the nonce value included.
-For a block to be valid the hash of its header must be less than current \textit{target} \(T\): \( hash(blockheader) < T \). \textit{Difficulty} is expressed as \(\frac{1}{T}\). If output of \(hash\) function is \(\mu\) bits long then probability to generate a block by doing \(q\) requests is \(\frac{T \cdot q}{2^\mu} = \frac{q}{D \cdot 2^\mu}\). We choose a second as a time unit, and we define miner \textit{hashrate} \(R\) as \(R = \frac{q_s}{2^\mu}\), where \(q_s\) is number of queries done per time unit. The probability to generate a block within time unit then is \(\frac{R}{D}\)
+For a block to be valid the hash of its header must be less than current \textit{target} \(T\): \( hash(blockheader) < T \). \textit{Difficulty} is expressed as \(\frac{1}{T}\). If output of \(hash\) function is \(\mu\) bits long then probability to generate a block by doing \(q\) requests is \(\frac{T \cdot q}{2^\mu} = \frac{q}{D \cdot 2^\mu}\). We choose a second as a time unit, and we define miner \textit{hashrate} \(R\) as \(R = \frac{q_s}{2^\mu}\), where \(q_s\) is number of queries done per time unit. The probability to generate a block within time unit then is \(\frac{R}{D}\).
 
-%% It is shown in several works\cite{garay2015bitcoin,eyal2014majority} that an adversarial miner with \(p = \frac{R_a}{R}\) ratio of mining power could generate up to \(\mu \cdot p\) blocks in a long run. The subject of this paper is to define how an adversarial miner could achieve more than that.
 
 Every \(M\) blocks (\(M=2016\) for Bitcoin) difficulty is recalculated as
 \begin{equation}
@@ -160,6 +144,8 @@ which is bigger then desired time \(T\).
 Please notice that we regard \(p\) as the ratio between the hash-powers of the attacker and the honest network so it changes from 0 to 1.
 
 \textbf{TODO transition to next section}
+
+
 
 \section{Improved Difficulty Adjustment}
 \label{sec:improved}
@@ -247,15 +233,13 @@ Obviously, attacker profit is also 2 times lower in situation with linear diffic
 
 Thus, linear difficulty control algorithm, proposed in Section \ref{sec:improved} is better than the Bitcoin's in all situations both in terms of block rate and in terms of attacker profit.
 
-\section{Conclusion}
-\label{sec:concl}
 
-In this paper we analyze a new kind of attacks on the blockchain based on manipulating mining difficulty.
-This attack decrease computational power spent by an attacker for block mining while increasing mean time interval between blocks.
-It is especially favorable in situation, when the cost of computational resources invested into mining is around the expected reward and there are enough forks to switch mining between them.
+%\section{Conclusion}
+%\label{sec:concl}
 
-To improve the stability of block times and decrease the attacker profit, we proposed an alternative difficulty update algorithm, based on linear regression.
-It was found that this algorithm is better then the Bitcoin one both in terms of block rate and in terms of attacker profit, while it's still simple enough to be computed with integer arithmetic only.
+%In this paper we analyze a new kind of attacks on the blockchain based on manipulating mining difficulty. This attack decrease computational power spent by an attacker for block mining while increasing mean time interval between blocks. It is especially favorable in situation, when the cost of computational resources invested into mining is around the expected reward and there are enough forks to switch mining between them.
+
+%To improve the stability of block times and decrease the attacker profit, we proposed an alternative difficulty update algorithm, based on linear regression. It was found that this algorithm is better then the Bitcoin one both in terms of block rate and in terms of attacker profit, while it's still simple enough to be computed with integer arithmetic only.
 
 \section*{Acknowledgments}
 
