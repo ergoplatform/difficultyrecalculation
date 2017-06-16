@@ -98,7 +98,7 @@ This time interval is big enough to see computational power of the network being
 \section{\AttackName}
 \label{sec:attack}
 
-We consider the following adversarial experiment involving an adversarial miner \(\mathcal{A}\):
+We consider the following attack involving an adversarial miner \(\mathcal{A}\):
 
 \begin{itemize}
 \item There are \(N > 1\) possible coins \(\mathcal{A}\) can contribute to. Each of them is about the same mining profitability. 
@@ -111,15 +111,15 @@ We call this strategy a \textit{\attackname}.
 
 To calculate adversarial profit from the attack we assume Bitcoin difficulty recalculation function and constant hash rate.
 
-Consider the network has hash rate \(R_0\) provided by honest miners and the adversary has additional hash rate \(R_a=R_0\cdot p\) to turn it on or off.
-Before epoch A the adversary mines all the time with difficulty \(D_0 = (R_0+R_a) \cdot T\) and will mine \(M\cdot R_a\over R_0+R_a\) blocks per epoch (\(M\) blocks) in average spending \(M \cdot R_a \cdot T\) computational power for them.
-During the epoch B the adversary mines with difficulty \(D_1 = R_0 \cdot T\) is calculated from honest miners \(R_0\) only.
-He will mine \(M\cdot R_a\over 2(R_0+R_a)\) blocks per epoch in average spending \(M\cdot T\cdot R_a\cdot R_0\over 2(R_0+R_a)\) computational power for them.
-Consequently honest miner will spend \((R_0+R_a)T\) computational power per block, whereas attacker will just spend \(R_0T\) computational power per block.
+Consider the network has hash rate $R_0$ provided by honest miners and the adversary has additional hash rate $R_a=R_0\cdot p, 0 < p < 1 $ to turn it on or off.
+Before epoch A the adversary mines all the time with difficulty \(D_0 = (R_0+R_a) \cdot T\) and will mine $M \cdot R_a \over R_0 + R_a$ blocks per epoch (of $M$ blocks) in average by spending $M \cdot R_a \cdot T$ computational power for them.
+During the epoch B the adversary mines with difficulty $D_1 = R_0 \cdot T$ is calculated from honest miners $R_0$ only.
+He will mine \(M\cdot R_a\over 2(R_0+R_a)\) blocks per epoch in average spending $M\cdot T\cdot R_a\cdot R_0\over 2 \cdot (R_0+R_a)$ computational power for them.
+Consequently honest miner will spend \((R_0+R_a)T\) computational power per block, whereas attacker will just spend $R_0 \cdot T$ computational power per block.
 The cost of computational resources invested into mining should be around the expected reward.
 If \(B\) is block reward and \(C\) is hash calculation cost, the honest miner profit is
 \begin{equation}
-{({M\cdot R_a\over R_0+R_a})\cdot B-M\cdot R_a\cdot T\cdot C=M\cdot R_a\cdot ({B\over R_0+R_a}-TC)}
+{({M\cdot R_a\over R_0+R_a})\cdot B-M\cdot R_a\cdot T\cdot C=M\cdot R_a\cdot ({B\over R_0+R_a}-T \cdot C)}
 \end{equation}
 per epoch.
 At the same time adversarial profit is
@@ -141,8 +141,9 @@ Remarkable, that under such an attack mean time between blocks will be
 \label{eq:ati}
 {T_a={T\over 2}({R_0+R_a\over R_0} + {R_0\over R_0+R_a})=T(1 + {p^2\over 2(1+p)})}
 \end{equation}
-which is bigger then desired time \(T\).
-Please notice that we regard \(p\) as the ratio between the hash-powers of the attacker and the honest network so it changes from 0 to 1.
+which is bigger than the planned time $T$.
+
+%Please notice that we regard \(p\) as the ratio between the hash-powers of the attacker and the honest network so it changes from 0 to 1.
 
 \textbf{TODO transition to next section}
 
@@ -151,10 +152,10 @@ Please notice that we regard \(p\) as the ratio between the hash-powers of the a
 \section{Improved Difficulty Adjustment}
 \label{sec:improved}
 
-The difficulty adjustment algorithm employed by Bitcoin works as designed: If the hash rate is constant, it yields the desired block rate. However it does not achieve the desired block rate in other situations and vulnerable to attack, described in \ref{sec:attack}.
+The difficulty adjustment algorithm employed by Bitcoin works as designed: if the hash rate of the network is constant, it yields the desired block rate. However it does not achieve the desired block rate in other situations and vulnerable to attack, described in \ref{sec:attack}.
 In this section we are going to propose an alternative difficulty adjustment algorithm that works better than the Bitcoin's.
 
-First, we state properties of an \(ideal\) difficulty update algorithm:
+First, we state properties of an ideal difficulty update algorithm:
 \begin{enumerate}
 \item{It should be resistant to known types of attacks based on difficulty manipulation.}
 \item{It should lead to desired block rate for random fluctuations in the hash rate.}
