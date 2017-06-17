@@ -74,16 +74,16 @@ Several parts are organizing the paper. In Section~\ref{sec:bit} we provide deta
 \section{Bitcoin Mining}
 \label{sec:bit}
 
-The concept of Bitcoin mining was introduced in the Section 4 of the Bitcoin whitepaper~\cite{Nakamoto2008} and discussed then in the papers~\cite{kraft2015difficulty},\cite{gkl16}. In Bitcoin a miner generates a block by iterating over {\em nonce} value and calculating hash of a block with the nonce value included. For a block $\block$ to be valid, the hash of its header must be less than current {\em target} $T$: $hash(\block) < T$, where $hash$ is an ideal cryptographic hash function. Hardness to find a block could be expressed also via {\em difficulty} $D$ as $D = \frac{1}{T}$. If output of $hash$ function is $\mu$ bits long then the probability to generate a block by doing $q$ requests to the hash function is $\frac{T \cdot q}{2^\mu} = \frac{q}{D \cdot 2^\mu}$. We define miner \textit{hashrate} $R$ as $R = \frac{q_s}{2^\mu}$, where $q_s$ is number of queries done per time unit. The probability to generate a block within time unit then is $\frac{R}{D}$.
+The concept of Bitcoin mining was introduced in the Section 4 of the Bitcoin whitepaper~\cite{Nakamoto2008} and discussed then in the papers~\cite{kraft2015difficulty},\cite{gkl16}. In Bitcoin a miner generates a block by iterating over {\em nonce} value and calculating hash of a block with the nonce value included. For a block $\block$ to be valid, a value of a hash function for it must be less than the current {\em target} $T$, $hash(\block) < T$, where $hash$ is an ideal cryptographic hash function. Hardness to find a block could be expressed also via {\em difficulty} $D$ as $D = \frac{1}{T}$. If output of $hash$ function is $\mu$ bits long then the probability to generate a block by doing $q$ requests to the hash function is $\frac{T \cdot q}{2^\mu} = \frac{q}{D \cdot 2^\mu}$. We define miner \textit{hashrate} $R$ as $R = \frac{q_s}{2^\mu}$, where $q_s$ is number of queries done per time unit. The probability to generate a block within time unit then is $\frac{R}{D}$.
 
 
 Every $M$ blocks ($M = 2016$ for Bitcoin) difficulty is recalculated as
 \begin{equation}
 D_{i+1}=D_i \cdot {M \cdot \texp \over S_m}
 \end{equation}
-where $\texp$ is expected time interval between blocks and \(S_m\) is actual time spent to generate \(M\) blocks.
-For Bitcoin observed time interval $\approx$\textit{9 min 20 sec} is less than planned value $\texp =10 min$ due to continuous growth of network computational power.
-Difficulty recalculation interval \(M=2016\) has been chosen in such a way to recalculate difficulty every 2 weeks.
+where $\texp$ is expected time interval between blocks and $S_m$ is actual time spent to generate $M$ blocks.
+For Bitcoin observed time interval $\approx${\em 9 minutes 20 seconds} is less than planned value $\texp = 10$ {\em minutes} due to continuous growth of network computational power.
+Difficulty recalculation interval $M=2016$ has been chosen to recalculate difficulty every 2 weeks on average.
 This time interval is big enough to see computational power of the network being usually increased over it: right after target recalculation mean delay is close to planned 10 minutes, whereas at the end of an epoch it is less than 9 minutes in average (see Figure~\ref{fig:image}).
 
 \begin{figure}[H]
