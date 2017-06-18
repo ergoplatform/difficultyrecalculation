@@ -15,7 +15,8 @@
 
 \newcommand{\texp}{|\Delta|}
 \newcommand{\block}{\mathcal{B}}
-\newcommand{\reward}{\mathcal{R}}
+\newcommand{\reward}{\mathcal{W}}
+\newcommand{\cost}{\mathcal{C}}
 
 \newcommand{\attackname}{coin-hopping attack}
 \newcommand{\AttackName}{Coin-hopping Attack}
@@ -113,25 +114,25 @@ We call this strategy a \textit{\attackname}.
 
 To calculate adversarial profit from the attack we assume Bitcoin difficulty recalculation function and constant network hashrate. We denote hashrate of miners not participating in coin-hopping attack as $R_0$, and we denote adversarial hashrate as $R_a=R_0\cdot p, 0 < p < 1 $.
 Before epoch $A$ the difficulty $D_0 = (R_0+R_a) \cdot \texp$, and the adversary mines $M \cdot R_a \over R_0 + R_a$ blocks per epoch (of $M$ blocks) in average by spending $M \cdot R_a \cdot \texp$ computational power for them.
-During the epoch B the adversary mines with difficulty $D_1 = R_0 \cdot \texp$ is calculated from honest miners $R_0$ only.
-He will mine $M\cdot R_a\over 2(R_0+R_a)$ blocks per epoch in average spending $M\cdot T\cdot R_a\cdot R_0\over 2 \cdot (R_0+R_a)$ computational power for them.
+During the epoch B the adversary mines with difficulty $D_1 = R_0 \cdot \texp$ calculated from honest miners hashrate $R_0$ only.
+The adversary mines $M \cdot R_a \over 2(R_0+ R_a)$ blocks per epoch in average spending $M\cdot T\cdot R_a\cdot R_0\over 2 \cdot (R_0+R_a)$ computational power for them.
 Consequently honest miner will spend $(R_0+R_a) \texp$ computational power per block, whereas attacker will just spend $R_0 \cdot \texp$ computational power per block.
 The cost of computational resources invested into mining should be around the expected reward.
-If $\reward$ is block reward and $C$ is hash calculation cost, the honest miner profit is
+If $\reward$ is block reward and $\cost$ is hash calculation cost, the honest miner profit is
 \begin{equation}
-{({M \cdot R_a \over R_0 + R_a})\cdot \reward - M \cdot R_a\cdot T\cdot C=M\cdot R_a\cdot ({\reward \over R_0+R_a}-T \cdot C)}
+{({M \cdot R_a \over R_0 + R_a}) \cdot \reward - M \cdot R_a \cdot T \cdot \cost = M\cdot R_a\cdot ({\reward \over R_0+R_a}-T \cdot \cost)}
 \end{equation}
 per epoch.
 At the same time adversarial profit is
 \begin{equation}
-{{M\cdot R_a \over 2\cdot (R_0+R_a)}\cdot (\reward - T\cdot R_0\cdot C)}
+{{M\cdot R_a \over 2\cdot (R_0+R_a)}\cdot (\reward - T\cdot R_0\cdot \cost)}
 \end{equation}
 
 
 Additional profit of the adversary is:
 [TODO: ???]
 \begin{equation}
-{{\reward \over C} < T\cdot (R_0+2\cdot R_a)}.
+{{\reward \over \cost} < T\cdot (R_0 + 2\cdot R_a)}.
 \end{equation}
 
 
