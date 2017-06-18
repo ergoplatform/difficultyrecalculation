@@ -132,7 +132,7 @@ At the same time adversarial profit is
 Additional profit of the adversary is:
 [TODO: ???]
 \begin{equation}
-{{\reward \over \cost} < T\cdot (R_0 + 2\cdot R_a)}.
+{{\reward \over \cost} < T \cdot (R_0 + 2 \cdot R_a)}.
 \end{equation}
 
 
@@ -140,7 +140,7 @@ Additional profit of the adversary is:
 Remarkable, that under such an attack mean time between blocks will be
 \begin{equation}
 \label{eq:ati}
-{T_a={T\over 2}({R_0+R_a\over R_0} + {R_0\over R_0+R_a})=T(1 + {p^2\over 2(1+p)})}
+{T_a={T\over 2}({R_0+R_a\over R_0} + {R_0 \over R_0+R_a}) = T(1 + {p^2\over 2(1+p)})}
 \end{equation}
 which is bigger than the planned time $T$.
 
@@ -177,14 +177,14 @@ In this section we are going to regard difficulty adjustment algorithm based on 
   \end{cases}
 \end{equation}
 
-Note, that for accurate difficulty prediction we should use few last observed difficulties, rather than just one, as implemented in Bitcoin, but it's possible to use this algorithm right after second epoch.
+Note, that for accurate difficulty prediction we should use few last observed difficulties, rather than just one, as implemented in Bitcoin, but it is possible to use this algorithm right after second epoch.
 
 
 We regard it as the good candidate for difficulty update algorithm, because:
 \begin{enumerate}
 \item{It should reduce profit of the attack, described in Section~\ref{sec:attack}. Calculations of the attacker profit are described in Section~\ref{sec:sim}}
 \item{It leads to desired block rate for linear changes in the hash rate.
-This means, that regarding block rate, linear algorithm is better, then Bitcoin's one, in all cases, except constant hash rate, when they lead to the same result. }
+This means, that regarding block rate, linear algorithm is better than one of Bitcoin in all cases, except constant hash rate, when both provide the same result. }
 \item{It is simple enough to use integer arithmetic for all computational steps with high fidelity.}
 \end{enumerate}
 
@@ -192,9 +192,7 @@ This means, that regarding block rate, linear algorithm is better, then Bitcoin'
 \label{sec:sim}
 
 We present simulation results that show how our method proposed in Section~\ref{sec:improved} improves over Bitcoin’s difficulty update algorithm.
-We will regard \textit{difficulty} growth in this section, keeping in mind the fact, that it's closely related with network hash rate, which is usually considered in literature.
-
-%All calculations have been performed with open-sourced programs, available at Scorex project GitHub page~\cite{scorex}.
+We will regard difficulty growth in this section, keeping in mind the fact, that it is closely related with network hash rate, which is usually considered in literature.
 
 \textbf{TODO Linear?}
 
