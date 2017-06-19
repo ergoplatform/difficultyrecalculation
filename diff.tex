@@ -39,9 +39,9 @@
 
 The Bitcoin whitepaper~\cite{Nakamoto2008} states that the security of the system is guaranteed as long as honest miners control more than half of the current total computational power. The whitepaper assumes static difficulty case when it is equally hard to solve a cryptographic proof-of-work puzzle dependless on system behavior. However, a real Bitcoin network is using an adaptive difficulty adjustment mechanism.  
 
-In this paper we introduce and analyze a new kind of attack on mining difficulty retargeting. A malicious miner is increasing his mining profits from the attack. An average time interval between blocks is increasing as a side-effect of the attack.
+In this paper we introduce and analyze a new kind of attack on mining difficulty retargeting. A malicious miner is increasing his mining profits from the attack. The average time interval between blocks is increasing as a side-effect of the attack.
 
-We propose an alternative difficulty adjustment algorithm in order to reduce an incentive to attack and also to improve stability of inter-block delays. We show that the novel approach performs better than original algorithm of Bitcoin.
+We propose an alternative difficulty adjustment algorithm in order to reduce the incentive of such an attack and also to improve stability of inter-block delays. Finally, we evaluate the presented approach and show that the novel approach performs better than original algorithm of Bitcoin.
 	
 \end{abstract}
 
@@ -50,44 +50,42 @@ We propose an alternative difficulty adjustment algorithm in order to reduce an 
 \label{sec:intro}
 
 Blockchain systems have attracted significant amount of interest after the Bitcoin whitepaper~\cite{Nakamoto2008} was published in 2008.
-Bitcoin security relies on a distributed protocol which maintains a distributed ledger. In the protocol miners are trying to find a partial hash collision in order to generate a valid block by iterating over nonce field values. That is, for a block $\block$~(with a random nonce included) to be valid, condition $hash(\block) < T$ should hold, where {\em target} parameter $T$ specifies expected hardness of a valid block generation. This hardness can be also viewed via {\em difficulty} parameter $D = \frac{1}{T}$.
+Bitcoin security relies on a distributed problem solving protocol which maintains a distributed ledger. In the protocol miners are trying to find a partial hash collision in order to generate a valid block by iterating over nonce field values. That is, for a given block $\block$~(with a random nonce included) in order for being valied valid, the condition $hash(\block) < T$ should hold, where {\em target} parameter $T$ specifies expected hardness of the block generation. This hardness can be also expressed via {\em difficulty} parameter $D = \frac{1}{T}$.
 
-Alternative systems may rely on different than finding a partial hash collision types of computational puzzles~\cite{miller2014permacoin,biryukov2017equihash}. Nevertheless, all of them assume some algorithm that changes puzzle difficulty dynamically. The algorithm for difficulty readjustment is required in order to make an open blockchain system working stable in the face of participants joining and leaving the system, and also to stabilize mean latency between blocks. 
+Alternative systems may rely on other types of computational puzzles rather than finding a partial hash collision, e.g.,~\cite{miller2014permacoin,biryukov2017equihash}. Nevertheless, all of them assume some algorithm that changes the difficulty of the puzzle dynamically. An algorithm for difficulty readjustment is required in order to make an open blockchain system working stable in the face of participants joining and leaving the system (resulting in constantly changing available computational power for solving the puzzles), and also to stabilize mean latency between blocks. 
 
-A difficulty readjustment algorithm in Bitcoin assumes that total computational power involved in mining process does not significantly change from epoch to epoch. In contrast, real networks show that significant variance in computational power could happen for long periods.
-For example, we show in this paper that due to continuous growth of computational power in Bitcoin network a mean delay between blocks by 7\% less than expected value.
-Noteworthy, exponential growth of computational power, often observed in practice, is the absolutely worst case~(regarding the mean block delay divergence) for the Bitcoinâ€™s difficulty readjustment algorithm~\cite{kraft2015difficulty}.
+The difficulty readjustment algorithm in Bitcoin assumes that the total computational power involved in the mining process does not significantly change from epoch to epoch. In contrast, real networks show that significant variance in computational power happens over long periods.
+For example, we show in this paper that due to continuous growth of computational power in the Bitcoin network a mean delay between blocks of about 7\%, in comparison to the expected value, could be observied.
+Noteworthy, exponential growth of computational power, often observed in practice, is the absolutely worst case~(regarding the mean block delay divergence) for the Bitcoin'€™s difficulty readjustment algorithm~\cite{kraft2015difficulty}.
  
-In this paper we also consider a new type of miner behavior in regards with difficulty readjustment problematic for security guarantees of a blockchain system which we call a \attackname following the ``pool-hopping'' term raised in~\cite{rosenfeld2011analysis}. In this attack, an adversarial miner is switching from mining one coin to another in the beginning of an epoch, then he is switching back in the beginning of next epoch when difficulty becomes lower. We show how mining profit is increasing for Bitcoin's difficulty readjustment function, and how inter-block delay suffer from the \attackname.
+In this paper we also consider a new type of miner behavior with regards to difficulty readjustment problematic for security guarantees of a blockchain system which we call a \attackname following the ``pool-hopping'' term raised in~\cite{rosenfeld2011analysis}. In this attack, an adversarial miner is switching from mining one coin to another in the beginning of an epoch, then he is switching back in the beginning of next epoch when difficulty becomes lower. We show how mining profit is increasing for Bitcoin's difficulty readjustment function, and how inter-block delay suffers from the \attackname.
 
-As a solution for significant variance in computational power and also in order to reduce incentive to follow coin-hopping strategy, we propose an alternative difficulty readjustment procedure. The new algorithm is using integer arithmetic for all the steps only, which is important since nodes in peer-to-peer network are running on different platforms. We show that the proposed solution is better suited for exponential growth of total mining power and also reduces profit and negative side-effects of the coin-hopping attack.
+As a solution for the significant variance in computational power and also in order to reduce incentive of the described coin-hopping strategy, we propose an alternative difficulty readjustment procedure. The new algorithm is using integer arithmetic for all the steps only, which is important since nodes in peer-to-peer network are running on different platforms. We show that the proposed solution is better suited for exponential growth of the total mining power and it also reduces profit and negative side-effects of the coin-hopping attack.
 
 \subsection{Related Work}
 
-Here we observe known formal and informal studies of Bitcoin in regards with dynamic nature of difficulty parameter. Following the well known paper of Garay et al.~\cite{garay2015bitcoin} generalizing Bitcoin backbone protocol in static difficulty setting, a newer paper from the same authors~\cite{gkl16} is getting positive answer on whether basic security properties of the Bitcoin backbone protocol~(common prefix, chain quality and chain growth) hold in case of dynamic difficulty, in a cryptographic setting with an arbitrary adversary. Nevertheless, studying concrete attacks against the real protocol is still needed.      
+In this section, we provide an overview about known formal and informal studies of Bitcoin with regard to the dynamic nature of the difficulty parameters. Following the well known paper of Garay et al.~\cite{garay2015bitcoin} generalizing the Bitcoin backbone protocol in a static difficulty setting, a newer paper from the same authors~\cite{gkl16} is providing a positive answer on whether basic security properties of the Bitcoin backbone protocol~(common prefix, chain quality and chain growth) hold in case of dynamic difficulty, in a cryptographic setting with an arbitrary adversary. Nevertheless, studying concrete attacks against the real protocol is still needed.      
 
-Timejacking attack~\cite{timejacking2011} allows an attacker first shift network time at a victim node~(which is calculating network time by averaging timestamps got regularly from neighbors) and then force the victim node to reject a block with a specially crafted timestamp~(other nodes are accepting). The time wrapping attack~\cite{artforz2011} is exploiting the fact Bitcoin is using difference in timestamps between last and first block in an epoch, not last block in an epoch and last block in a previous epoch. By using specially crafted timestamps for the last block of each epoch, an attacker can produce more blocks for a time window with more work contributed to his chain. The difficulty raising attack, introduced in~\cite{bahack2013theoretical}, allows an attacker to discard $n$-depth block, for any $n$, and for any computational power of the attacker, with probability 1 if he is willing to wait enough time.
+The Timejacking attack~\cite{timejacking2011} allows an attacker to first shift the network time at a victims node~(which is calculating network time by averaging timestamps it gets regularly from neighbors) and then force the victim node to reject a block with a specially crafted timestamp~(other nodes are accepting). The time wrapping attack~\cite{artforz2011} is exploiting the fact that Bitcoin is using difference in timestamps between last and first block in an epoch, not last block in an epoch and last block in a previous epoch. By using specially crafted timestamps for the last block of each epoch, an attacker can produce more blocks for a time window with more work contributed to his chain. The difficulty raising attack, introduced in~\cite{bahack2013theoretical}, allows an attacker to discard $n$-depth block, for any $n$, and for any computational power of the attacker, with probability 1 if he is willing to wait long enough.
 
-A paper~\cite{kraft2015difficulty} is introducing an alternative difficulty readjustment function designed to work better than Bitcoin's not just for almost constant mining power but also when the power is growing exponentially with time. We provide comparison with this function in the paper.  
+Another paper~\cite{kraft2015difficulty} is introducing an alternative difficulty readjustment function designed to work better than Bitcoin's not just for almost constant mining power but also when the power is growing exponentially with time. We provide comparison with this function in the paper in one of the following sections.  
 
-\subsection{Structure of the Paper}
-
-Several parts are organizing the paper. In Section~\ref{sec:bit} we provide detailed view of Bitcoin readjustment function. In Section~\ref{sec:attack} we introduce the coin-hopping attack. In Section~\ref{sec:improved} an improved difficulty readjustment function is proposed and analyzed. Section~\ref{sec:sim} provides results of simulations. 
+The paper is organized as follows: in section~\ref{sec:bit} we provide a detailed view of Bitcoin's readjustment function. In section~\ref{sec:attack} we introduce the coin-hopping attack, followed by the definition of an improved difficulty readjustment function described in section~\ref{sec:improved}. Section~\ref{sec:sim} provides results of evaluation of the presented approach. 
 
 \section{Bitcoin Mining}
 \label{sec:bit}
 
-The concept of Bitcoin mining was introduced in the Section 4 of the Bitcoin whitepaper~\cite{Nakamoto2008} and discussed then in the papers~\cite{kraft2015difficulty},\cite{gkl16}. In Bitcoin a miner generates a block by iterating over {\em nonce} value and calculating hash of a block with the nonce value included. For a block $\block$ to be valid, a value of a hash function for it must be less than the current {\em target} $T$, $hash(\block) < T$, where $hash$ is an ideal cryptographic hash function. Hardness to find a block could be expressed also via {\em difficulty} $D$ as $D = \frac{1}{T}$. If output of $hash$ function is $\mu$ bits long then the probability to generate a block by doing $q$ requests to the hash function is $\frac{T \cdot q}{2^\mu} = \frac{q}{D \cdot 2^\mu}$. We define miner \textit{hashrate} $R$ as $R = \frac{q_s}{2^\mu}$, where $q_s$ is number of queries done per time unit. The probability to generate a block within time unit then is $\frac{R}{D}$.
+The concept of Bitcoin mining was introduced in the Section 4 of the Bitcoin whitepaper~\cite{Nakamoto2008} and discussed in detail later in the papers~\cite{kraft2015difficulty},\cite{gkl16}. In Bitcoin a miner generates a block by iterating over a {\em nonce} value and calculating the hash of a block with the nonce value included. For a block $\block$ to be valid, a value of a hash function has to be less than the current {\em target} $T$, $hash(\block) < T$, where $hash$ is an ideal cryptographic hash function. Hardness to find a block could be expressed also via {\em difficulty} $D$ as $D = \frac{1}{T}$. If output of the $hash$ function is $\mu$ bits long then the probability to generate a block by doing $q$ requests to the hash function is $\frac{T \cdot q}{2^\mu} = \frac{q}{D \cdot 2^\mu}$. We define miners \textit{hashrate} $R$ as $R = \frac{q_s}{2^\mu}$, where $q_s$ is number of queries done per time unit. The probability to generate a block within a time unit is then $\frac{R}{D}$.
 
 
 Every $M$ blocks ($M = 2016$ for Bitcoin) difficulty is recalculated as
 \begin{equation}
 D_{i+1}=D_i \cdot {M \cdot \texp \over S_m}
 \end{equation}
-where $\texp$ is expected time interval between blocks and $S_m$ is actual time spent to generate $M$ blocks.
-For Bitcoin observed time interval $\approx${\em 9 minutes 20 seconds} is less than planned value $\texp = 10$ {\em minutes} due to continuous growth of network computational power.
+where $\texp$ is the expected time interval between blocks and $S_m$ is the actual time spent to generate $M$ blocks.
+For the Bitcoin network, the observed time interval of $\approx${\em 9 minutes 20 seconds} is less than the planned value of $\texp = 10$ {\em minutes} due to continuous growth of the network computational power.
 Difficulty recalculation interval $M=2016$ has been chosen to recalculate difficulty every 2 weeks on average.
-This time interval is big enough to see computational power of the network being usually increased over it: right after target recalculation mean delay is close to planned 10 minutes, whereas at the end of an epoch it is less than 9 minutes in average (see Figure~\ref{fig:image}).
+This time interval is big enough to usually see a change of the computational power of the network, resulting in a mean delay is close to the planned 10 minutes right after target recalculation, whereas at the end of an epoch it is less than 9 minutes in average (see Figure~\ref{fig:image}).
 
 \begin{figure}[H]
 \center{\includegraphics[scale=0.25]{interval.png}}
@@ -96,29 +94,29 @@ This time interval is big enough to see computational power of the network being
 \end{figure}
 
 \textbf{TODO the picture above is a mess}
-\textbf{TODO transition to next section}
 
+The next section describes an attack that allows to gain benefits by attacking the recalculation algorithm.
 \section{\AttackName}
 \label{sec:attack}
 
 We consider the following attack involving an adversarial miner $\mathcal{A}$:
 
 \begin{itemize}
-\item There are $N > 1$ possible coins $\mathcal{A}$ can contribute to. Without a loss of generality, we assume that each of them is about the same profitability of the mining activity. 
-\item $\mathcal{A}$ is mining one of the coins before a beginning of an epoch, say, epoch $A$. At the beginning of $A$ he switches to mine other coins. 
-\item Without a contribution of $\mathcal{A}$ total mining power of the network for the epoch goes down. 
-\item For an epoch $B$ next to the epoch $A$ difficulty readjusted to a lower value. So $\mathcal{A}$ starts mining again with a lower difficulty. 
+\item There are $N > 1$ possible coins $\mathcal{A}$ can contribute to. Without a loss of generality, we assume that each of them provides about the same profitability of the mining activity. 
+\item $\mathcal{A}$ is mining one of the coins before a beginning of an epoch, say, epoch $A$. At the beginning of $A$ he switches to mine another coin. 
+\item Without thge contribution of miner $\mathcal{A}$ the total mining power of the network for the epoch decreases. 
+\item For an epoch $B$ right after epoch $A$, the difficulty gets readjusted to a lower value. So $\mathcal{A}$ starts mining again with a lower difficulty. 
 \end{itemize}
 
 We call this strategy a \textit{\attackname}.
 
-To calculate adversarial profit from the attack we assume Bitcoin difficulty recalculation function and constant network hashrate. We denote hashrate of miners not participating in coin-hopping attack as $R_0$, and we denote adversarial hashrate as $R_a=R_0\cdot p, 0 < p < 1 $.
-Before epoch $A$ the difficulty $D_0 = (R_0+R_a) \cdot \texp$, and the adversary mines $M \cdot R_a \over R_0 + R_a$ blocks per epoch (of $M$ blocks) in average by spending $M \cdot R_a \cdot \texp$ computational power for them.
+To calculate the profit the adversarial miner gains from this attack, we use Bitcoins' difficulty recalculation function and assume a  constant network hashrate (with respect to the rest of the network, without our adversarial miner). We denote the hashrate of miners not participating in the coin-hopping attack as $R_0$, and we denote the hashrate of the adversarial miner as $R_a=R_0\cdot p, 0 < p < 1 $.
+Before epoch $A$ the difficulty is $D_0 = (R_0+R_a) \cdot \texp$, and the adversary mines $M \cdot R_a \over R_0 + R_a$ blocks per epoch (of $M$ blocks) in average investing $M \cdot R_a \cdot \texp$ computational power.
 During the epoch B the adversary mines with difficulty $D_1 = R_0 \cdot \texp$ calculated from honest miners hashrate $R_0$ only.
-The adversary mines $M \cdot R_a \over 2(R_0+ R_a)$ blocks per epoch in average spending $M\cdot T\cdot R_a\cdot R_0\over 2 \cdot (R_0+R_a)$ computational power for them.
-Consequently honest miner will spend $(R_0+R_a) \texp$ computational power per block, whereas attacker will just spend $R_0 \cdot \texp$ computational power per block.
-The cost of computational resources invested into mining should be around the expected reward.
-If $\reward$ is block reward and $\cost$ is hash calculation cost, the honest miner profit is
+The adversary mines $M \cdot R_a \over 2(R_0+ R_a)$ blocks per epoch in average investing $M\cdot T\cdot R_a\cdot R_0\over 2 \cdot (R_0+R_a)$ computational power.
+Consequently honest miners will spend $(R_0+R_a) \texp$ computational power per block, whereas attacker will just spend $R_0 \cdot \texp$ computational power per block.
+Considering mining to be at least break-even, the cost of computational resources invested into mining should be around the expected reward.
+If $\reward$ is block reward and $\cost$ is hash calculation cost, honest miners profit is
 \begin{equation}
 {({M \cdot R_a \over R_0 + R_a}) \cdot \reward - M \cdot R_a \cdot T \cdot \cost = M\cdot R_a\cdot ({\reward \over R_0+R_a}-T \cdot \cost)}
 \end{equation}
@@ -137,7 +135,7 @@ Additional profit of the adversary is:
 
 
 
-Remarkable, that under such an attack mean time between blocks will be
+Remarkably, under such an attack the mean time between blocks will be
 \begin{equation}
 \label{eq:ati}
 {T_a={T\over 2}({R_0+R_a\over R_0} + {R_0 \over R_0+R_a}) = T(1 + {p^2\over 2(1+p)})}
@@ -146,61 +144,63 @@ which is bigger than the planned time $T$.
 
 %Please notice that we regard \(p\) as the ratio between the hash-powers of the attacker and the honest network so it changes from 0 to 1.
 
-\textbf{TODO transition to next section}
+The next section provides a new algorithm for difficulaty adjustment.
 
 
 
 \section{Improved Difficulty Adjustment}
 \label{sec:improved}
 
-The difficulty adjustment algorithm employed by Bitcoin works as designed: if the hash rate of the network is constant, it yields the desired block rate. However it does not achieve the desired block rate in other situations and vulnerable to attack, described in \ref{sec:attack}.
-In this section we are going to propose an alternative difficulty adjustment algorithm that works better than the Bitcoin's.
+The difficulty adjustment algorithm employed by Bitcoin works as designed: if the hash rate of the network is constant, it yields to the desired block rate. However it does not achieve the desired block rate in other situations and is vulnerable to the attack, described in \ref{sec:attack}.
+In this section we are going to propose an alternative difficulty adjustment algorithm.
 
 First, we state properties of an ideal difficulty update algorithm:
 \begin{enumerate}
 \item{It should be resistant to known types of attacks based on difficulty manipulation.}
-\item{It should lead to desired block rate for random fluctuations in the hash rate.}
+\item{It should lead to an almost constant desired block rate for random fluctuations in the hash rate.}
 \item{It should be simple enough to use integer arithmetic for all computational steps.}
 \end{enumerate}
 
-Security is the most important feature of blockchain systems and should be regarded with the highest priority.
+Security is the most important feature of blockchain systems and should be regarded with highest priority.
 Incorrect block rate is not considered a big problem in the Bitcoin community but it may be important for more advanced applications of blockchain systems.
-Implementation of the \textit{ideal} difficulty update algorithm in subclass of integer programming is desired for different platforms compatibility.
-This rule is not required, because, as mentioned in \cite{kraft2015difficulty}, it is possible to include non-integer algorithm parameters as part of the block, but it provides another way of difficulty manipulating to an attacker.
+Implementation of the \textit{ideal} difficulty update algorithm based solely on integer arithmetics is desired for a platform independent approach.
+This rule is not required necessarily, since as mentioned in \cite{kraft2015difficulty}, it is possible to include non-integer algorithm parameters as part of the block, but it provides another way of difficulty manipulating to an attacker.
 
-In this section we are going to regard difficulty adjustment algorithm based on well-known linear least squares method\cite{lawson1974solving}. In the simpliest case of pair linear regression (\(y=kx+b)\) coefficients may be calculated as follows:
+In this section we are providing a  difficulty adjustment algorithm based on the well-known linear least squares method\cite{lawson1974solving}. In the simpliest case of pair linear regression (\(y=kx+b)\) coefficients may be calculated as follows:
 
 \begin{equation}
   \begin{cases}
-    k= {{\overline{xy} - \overline{x}\overline{y}} \over {\overline{x^2} - \overline{x}^2}}  \\
+    k= {{\overline{xy} - \overline{x} \overline{y}} \over {\overline{x^2} - \overline{x}^2}}  \\
     b= \overline{y}-k\overline{x}
   \end{cases}
 \end{equation}
 
-Note, that for accurate difficulty prediction we should use few last observed difficulties, rather than just one, as implemented in Bitcoin, but it is possible to use this algorithm right after second epoch.
+Note, that for accurate difficulty prediction we should use a few last observed difficulties, rather than just one, as implemented in Bitcoin, but it is still possible to use this algorithm right after second epoch.
 
 
-We regard it as the good candidate for difficulty update algorithm, because:
-\begin{enumerate}
-\item{It should reduce profit of the attack, described in Section~\ref{sec:attack}. Calculations of the attacker profit are described in Section~\ref{sec:sim}}
-\item{It leads to desired block rate for linear changes in the hash rate.
-This means, that regarding block rate, linear algorithm is better than one of Bitcoin in all cases, except constant hash rate, when both provide the same result. }
-\item{It is simple enough to use integer arithmetic for all computational steps with high fidelity.}
-\end{enumerate}
+% We regard it as the good candidate for difficulty update algorithm, because:
+% \begin{enumerate}
+% \item{It should reduce profit of the attack, described in Section~\ref{sec:attack}. Calculations of the attacker profit are described in Section~\ref{sec:sim}}
+% \item{It leads to desired block rate for linear changes in the hash rate.
+% This means, that regarding block rate, linear algorithm is better than one of Bitcoin in all cases, except constant hash rate, when both provide the same result. }
+% \item{It is simple enough to use integer arithmetic for all computational steps with high fidelity.}
+% \end{enumerate}
 
-\section{Simulations}
+The next section provides an evaulation of the presented approach.
+
+\section{Evaluation}
 \label{sec:sim}
 
-We present simulation results that show how our method proposed in Section~\ref{sec:improved} improves over Bitcoinâ€™s difficulty update algorithm.
+We now present simulation results that show that the  method proposed in Section~\ref{sec:improved} outperforms Bitcoinâ€'s difficulty update algorithm.
 We will regard difficulty growth in this section, keeping in mind the fact, that it is closely related with network hash rate, which is usually considered in literature.
 
 \textbf{TODO Linear?}
 
 \subsection{Exponential Difficulty}
 
-First, we observe exponential difficulty growth occurred in practice in Bitcoin network. As we already mentioned, exponential difficulty growth is the absolutely worst case possible for Bitcoinâ€™s difficulty retargeting algorithm.
-For simplicity we regard a situation, when hash rate growth 10\% each epoch, more complicated research of exponential difficulty growth can be found in~\cite{kraft2015difficulty}.
-Figure~\ref{fig:exp} presents difficulty as the function of epoch, which is 2016 blocks in Bitcoin.
+First, we observe exponential difficulty growth as it occurres in practice in the Bitcoin network. As we already mentioned, exponential difficulty growth is the absolutely worst case possible for Bitcoinâ€™s difficulty retargeting algorithm.
+For simplicity we regard a situation, when hash rate increases by 10\% each epoch, more complicated research of exponential difficulty growth can be found in~\cite{kraft2015difficulty}.
+Figure~\ref{fig:exp} presents difficulty function over epochs, which is 2016 blocks in Bitcoin.
 
 \begin{figure}[h]
 \center{\includegraphics[scale=0.3]{exp.png}}
@@ -210,16 +210,16 @@ Figure~\ref{fig:exp} presents difficulty as the function of epoch, which is 2016
 
 Note that difficulty calculated from Bitcoin algorithm is always significantly lower than the real one.
 This leads to \textit{9 min 5 sec} time interval between blocks, which is $\approx$10\% lower then desired \textit{10 min} interval.
-Difficulty, calculated from Linear algorithm is also always lower, then the real one, while it's much closer to it.
-Mean time interval between blocks is \textit{9 min 45 sec}, which is much closer to the desired one.
+Difficulty, calculated by the linear algorithm is constantly lower, then the real one, but still much closer to it.
+Mean time interval between blocks is \textit{9 min 45 sec} (TODO: use the same numbers for this throughout the article), which is much closer to the desired one.
 
-While difficulty update algorithm, proposed in~\cite{kraft2015difficulty} leads to much better results for exponential difficulty growth with a constant rate, we should note, that our algorithm is much simplier and may be implemented with integer arithmetic only.
+While the difficulty update algorithm, proposed in~\cite{kraft2015difficulty} leads to much better results for exponential difficulty growth with a constant rate, we should note, that our algorithm is much simpler and may be implemented with integer arithmetic only.
 Moreover, exponential difficulty growth is the simplification of the difficulty growth law, and it may be incorrect to expect it in some situations.
 
 \subsection{\AttackName}
 
-We consider a situation described in the Section~\ref{sec:attack}: an attacker with computational power \(R_a\) (for simplicity we suppose \(R_a=0.2 \cdot R_a \) in this section) turn on and turn off his mining to manipulate difficulty and minimize computational power, expended for block mining.
-Figure \ref{fig:exp} represents difficulty as the function of epcoh for this situation.
+We consider a situation as described in the Section~\ref{sec:attack}: an attacker with computational power \(R_a\) (for simplicity we suppose \(R_a=0.2 \cdot R_a \) in this section) turn on and turn off his mining to manipulate difficulty and minimize computational power, expended for block mining.
+Figure \ref{fig:exp} (TODO: shouldn't this be figure 3?) represents difficulty as the function over epochs for this situation.
 
 \begin{figure}[h]
 \center{\includegraphics[scale=0.3]{attack.png}}
@@ -228,19 +228,19 @@ Figure \ref{fig:exp} represents difficulty as the function of epcoh for this sit
 \end{figure}
 
 Note that the difficulty calculated with the Bitcoin algorithm is always in antiphase with the real one and the attacker spends his computational power only when difficulty is low.
-Bitcoin difficulty update algorithm leads to \textit{10 min 10 sec} mean delay between blocks, which is in good correlation with \ref{eq:ati}.
-Linear algorithm also leads to enlarged time interval between blocks \textit{10 min 5 sec}, but it's deviation from desired time is 2 times lower.
-Obviously, attacker profit is also 2 times lower in situation with linear difficulty update algorithm, which may be regarded as a good result.
+The Bitcoin difficulty update algorithm leads to \textit{10 min 10 sec} mean delay between blocks, which is in good correlation with \ref{eq:ati}.
+The linear algorithm also leads to enlarged time interval between blocks equal to \textit{10 min 5 sec}, resulting in a two times lower deviation from the desired time.
+Obviously, the profit of the attacker is then also 2 times lower while using the the linear difficulty update algorithm, providing a servious improvement.
 
-Thus, linear difficulty control algorithm, proposed in Section \ref{sec:improved} is better than the Bitcoin's in all situations both in terms of block rate and in terms of attacker profit.
+Thus, linear difficulty control algorithm, proposed in Section \ref{sec:improved} is better than the one used in Bitcoin for the given situation, both in terms of block rate and in terms of attacker profit.
 
 
 %\section{Conclusion}
 %\label{sec:concl}
 
-%In this paper we analyze a new kind of attacks on the blockchain based on manipulating mining difficulty. This attack decrease computational power spent by an attacker for block mining while increasing mean time interval between blocks. It is especially favorable in situation, when the cost of computational resources invested into mining is around the expected reward and there are enough forks to switch mining between them.
+%In this paper we analyze a new kind of attacks on the blockchain based on manipulating mining difficulty. This attack decreases computational power spent by an attacker for block mining while increasing mean time interval between blocks. It is especially favorable in situation, when the cost of computational resources invested into mining is around the expected reward and there are enough forks to switch mining between them.
 
-%To improve the stability of block times and decrease the attacker profit, we proposed an alternative difficulty update algorithm, based on linear regression. It was found that this algorithm is better then the Bitcoin one both in terms of block rate and in terms of attacker profit, while it's still simple enough to be computed with integer arithmetic only.
+%To improve the stability of block times and decrease the attacker profit, we proposed an alternative difficulty update algorithm, based on linear regression. It was found that this algorithm performs better then the one used in Bitcoin both in terms of block rate and in terms of attacker profit, while it's still simple enough to be computed with integer arithmetic only.
 
 %\section*{Acknowledgments}
 
