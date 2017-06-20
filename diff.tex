@@ -17,6 +17,8 @@
 \newcommand{\block}{\mathcal{B}}
 \newcommand{\reward}{\mathcal{W}}
 \newcommand{\cost}{\mathcal{C}}
+\newcommand*\mean[1]{\bar{#1}}
+\newcommand*\widemean[1]{\overline{#1}}
 
 \newcommand{\attackname}{coin-hopping attack}
 \newcommand{\AttackName}{Coin-hopping Attack}
@@ -160,8 +162,8 @@ In this section we are providing a  difficulty adjustment algorithm based on the
 
 \begin{equation}
   \begin{cases}
-    k= {{\overline{xy} - \overline{x} \overline{y}} \over {\overline{x^2} - \overline{x}^2}}  \\
-    b= \overline{y}-k\overline{x}
+    k= {{\widemean{xy} - \mean{x} \mean{y}} \over {\widemean{x^2} - \widemean{x}^2}}  \\
+    b= \widemean{y}-k\widemean{x}
   \end{cases}
 \end{equation}
 
