@@ -77,20 +77,20 @@ The paper is organized as follows: in section~\ref{sec:bit} we provide a detaile
 \section{Bitcoin Mining}
 \label{sec:bit}
 
-The concept of Bitcoin mining was introduced in the Section 4 of the Bitcoin whitepaper~\cite{Nakamoto2008} and discussed in detail later in the papers~\cite{kraft2015difficulty},\cite{gkl16}. In Bitcoin a miner generates a block by iterating over a {\em nonce} value and calculating the hash of a block with the nonce value included. For a block $\block$ to be valid, a value of a hash function has to be less than the current {\em target} $T$, $hash(\block) < T$, where $hash$ is an ideal cryptographic hash function. Hardness to find a block could be expressed also via {\em difficulty} $D$ as $D = \frac{1}{T}$. If output of the $hash$ function is $\mu$ bits long then the probability to generate a block by doing $q$ requests to the hash function is $\frac{T \cdot q}{2^\mu} = \frac{q}{D \cdot 2^\mu}$. We define miners \textit{hashrate} $R$ as $R = \frac{q_s}{2^\mu}$, where $q_s$ is number of queries done per time unit. The probability to generate a block within a time unit is then $\frac{R}{D}$.
+The concept of Bitcoin mining was introduced in the Section 4 of the Bitcoin whitepaper~\cite{Nakamoto2008} and discussed in detail later in the papers~\cite{kraft2015difficulty},\cite{gkl16}. In Bitcoin a miner generates a block by iterating over a {\em nonce} value and calculating the hash of a block with the nonce value included. For a block $\block$ to be valid, a value of a hash function has to be less than the current {\em target} $T$, $hash(\block) < T$, where $hash$ is an ideal cryptographic hash function. Hardness to find a block could be expressed also via {\em difficulty} $D$ as $D = \frac{1}{T}$. If output of the $hash$ function is $\mu$ bits long then the probability to generate a block by doing $q$ requests to the hash function is $\frac{T \cdot q}{2^\mu} = \frac{q}{D \cdot 2^\mu}$. We define miners $s$ \textit{hashrate} $R$ as $R = \frac{q_s}{2^\mu}$, where $q_s$ is number of queries done by miner $s$ per time unit. The probability to generate a block within a time unit is then $\frac{R}{D}$.
 
 
-Every $M$ blocks ($M = 2016$ for Bitcoin) difficulty is recalculated as
+Every $M$ blocks ($M = 2016$ for Bitcoin) the difficulty is recalculated as
 \begin{equation}
 D_{i+1}=D_i \cdot {M \cdot \texp \over S_m}
 \end{equation}
 where $\texp$ is the expected time interval between blocks and $S_m$ is the actual time spent to generate $M$ blocks.
-For the Bitcoin network, the observed time interval of $\approx${\em 9 minutes 20 seconds} is less than the planned value of $\texp = 10$ {\em minutes} due to continuous growth of the network computational power.
+For the Bitcoin network, the observed time interval of $\approx${\em 9 minutes 20 seconds} is less than the planned value of $\texp = 10$ {\em minutes} due to continuous growth of the computational power of the network.
 Difficulty recalculation interval $M=2016$ has been chosen to recalculate difficulty every 2 weeks on average.
-This time interval is big enough to usually see a change of the computational power of the network, resulting in a mean delay is close to the planned 10 minutes right after target recalculation, whereas at the end of an epoch it is less than 9 minutes in average (see Figure~\ref{fig:image}).
+This time interval is big enough to usually see a change of the computational power of the network, resulting in a mean delay close to the planned 10 minutes right after target recalculation, whereas at the end of an epoch it is less than 9 minutes in average (see Figure~\ref{fig:image}).
 
 \begin{figure}[H]
-\center{\includegraphics[scale=0.25]{interval.png}}
+\center{\includegraphics[scale=0.37]{interval.png}}
 \caption{Average block time between difficulty recalculation}
 \label{fig:image}
 \end{figure}
@@ -105,7 +105,7 @@ We consider the following attack involving an adversarial miner $\mathcal{A}$:
 
 \begin{itemize}
 \item There are at least 2 possible coins (\coinA{},\coinB{}) $\mathcal{A}$ can contribute to. Without a loss of generality, we assume that each of them provides about the same profitability of the mining activity.
-\item $\mathcal{A}$ is mining coin \coinB{} before a beginning of an epoch $A$. At the beginning of $A$ he switches to mine coin \coinA{}.
+\item $\mathcal{A}$ is mining coin \coinB{} before the beginning of an epoch $A$. At the beginning of $A$ he switches to mine coin \coinA{}.
 \item Without the contribution of miner $\mathcal{A}$ the total mining power of the \coinB{} network for the epoch decreases.
 \item For an epoch $B$ right after epoch $A$, the difficulty of \coinB{} gets readjusted to a lower value. So $\mathcal{A}$ starts mining \coinB{} again with a lower difficulty.
 \end{itemize}
@@ -114,15 +114,22 @@ We call this strategy a \textit{\attackname}.
 
 To calculate the profit the adversarial miner gains from this attack, we use Bitcoins' difficulty recalculation function and assume a  constant network hashrate (with respect to the rest of the network, without our adversarial miner).
 We denote the hashrate of miners not participating in the coin-hopping attack as $R_0$ in both \coinA{} and \coinB{}, and we denote the hashrate of the adversarial miner as $R_a=R_0\cdot p, 0 < p < 1 $.
-Before epoch $A$ the adversary is mining coin \coinB{}, thus \coinB{} difficulty is $D_0 = (R_0+R_a) \cdot \texp$.
-During the epoch A difficulty of \coinB{} is still $D_0$, and $\mathcal{A}$ switches to mine coin \coinA{} that have the difficulty $D_1 = R_0 \cdot \texp$  calculated from honest miners hashrate $R_0$ only.
-During the epoch B the adversary start mining of \coinB{}, that now do have difficulty $D_1$, while honest miners on chain \coinA{} continues to mine it with higher difficulty $D_0$.
+Before epoch $A$ the adversary is mining coin \coinB{}, thus the difficulty of the \coinB{} network  is $D_0 = (R_0+R_a) \cdot \texp$.
+During the epoch A the difficulty of the \coinB{} network is still $D_0$, and $\mathcal{A}$ switches to mine coin \coinA{} at a difficulty $D_1 = R_0 \cdot \texp$  calculated from honest miners hashrate $R_0$ only.
+During the epoch B the adversary starts mining of \coinB{}, now at difficulty $D_1$, while honest miners on chain \coinA{} continue to mine it with higher difficulty $D_0$.
 After that $\mathcal{A}$ continues to switch between chains \coinA{} and \coinB{} always mining on the chain with lower difficulty $D_1$, spending $R_0 \cdot \texp$ computational power per block, whereas honest miners spend $(R_0+R_a) \texp$ computational power per block.
 
-Every epoch honest miner with hashrate $R_a$ will generate $M \cdot R_a \over R_0 + R_a$, blocks, whereas $\mathcal{A}$ will generate $M \cdot R_a \over R_0$ blocks.
-If $\reward$ is block reward additional profit of the adversary is
+Every epoch honest miners with hashrate $R_0$ will generate $M \cdot R_0 \over R_0 + R_a$, blocks, whereas $\mathcal{A}$ will generate $M \cdot R_a \over R_0$ blocks.
+If $\reward$ is block reward, the additional profit of the adversary is calculated as the difference of what he mines based on the lower difficulty in contrast to the difficulty he would mine at without hopping between the coins:
 \begin{equation}
-{\reward \cdot M \cdot R_a^2 \over R_0 \cdot (R_a + R_0)} = {\reward \cdot M \cdot p^2 \over 1+p}
+\begin{aligned}
+{\reward \cdot M \cdot { R_a \over R_0} - \reward \cdot M \cdot { R_a \over R_0 + R_a}} = \\
+= {\reward \cdot M \cdot ( { R_a \over R_0} - {R_a \over R_0 + R_a})} = \\
+= {\reward \cdot M \cdot { R_a \cdot (R_0 + R_a) + R_a \cdot R_0 \over R_0 \cdot (R_0 + R_a) }} = \\
+= {\reward \cdot M \cdot { R_a^2 \over R_0 \cdot (R_a + R_0) }} = \\
+= {\reward \cdot M \cdot {R_0^2 \cdot p^2 \over R_0 \cdot (R_0 \cdot p + R_0)}} = \\
+= {\reward \cdot M \cdot { p^2 \over 1+p }}
+\end{aligned}
 \end{equation}
 
 Although this is a small contribution to total mining reward of $\mathcal{A}$, prime cost of mining is expected to be close to mining reward due to economical reasons, making mining much more profitable to $\mathcal{A}$, then to other miners.
