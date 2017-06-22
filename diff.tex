@@ -193,9 +193,7 @@ The next section provides an evaulation of the presented approach.
 We now present simulation results that show that the  method proposed in Section~\ref{sec:improved} outperforms Bitcoin�'s difficulty update algorithm.
 We will regard difficulty growth in this section, keeping in mind the fact, that it is closely related with network hash rate, which is usually considered in literature.
 
-\textbf{TODO Linear?}
-
-\subsection{Exponential Difficulty}
+\subsection{Real World Data}
 
 First, we observe exponential difficulty growth as it occurres in practice in the Bitcoin network. As we already mentioned, exponential difficulty growth is the absolutely worst case possible for Bitcoin’s difficulty retargeting algorithm.
 For simplicity we regard a situation, when hash rate increases by 10\% each epoch, more complicated research of exponential difficulty growth can be found in~\cite{kraft2015difficulty}.
@@ -212,8 +210,22 @@ This leads to \textit{9 min 5 sec} time interval between blocks, which is $\appr
 Difficulty, calculated by the linear algorithm is constantly lower, then the real one, but still much closer to it.
 Mean time interval between blocks is \textit{9 min 45 sec} (TODO: use the same numbers for this throughout the article), which is much closer to the desired one.
 
+Furthermore, we looked at the error in percentage of the difficulty. That shows that the algorithm currently used in the Bitcoin network has a pretty constant average error of about 9.1\%, while our algorithm only has a constant error of about 1.9\%.
+
 While the difficulty update algorithm, proposed in~\cite{kraft2015difficulty} leads to much better results for exponential difficulty growth with a constant rate, we should note, that our algorithm is much simpler and may be implemented with integer arithmetic only.
 Moreover, exponential difficulty growth is the simplification of the difficulty growth law, and it may be incorrect to expect it in some situations.
+
+\subsection{Real World Data}
+
+In order to further evaluate the presented approach, we also used real world data from the Bitcoin network. For this we compared the real world data of the difficulty calculated by the algorithm used in Bitcoin in comparison to the difficulty as it should have been. Furthermore, we do the same calculation based on our model. Results are shown in figure~\ref{fig:real_world_difficulty}.
+
+\begin{figure}[h]
+\center{\includegraphics[scale=0.5]{real_world_difficulty.png}}
+\caption{Comparison of the real world difficulty data from the Bitcoin network}
+\label{fig:real_world_difficulty}
+\end{figure}
+
+We further evaluated the average of the percentage of the differeces, again both for the Bitcoin algorithm as well as for our approach and have found that in average, Bitcoins' algorithm has an error of about 12.3\% while our approach only has an error of about 8.4\%. This shows that our approach performs about 33\% better than the approach currently used in the Bitcoin network.
 
 \subsection{\AttackName}
 
@@ -234,12 +246,11 @@ Obviously, the profit of the attacker is then also 2 times lower while using the
 Thus, linear difficulty control algorithm, proposed in Section \ref{sec:improved} is better than the one used in Bitcoin for the given situation, both in terms of block rate and in terms of attacker profit.
 
 
-%\section{Conclusion}
-%\label{sec:concl}
+\section{Conclusion}
+\label{sec:concl}
+In this paper we analyze a new kind of attacks on the blockchain based on manipulating mining difficulty. This attack decreases computational power spent by an attacker for block mining while increasing mean time interval between blocks. It is especially favorable in situation, when the cost of computational resources invested into mining is around the expected reward and there are enough forks to switch mining between them.
 
-%In this paper we analyze a new kind of attacks on the blockchain based on manipulating mining difficulty. This attack decreases computational power spent by an attacker for block mining while increasing mean time interval between blocks. It is especially favorable in situation, when the cost of computational resources invested into mining is around the expected reward and there are enough forks to switch mining between them.
-
-%To improve the stability of block times and decrease the attacker profit, we proposed an alternative difficulty update algorithm, based on linear regression. It was found that this algorithm performs better then the one used in Bitcoin both in terms of block rate and in terms of attacker profit, while it's still simple enough to be computed with integer arithmetic only.
+To improve the stability of block times and decrease the attacker profit, we proposed an alternative difficulty update algorithm, based on linear regression. It was found that this algorithm performs better then the one used in Bitcoin both in terms of block rate and in terms of attacker profit, while it's still simple enough to be computed with integer arithmetic only.
 
 %\section*{Acknowledgments}
 
