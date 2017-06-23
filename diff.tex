@@ -134,7 +134,7 @@ If $\reward$ is block reward, the additional profit of the adversary is calculat
 \end{aligned}
 \end{equation}
 
-Although this is a small contribution to total mining reward of $\mathcal{A}$, prime cost of mining is expected to be close to mining reward due to economical reasons, making mining much more profitable to $\mathcal{A}$, then to other miners.
+%Although this is a small contribution to total mining reward of $\mathcal{A}$, prime cost of mining is expected to be close to mining reward due to economical reasons, making mining much more profitable to $\mathcal{A}$, then to other miners.
 
 Remarkably, under such an attack the mean time between blocks in both chains \coinA{} and \coinB{} will be
 \begin{equation}
@@ -208,7 +208,7 @@ Figure~\ref{fig:exp} presents difficulty function over epochs, which is 2016 blo
 Note that difficulty calculated from Bitcoin algorithm is always significantly lower than the real one.
 This leads to \textit{9 min 5 sec} time interval between blocks, which is $\approx$10\% lower then desired \textit{10 min} interval.
 Difficulty, calculated by the linear algorithm is constantly lower, then the real one, but still much closer to it.
-Mean time interval between blocks is \textit{9 min 45 sec} (TODO: use the same numbers for this throughout the article), which is much closer to the desired one.
+Mean time interval between blocks is \textit{9 min 45 sec}, which is much closer to the desired one.
 
 Furthermore, we looked at the error in percentage of the difficulty. That shows that the algorithm currently used in the Bitcoin network has a pretty constant average error of about 9.1\%, while our algorithm only has a constant error of about 1.9\%.
 
@@ -229,7 +229,7 @@ We further evaluated the average of the percentage of the differeces, again both
 
 \subsection{\AttackName}
 
-We consider a situation as described in the Section~\ref{sec:attack}: an attacker with computational power \(R_a\) (for simplicity we suppose \(R_a=0.2 \cdot R_a \) in this section) turn on and turn off his mining to manipulate difficulty and minimize computational power, expended for block mining.
+We consider a situation as described in the Section~\ref{sec:attack}: an attacker with computational power \(R_a\) (for simplicity we suppose \(R_a=0.2 \cdot R_0 \) in this section) turn on and turn off his mining to manipulate difficulty and minimize computational power, expended for block mining.
 Figure \ref{fig:attack} represents difficulty as the function over epochs for this situation.
 
 \begin{figure}[h]
