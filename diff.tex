@@ -32,8 +32,8 @@
 \title{Revisiting Difficulty Control for Blockchain Systems}
 
 
-\author{authors}
-\institute{institutes}
+%\author{authors}
+%\institute{institutes}
 
 %\ead{dmitry.meshkov@iohk.io}
 
@@ -41,9 +41,9 @@
 
 \begin{abstract}
 
-The Bitcoin whitepaper~\cite{Nakamoto2008} states that the security of the system is guaranteed as long as honest miners control more than half of the current total computational power. The whitepaper assumes a static difficulty, so that it is equally hard to solve a cryptographic proof-of-work puzzle independent of the system behavior. However, a real Bitcoin network is using an adaptive difficulty adjustment mechanism.  
+The Bitcoin whitepaper~\cite{Nakamoto2008} states that the security of the system is guaranteed as long as honest miners control more than half of the current total computational power. The whitepaper assumes a static difficulty, thus it is equally hard to solve a cryptographic proof-of-work puzzle for any given moment of the system history. However, the real Bitcoin network is using an adaptive difficulty adjustment mechanism.  
 
-In this paper we introduce and analyze a new kind of attack on mining difficulty retargeting. A malicious miner is increasing his mining profits from the attack and, as a side effent,  the average time interval between blocks is increasing.
+In this paper we introduce and analyze a new kind of attack on a mining difficulty retargeting function used in Bitcoin. A malicious miner is increasing his mining profits from the attack and, as a side effent,  the average time interval between blocks is increasing.
 
 We propose an alternative difficulty adjustment algorithm in order to reduce the incentive of such an attack and also to improve stability of inter-block delays. Finally, we evaluate the presented approach and show that the novel approach performs better than the original algorithm of Bitcoin.
 	
@@ -54,13 +54,13 @@ We propose an alternative difficulty adjustment algorithm in order to reduce the
 \label{sec:intro}
 
 Blockchain systems have attracted significant amount of interest after the Bitcoin whitepaper~\cite{Nakamoto2008} was published in 2008.
-Bitcoin security relies on a distributed problem solving protocol which maintains a distributed ledger. In the protocol miners are trying to find a partial hash collision in order to generate a valid block by iterating over nonce field values. 
+Bitcoin security relies on a distributed protocol which maintains a distributed ledger. In the protocol miners are trying to find a partial hash collision in order to generate a valid block by iterating over nonce field values. 
 %That is, for a given block $\block$~(with a random nonce included) in order for being valid, the condition $hash(\block) < T$ should hold, where {\em target} parameter $T$ specifies expected hardness of the block generation. This hardness can be also expressed via the {\em difficulty} parameter $D = \frac{1}{T}$.
 
 Alternative systems may rely on other types of computational puzzles rather than finding a partial hash collision, e.g.,~\cite{miller2014permacoin,biryukov2017equihash}. Nevertheless, all of them assume some algorithm that changes the difficulty of the puzzle dynamically. An algorithm for difficulty readjustment is required in order to make an open blockchain system working stable in the face of participants joining and leaving the system (resulting in constantly changing available computational power for solving the puzzles), and also to stabilize mean latency between blocks. 
 
 The difficulty readjustment algorithm in Bitcoin assumes that the total computational power involved in the mining process does not significantly change from epoch to epoch. In contrast, real networks show that a significant variance in computational power happens over long periods.
-For example, we show in this paper that due to continuous growth of computational power in the Bitcoin network a mean delay between blocks of about 7\%, in comparison to the expected value, could be observed.
+For example, we show in this paper that due to continuous growth of computational power in the Bitcoin network a mean delay between blocks of about differs from an expected value by 7\%.
 Noteworthy, exponential growth of computational power, often observed in practice, is the absolutely worst case~(regarding the mean block delay divergence) for the Bitcoin's difficulty readjustment algorithm~\cite{kraft2015difficulty}.
  
 In this paper we also consider a new type of miner behavior with regards to difficulty readjustment which is problematic for security guarantees of a blockchain system which we call a \attackname following the ``pool-hopping'' term raised in~\cite{rosenfeld2011analysis}. In this attack, an adversarial miner is switching from mining one coin to another in the beginning of an epoch, then he is switching back in the beginning of next epoch when difficulty becomes lower. We show how mining profit is increasing for Bitcoin's difficulty readjustment function, and how inter-block delay suffers from the \attackname.
