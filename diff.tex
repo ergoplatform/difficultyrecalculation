@@ -155,7 +155,7 @@ First, we state properties of an ideal difficulty update algorithm:
 %Implementation of the \textit{ideal} difficulty update algorithm based solely on integer arithmetics is desired for a platform independent approach.
 %This rule is not required necessarily, since as mentioned in \cite{kraft2015difficulty}, it is possible to include non-integer algorithm parameters as part of the block, but it provides another way of difficulty manipulating to an attacker.
 
-We propose a difficulty adjustment algorithm based on the well-known linear least squares method\cite{lawson1974solving}. In the simplest case of pair linear regression (\(y=kx+b)\) coefficients may be calculated as follows:
+We propose a difficulty adjustment algorithm based on the well-known linear least squares method\cite{lawson1974solving}, we name it {\em linear algorithm}. In the simplest case of pair linear regression $y=kx+b$, coefficients may be calculated as follows:
 
 \begin{equation}
   \begin{cases}
@@ -175,7 +175,7 @@ Note that for accurate difficulty prediction we should use a few last observed d
 % \item{It is simple enough to use integer arithmetic for all computational steps with high fidelity.}
 % \end{enumerate}
 
-The next section provides an evaulation of the presented approach.
+The next section provides an evaulation of the linear algorithm.
 
 \section{Evaluation}
 \label{sec:sim}
