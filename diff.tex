@@ -80,7 +80,7 @@ The paper is organized as follows: in Section~\ref{sec:bit} we provide a detaile
 \section{Bitcoin Mining}
 \label{sec:bit}
 
-The concept of Bitcoin mining was introduced in Section 4 of the Bitcoin whitepaper~\cite{Nakamoto2008}, and then discussed in detail in the papers~\cite{kraft2015difficulty},\cite{gkl16}. Bitcoin miner generates a block by iterating over a {\em nonce} value and calculating the hash of a block with the nonce value included. For a block $\block$ to be valid, a value of a hash function has to be less than the current {\em target} $T$, $hash(\block) < T$, where $hash$ is an ideal cryptographic hash function. Hardness to find a block could be expressed also via {\em difficulty} $D$ as $D = \frac{1}{T}$. If output of the $hash$ function is $\mu$ bits long then the probability to generate a block by doing $q$ requests to the hash function is $\frac{T \cdot q}{2^\mu} = \frac{q}{D \cdot 2^\mu}$. We define miner's \textit{hashrate} $R$ as $R = \frac{q_s}{2^\mu}$, where $q_s$ is number of queries done by miner $s$ per time unit. The probability to generate a block within a time unit is then $\frac{R}{D}$.
+The concept of Bitcoin mining was introduced in Section 4 of the Bitcoin whitepaper~\cite{Nakamoto2008}, and then discussed in detail in the papers~\cite{kraft2015difficulty},\cite{gkl16}. Bitcoin miner generates a block by iterating over a {\em nonce} value and calculating the hash of a block with the nonce value included. For a block $\block$ to be valid, a value of a hash function has to be less than the current {\em target} $T$, $hash(\block) < T$, where $hash$ is an ideal cryptographic hash function. Hardness to find a block could be expressed also via {\em difficulty} $D$ as $D = \frac{1}{T}$. If output of the $hash$ function is $\mu$ bits long then the probability to generate a block by doing $q$ requests to the hash function is $\frac{T \cdot q}{2^\mu} = \frac{q}{D \cdot 2^\mu}$. We define miner's {\em hashrate} $R$ as $R = \frac{q_s}{2^\mu}$, where $q_s$ is number of queries done by miner $s$ per time unit. The probability to generate a block within a time unit is then $\frac{R}{D}$.
 
 
 Every $M$ blocks ($M = 2016$ for Bitcoin) the difficulty is recalculated as
@@ -105,7 +105,7 @@ We consider the following attack involving an adversarial miner $\mathcal{A}$:
 \item For an epoch $B$ right after epoch $A$, the difficulty of \coinB{} gets readjusted to a lower value. So $\mathcal{A}$ starts mining \coinB{} again with a lower difficulty.
 \end{itemize}
 
-We call this strategy a \textit{\attackname}.
+We call this strategy a {\em \attackname{}}.
 
 To calculate the profit the adversarial miner gains from this attack, we use Bitcoins' difficulty recalculation function and assume a  constant network hashrate (with respect to the rest of the network, without our adversarial miner).
 We denote the hashrate of miners not participating in the coin-hopping attack as $R_0$ in both \coinA{} and \coinB{}, and we denote the hashrate of the adversarial miner as $R_a=R_0\cdot p, 0 < p < 1 $.
@@ -175,7 +175,7 @@ Note that for accurate difficulty prediction we should use a few last observed d
 % \item{It is simple enough to use integer arithmetic for all computational steps with high fidelity.}
 % \end{enumerate}
 
-The next section provides an evaulation of the linear algorithm.
+The next section provides an evaluation of the linear algorithm.
 
 \section{Evaluation}
 \label{sec:sim}
@@ -196,9 +196,9 @@ Figure~\ref{fig:exp} presents difficulty function over epochs, which is 2016 blo
 \end{figure}
 
 Note that the difficulty calculated from Bitcoin algorithm is always significantly lower than the real one.
-This leads to a \textit{9 min 5 sec} time interval between blocks, which is $\approx$10\% lower then desired \textit{10 min} interval.
+This leads to a {\em 9 min 5 sec} time interval between blocks, which is $\approx$10\% lower then desired {\em 10 min} interval.
 Difficulty, calculated by the linear algorithm is constantly lower, then the real one, but still much closer to it.
-Mean time interval between blocks in this approach is \textit{9 min 45 sec}, which is much closer to the desired one.
+Mean time interval between blocks in this approach is {\em 9 min 45 sec}, which is much closer to the desired one.
 
 Furthermore, we looked at the error in percentage of the difficulty. That shows that the algorithm currently used in the Bitcoin network has a pretty constant average error of about 9.1\%, while our algorithm only has a constant error of about 1.9\%.
 
@@ -207,7 +207,7 @@ Moreover, exponential difficulty growth is the simplification of the difficulty 
 
 \subsection{Real World Data}
 
-In order to further evaluate the presented approach, we also used real world data from the Bitcoin network. For this we compared the real world data of the difficulty calculated by the algorithm used in Bitcoin in comparison to the difficulty as it should have been. Furthermore, we do the same calculation based on our model. Results are similar as for the experimental data described in~\ref{sec:experiment}.
+In order to further evaluate the presented approach we also used real world data from the Bitcoin network. For this we compared the real world data of the difficulty calculated by the algorithm used in Bitcoin in comparison to the difficulty as it should have been. Furthermore, we do the same calculation based on our model. Results are similar as for the experimental data described in~\ref{sec:experiment}.
 
 %Results are shown in figure~\ref{fig:real_world_difficulty}.
 
@@ -217,7 +217,7 @@ In order to further evaluate the presented approach, we also used real world dat
 %\label{fig:real_world_difficulty}
 %\end{figure}
 
-We further evaluated the average of the percentage of the differences, again both for the Bitcoin algorithm as well as for our approach and have found that in average, Bitcoins' algorithm has an error of about 12.3\% while our approach only has an error of about 8.4\%. This shows that our approach performs about 33\% better than the approach currently used in the Bitcoin network.
+We further evaluate the average of the differences, again for both the Bitcoin algorithm as well as for our approach. Results show that in average Bitcoin algorithm has an error of about 12.3\% while our approach only has an error of about 8.4\%. This shows that our approach performs about 33\% better than the approach currently used in the Bitcoin network.
 
 \subsection{\AttackName}
 
@@ -231,11 +231,11 @@ Figure \ref{fig:attack} represents difficulty as the function over epochs for th
 \end{figure}
 
 Note that the difficulty calculated with the Bitcoin algorithm is always in antiphase with the real one and the attacker invests his computational power only when difficulty is low.
-The Bitcoin difficulty update algorithm leads to \textit{10 min 10 sec} mean delay between blocks, which is in good correlation with \ref{eq:ati}.
-The linear algorithm also leads to enlarged time interval between blocks equal to \textit{10 min 5 sec}, resulting in a two times lower deviation from the desired time.
-Obviously, the profit of the attacker is then also 2 times lower while using the the linear difficulty update algorithm, providing a servious improvement.
+The Bitcoin difficulty update algorithm leads to {\em 10 min 10 sec} mean delay between blocks, which is in good correlation with \ref{eq:ati}.
+The linear algorithm also leads to enlarged time interval between blocks equal to {\em 10 min 5 sec}, resulting in a two times lower deviation from the desired time.
+Obviously, the profit of the attacker is then also 2 times lower while using the the linear difficulty update algorithm, providing a serious improvement.
 
-Thus, linear difficulty control algorithm, proposed in Section \ref{sec:improved} is better than the one used in Bitcoin for the given situation, both in terms of block rate and in terms of attacker profit.
+Thus, linear difficulty control algorithm, proposed in Section \ref{sec:improved} is better than the one used in Bitcoin for the given situation, both in terms of block rate and attacker's profit.
 
 
 
