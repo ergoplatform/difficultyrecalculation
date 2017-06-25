@@ -109,7 +109,7 @@ We call this strategy a \textit{\attackname}.
 
 To calculate the profit the adversarial miner gains from this attack, we use Bitcoins' difficulty recalculation function and assume a  constant network hashrate (with respect to the rest of the network, without our adversarial miner).
 We denote the hashrate of miners not participating in the coin-hopping attack as $R_0$ in both \coinA{} and \coinB{}, and we denote the hashrate of the adversarial miner as $R_a=R_0\cdot p, 0 < p < 1 $.
-Before epoch $A$ the adversary is mining coin \coinB{}, thus the difficulty of the \coinB{} network  is $D_0 = (R_0+R_a) \cdot \texp$.
+Before epoch $A$ the adversary is mining coin \coinB{}, thus the difficulty of the \coinB{} network  is $D_0 = (R_0+R_a) \cdot \texp$~(see Section 3.1 in~\cite{kraft2015difficulty}).
 During the epoch A the difficulty of the \coinB{} network is still $D_0$, and $\mathcal{A}$ switches to mine coin \coinA{} at a difficulty $D_1 = R_0 \cdot \texp$  calculated from honest miners hashrate $R_0$ only.
 During the epoch B the adversary starts mining of \coinB{}, now at difficulty $D_1$, while honest miners on chain \coinA{} continue to mine it with higher difficulty $D_0$.
 After that $\mathcal{A}$ continues to switch between chains \coinA{} and \coinB{} always mining on the chain with lower difficulty $D_1$, spending $R_0 \cdot \texp$ computational power per block, whereas honest miners spend $(R_0+R_a) \texp$ computational power per block.
@@ -127,8 +127,6 @@ If $\reward$ is block reward, the additional profit of the adversary is calculat
 \end{aligned}
 \end{equation}
 
-%Although this is a small contribution to total mining reward of $\mathcal{A}$, prime cost of mining is expected to be close to mining reward due to economical reasons, making mining much more profitable to $\mathcal{A}$, then to other miners.
-
 Remarkably, under such an attack the mean time between blocks in both chains \coinA{} and \coinB{} will be
 \begin{equation}
 \label{eq:ati}
@@ -136,7 +134,6 @@ Remarkably, under such an attack the mean time between blocks in both chains \co
 \end{equation}
 which is bigger than the planned time $T$.
 
-%Please notice that we regard \(p\) as the ratio between the hash-powers of the attacker and the honest network so it changes from 0 to 1.
 
 The next section provides a new algorithm for difficulty adjustment.
 
