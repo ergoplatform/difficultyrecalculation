@@ -118,11 +118,11 @@ Every epoch honest miners with hashrate $R_0$ will generate $M \cdot R_0 \over R
 If $\reward$ is block reward, the additional profit of the adversary is calculated as the difference of what he mines based on the lower difficulty in contrast to the difficulty he would mine at without hopping between the coins:
 \begin{equation}
 \begin{aligned}
-{\reward \cdot M \cdot { R_a \over R_0} - \reward \cdot M \cdot { R_a \over R_0 + R_a}} = \\
-= {\reward \cdot M \cdot ( { R_a \over R_0} - {R_a \over R_0 + R_a})} = \\
-= {\reward \cdot M \cdot { R_a \cdot (R_0 + R_a) + R_a \cdot R_0 \over R_0 \cdot (R_0 + R_a) }} = \\
+{\reward \cdot M \cdot { R_a \over R_0} - \reward \cdot M \cdot { R_a \over R_0 + R_a}}  
+%= {\reward \cdot M \cdot ( { R_a \over R_0} - {R_a \over R_0 + R_a})} = \\
+%= {\reward \cdot M \cdot { R_a \cdot (R_0 + R_a) + R_a \cdot R_0 \over R_0 \cdot (R_0 + R_a) }} = \\
 = {\reward \cdot M \cdot { R_a^2 \over R_0 \cdot (R_a + R_0) }} = \\
-= {\reward \cdot M \cdot {R_0^2 \cdot p^2 \over R_0 \cdot (R_0 \cdot p + R_0)}} = \\
+= {\reward \cdot M \cdot {R_0^2 \cdot p^2 \over R_0 \cdot (R_0 \cdot p + R_0)}} 
 = {\reward \cdot M \cdot { p^2 \over 1+p }}
 \end{aligned}
 \end{equation}
@@ -134,8 +134,7 @@ Remarkably, under such an attack the mean time between blocks in both chains \co
 \end{equation}
 which is bigger than the planned time $T$.
 
-
-The next section provides a new algorithm for difficulty adjustment.
+%The next section provides a new algorithm for difficulty adjustment.
 
 \section{Improved Difficulty Adjustment}
 \label{sec:improved}
@@ -205,13 +204,13 @@ While the difficulty update algorithm, proposed in~\cite{kraft2015difficulty} le
 
 \subsection{Real World Data}
 
-We compare the real Bitcoin network data with difficulty values calculated by the algorithm used in Bitcoin. Furthermore, we do the same with values calculated by the linear algorithm. Results are shown in figure~\ref{fig:real_world_difficulty}.
+We compare the real Bitcoin network data with difficulty values calculated by the algorithm used in Bitcoin. Furthermore, we do the same with values calculated by the linear algorithm. %Results are shown in figure~\ref{fig:real_world_difficulty}.
 
-\begin{figure}[h]
-\center{\includegraphics[scale=0.5]{real_world_difficulty.png}}
-\caption{Comparison of the real world difficulty data from the Bitcoin network}
-\label{fig:real_world_difficulty}
-\end{figure}
+%\begin{figure}[h]
+%\center{\includegraphics[scale=0.5]{real_world_difficulty.png}}
+%\caption{Comparison of the real world difficulty data from the Bitcoin network}
+%\label{fig:real_world_difficulty}
+%\end{figure}
 
 Results show that in average Bitcoin algorithm has an error of about 12.3\% while our approach only has an error of about 8.4\%. Thus  our approach performs about 33\% better than the approach currently used in the Bitcoin network.
 
