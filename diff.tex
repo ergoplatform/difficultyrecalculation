@@ -146,16 +146,16 @@ In this section we are going to propose an alternative difficulty adjustment alg
 First, we state properties of an ideal difficulty update algorithm:
 \begin{enumerate}
 \item{It should be resistant to known types of attacks based on difficulty manipulation.}
-\item{It should lead to an almost constant desired block rate for random fluctuations in the hash rate.}
+\item{It should lead to an almost constant desired block rate for random fluctuations in the network hashrate.}
 %\item{It should be simple enough to use integer arithmetic for all computational steps.}
 \end{enumerate}
 
-Security is the most important feature of blockchain systems and should be regarded with highest priority.
-Incorrect block rate is not considered a big problem in the Bitcoin community but it may be important for more advanced applications of blockchain systems.
+%Security is the most important feature of blockchain systems and should be regarded with highest priority.
+%Incorrect block rate is not considered a big problem in the Bitcoin community but it may be important for more advanced applications of blockchain systems.
 %Implementation of the \textit{ideal} difficulty update algorithm based solely on integer arithmetics is desired for a platform independent approach.
 %This rule is not required necessarily, since as mentioned in \cite{kraft2015difficulty}, it is possible to include non-integer algorithm parameters as part of the block, but it provides another way of difficulty manipulating to an attacker.
 
-In this section we are providing a  difficulty adjustment algorithm based on the well-known linear least squares method\cite{lawson1974solving}. In the simplest case of pair linear regression (\(y=kx+b)\) coefficients may be calculated as follows:
+We propose a difficulty adjustment algorithm based on the well-known linear least squares method\cite{lawson1974solving}. In the simplest case of pair linear regression (\(y=kx+b)\) coefficients may be calculated as follows:
 
 \begin{equation}
   \begin{cases}
@@ -164,7 +164,7 @@ In this section we are providing a  difficulty adjustment algorithm based on the
   \end{cases}
 \end{equation}
 
-Note, that for accurate difficulty prediction we should use a few last observed difficulties, rather than just one, as implemented in Bitcoin, but it is still possible to use this algorithm right after second epoch.
+Note that for accurate difficulty prediction we should use a few last observed difficulties, rather than just one, as implemented in Bitcoin, but it is still possible to use this algorithm right after second epoch.
 
 
 % We regard it as the good candidate for difficulty update algorithm, because:
@@ -238,11 +238,12 @@ Obviously, the profit of the attacker is then also 2 times lower while using the
 Thus, linear difficulty control algorithm, proposed in Section \ref{sec:improved} is better than the one used in Bitcoin for the given situation, both in terms of block rate and in terms of attacker profit.
 
 
-\section{Conclusion}
-\label{sec:concl}
-In this paper we analyze a new kind of attacks on the blockchain based on manipulating mining difficulty. This attack decreases computational power spent by an attacker for block mining while increasing mean time interval between blocks. It is especially favorable in situation, when the cost of computational resources invested into mining is around the expected reward and there are enough forks to switch mining between them.
 
-To improve the stability of block times and decrease the attacker profit, we proposed an alternative difficulty update algorithm, based on linear regression. It was found that this algorithm performs better then the one used in Bitcoin both in terms of block rate and in terms of attacker profit, while it's still simple enough to be computed with integer arithmetic only.
+%\section{Conclusion}
+%\label{sec:concl}
+%In this paper we analyze a new kind of attacks on the blockchain based on manipulating mining difficulty. This attack decreases computational power spent by an attacker for block mining while increasing mean time interval between blocks. It is especially favorable in situation, when the cost of computational resources invested into mining is around the expected reward and there are enough forks to switch mining between them.
+
+%To improve the stability of block times and decrease the attacker profit, we proposed an alternative difficulty update algorithm, based on linear regression. It was found that this algorithm performs better then the one used in Bitcoin both in terms of block rate and in terms of attacker profit, while it's still simple enough to be computed with integer arithmetic only.
 
 %\section*{Acknowledgments}
 
