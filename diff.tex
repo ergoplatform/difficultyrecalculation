@@ -185,9 +185,9 @@ We will regard difficulty growth in this section, keeping in mind the fact, that
 
 \subsection{Experiment}
 \label{sec:experiment}
-First, we observe exponential difficulty growth as it occures in practice in the Bitcoin network. As we already mentioned, exponential difficulty growth is the absolutely worst case possible for Bitcoin's difficulty retargeting algorithm.
-For simplicity we regard a situation, when hash rate increases by 10\% each epoch, more complicated research of exponential difficulty growth can be found in~\cite{kraft2015difficulty}.
-Figure~\ref{fig:exp} presents difficulty function over epochs, which is 2016 blocks in Bitcoin.
+First, we observe exponential difficulty growth as it occures in practice in the Bitcoin network. Exponential difficulty growth is the absolutely worst case possible for Bitcoin~\cite{kraft2015difficulty}.
+For simplicity, we consider a situation where network hashrate is increasing by 10\% each epoch~(more complicated research of exponential difficulty growth can be found in~\cite{kraft2015difficulty}).
+Figure~\ref{fig:exp} presents how Bitcoin and linear algorithms perform over epochs.
 
 \begin{figure}[h]
 \center{\includegraphics[scale=0.3]{exp.png}}
@@ -197,13 +197,11 @@ Figure~\ref{fig:exp} presents difficulty function over epochs, which is 2016 blo
 
 Note that the difficulty calculated from Bitcoin algorithm is always significantly lower than the real one.
 This leads to a {\em 9 min 5 sec} time interval between blocks, which is $\approx$10\% lower then desired {\em 10 min} interval.
-Difficulty, calculated by the linear algorithm is constantly lower, then the real one, but still much closer to it.
-Mean time interval between blocks in this approach is {\em 9 min 45 sec}, which is much closer to the desired one.
+Difficulty calculated by the linear algorithm is also aways lower than the real one, but closer to it.
+Mean delay between blocks when linear algorithm is used is {\em 9 min 45 sec}, which is closer to the planned value. The algorithm currently used in the Bitcoin network has an average error of about 9.1\%, while our algorithm has an error of about 1.9\%.
 
-Furthermore, we looked at the error in percentage of the difficulty. That shows that the algorithm currently used in the Bitcoin network has a pretty constant average error of about 9.1\%, while our algorithm only has a constant error of about 1.9\%.
-
-While the difficulty update algorithm, proposed in~\cite{kraft2015difficulty} leads to much better results for exponential difficulty growth with a constant rate, we should note, that our algorithm is much simpler and may be implemented with integer arithmetic only.
-Moreover, exponential difficulty growth is the simplification of the difficulty growth law, and it may be incorrect to expect it in some situations.
+While the difficulty update algorithm, proposed in~\cite{kraft2015difficulty} leads to better results for exponential difficulty growth with a constant rate, we note that our algorithm is much simpler and may be implemented with integer arithmetic only.
+%Moreover, exponential difficulty growth is the simplification of the difficulty growth law, and it may be incorrect to expect it in some situations.
 
 \subsection{Real World Data}
 
