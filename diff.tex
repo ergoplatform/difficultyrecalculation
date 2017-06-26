@@ -163,6 +163,16 @@ We propose a difficulty adjustment algorithm based on the well-known linear leas
   \end{cases}
 \end{equation}
 
+In such a case difficulty of the epoch $D_i$ can be caclulated from observed difficulties of previous $N$ epochs $D_{i-1},...,D_{i-N}$ as follows:
+
+\begin{equation}
+  \begin{cases}
+    k= {2\sum_{n=i-N}^{i-1} (D_n \cdot n) - (2i-N-1)\cdot \sum_{n=i-N}^{i-1} D_n \over N ( (i-N)^2 + (i-1)^2 + (2i-N-1)^2/2 )} \\
+    b= \sum_{n=i-N}^{i-1} D_n / N-k (2i-N-1)/2 \\
+    D_i= k \cdot i + b
+  \end{cases}
+\end{equation}
+
 Note that for accurate difficulty prediction we should use a few last observed difficulties, rather than just one, as implemented in Bitcoin, but it is still possible to use this algorithm right after second epoch.
 
 
