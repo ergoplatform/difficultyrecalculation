@@ -182,7 +182,7 @@ The next section provides an evaluation of the linear algorithm.
 \section{Evaluation}
 \label{sec:sim}
 
-In this section we present simulation results that show that the linear algorithm proposed in Section~\ref{sec:improved} outperforms Bitcoin's difficulty update algorithm in three experiments. The first experiment is about exponential difficulty growth, which is the worst case for the original algorithm, as previous study~\cite{kraft2015difficulty} shows. The second one is comparing two algorithm on real difficulty data from Bitcoin history. In the third experiment we do comparison of algorithms for the coin-hopping attack. For all the experiments, $N=4$~(we use data from last 4 epochs to calculate a difficulty value for a new epoch).  
+In this section we present simulation results that show that the linear algorithm proposed in Section~\ref{sec:improved} outperforms Bitcoin's difficulty update algorithm in three experiments. The first experiment is about exponential difficulty growth, which is the worst case for the original algorithm, as the previous study~\cite{kraft2015difficulty} shows. The second one is comparing two algorithm on real difficulty data from Bitcoin history. In the third experiment we do comparison of algorithms for a case of the coin-hopping attack. For all the experiments, $N=4$~(we use data from last 4 epochs to calculate a difficulty value for a new epoch).  
 
 \subsection{Exponential Difficulty Growth}
 \label{sec:experiment}
@@ -201,7 +201,7 @@ This leads to average delay between blocks of about {\em 9 min 5 sec}, which is 
 Difficulties calculated by the linear algorithm are also always lower than the real ones, but closer to them.
 Mean delay between blocks when linear algorithm is used is about {\em 9 min 45 sec}, which is closer to the planned value. The algorithm currently used in the Bitcoin network has an average error of about 9.1\%, while our algorithm has an error of about 1.9\%.
 
-While a difficulty readjustment algorithm proposed in~\cite{kraft2015difficulty} leads to better results for exponential difficulty growth with a constant rate, we note that our algorithm is simpler and may be implemented with integer arithmetic only.
+While a difficulty readjustment algorithm proposed in~\cite{kraft2015difficulty} leads to better results for exponential difficulty growth with a constant rate, we note that our algorithm is simpler and can be implemented with integer arithmetic only.
 %Moreover, exponential difficulty growth is the simplification of the difficulty growth law, and it may be incorrect to expect it in some situations.
 
 \subsection{Real World Data}
@@ -218,12 +218,12 @@ Results show that in average Bitcoin algorithm has an error of about 12.3\% whil
 
 \subsection{\AttackName}
 
-We consider the \attackname{} as described in the Section~\ref{sec:attack}, with an attacker possessing 20\% of total computational power of network. The attacker turns on and turns off his mining to manipulate difficulty and produce more blocks.
+We consider the \attackname{} as described in the Section~\ref{sec:attack}, with an attacker possessing 20\% of total computational power of network. The attacker repeatedly turns on and then turns off his mining to manipulate difficulty and produce more blocks.
 Figure \ref{fig:attack} represents difficulty over epochs for this scenario.
 
 \begin{figure}[h]
 \center{\includegraphics[scale=0.3]{attack.png}}
-\caption{Real difficulty (red) and difficulties calculated from Bitcoin (black) and linear (blue) algorithms in \attackname{}}
+\caption{Real difficulties~(red), difficulties calculated from Bitcoin~(black) and linear~(blue) algorithms in the \attackname{}}
 \label{fig:attack}
 \end{figure}
 
