@@ -46,7 +46,7 @@ The Bitcoin whitepaper~\cite{Nakamoto2008} states that the security of the syste
 
 In this paper we introduce and analyze a new kind of attack on a mining difficulty retargeting function used in Bitcoin. A malicious miner is increasing his mining profits from the attack, named coin-hopping attack, and, as a side effect, an average delay between blocks is increasing.
 
-We propose an alternative difficulty adjustment algorithm in order to reduce an incentive to perform coin-hopping, and also to improve stability of inter-block delays. Finally, we evaluate the presented approach and show that the novel approach performs better than the original algorithm of Bitcoin.
+We propose an alternative difficulty adjustment algorithm in order to reduce an incentive to perform coin-hopping, and also to improve stability of inter-block delays. Finally, we evaluate the presented approach and show that the novel algorithm performs better than the original algorithm of Bitcoin.
 	
 \end{abstract}
 
@@ -61,7 +61,7 @@ Bitcoin security relies on a distributed protocol which maintains a distributed 
 Alternative systems may rely on other types of computational puzzles rather than finding a partial hash collision, e.g.,~\cite{miller2014permacoin,biryukov2017equihash}. Nevertheless, all of them assume some algorithm that changes the difficulty of the puzzle dynamically. An algorithm for difficulty readjustment is required in order to make an open blockchain system working stable in the face of participants joining and leaving the system (resulting in constantly changing available computational power for solving the puzzles), and also to stabilize mean latency between blocks. 
 
 The difficulty readjustment algorithm in Bitcoin assumes that the total computational power involved in the mining process does not significantly change from epoch to epoch. In contrast, real networks show that a significant variance in computational power happens over long periods.
-For example, we show in this paper that due to continuous growth of computational power in the Bitcoin network a mean delay between blocks differs from an expected value by 7\%.
+For example, we show in this paper that due to continuous non-linear growth of computational power in the Bitcoin network a mean delay between blocks differs from an expected value by 7\%.
 Noteworthy, exponential growth of computational power, often observed in practice, is the absolutely worst case~(regarding the mean block delay divergence) for the Bitcoin's difficulty readjustment algorithm~\cite{kraft2015difficulty}.
  
 In this paper we also consider a new type of miner behavior with regards to difficulty readjustment which provides unfair advantage to the miner, and also makes inter-block delays worse. We call the discovered strategy the \attackname{} following the ``pool-hopping'' term raised in~\cite{rosenfeld2011analysis}. In this attack, an adversarial miner is switching from mining one coin to another in the beginning of an epoch, then he is switching back in the beginning of next epoch when difficulty becomes lower. We show how adversarial mining profit is increasing for Bitcoin's difficulty readjustment function, and how inter-block delay suffers from the \attackname{}.
@@ -74,9 +74,11 @@ In this section we provide an overview of known formal and informal studies with
 
 The Timejacking attack~\cite{timejacking2011} allows an attacker to first shift the network time at a victims node~(which is calculating network time by averaging timestamps it gets regularly from neighbors) and then force the victim node to reject a block with a specially crafted timestamp~(other nodes are accepting). The time wrapping attack~\cite{artforz2011} is exploiting the fact that Bitcoin is using difference in timestamps between last and first block in an epoch, instead of the last block in an epoch and last block in a previous epoch. By using specially crafted timestamps for the last block of each epoch, an attacker can produce more blocks for a time window with more work contributed to his chain. The difficulty raising attack, introduced in~\cite{bahack2013theoretical}, allows an attacker to discard $n$-depth block, for any $n$, and for any computational power of the attacker, with probability 1 if he is willing to wait long enough.
 
-Another paper~\cite{kraft2015difficulty} is introducing an alternative difficulty readjustment function designed to work better than Bitcoin's not just for almost constant mining power but also when the power is growing exponentially with time. We provide comparison with this function in the paper in one of the following sections.  
+The paper~\cite{kraft2015difficulty} is introducing an alternative difficulty readjustment function designed to work better than Bitcoin's not just for almost constant mining power but also when the power is growing exponentially with time. %We provide comparison with this function in the paper in one of the following sections.  
 
-The paper is organized as follows: in Section~\ref{sec:bit} we provide a detailed view of Bitcoin's readjustment function. In Section~\ref{sec:attack} we introduce the coin-hopping attack, followed by the definition of an improved difficulty readjustment function described in section~\ref{sec:improved}. Section~\ref{sec:sim} provides results of evaluation of the presented approach. 
+\subsection{Structure of the Paper}
+
+The paper is organized as follows: in Section~\ref{sec:bit} we provide a detailed view of Bitcoin's readjustment function. In Section~\ref{sec:attack} we introduce the coin-hopping attack, followed by the definition of an improved difficulty readjustment function, described in section~\ref{sec:improved}. Section~\ref{sec:sim} provides experimental results for new algorithm evaluation. 
 
 \section{Bitcoin Mining}
 \label{sec:bit}
