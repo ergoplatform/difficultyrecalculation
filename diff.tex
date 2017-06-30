@@ -176,26 +176,16 @@ Difficulty of the $i-th$ epoch $D_i$ can be caclulated from the observed difficu
 
 Note that for accurate difficulty prediction we use $N$ last observed difficulties, rather than just one, as implemented in Bitcoin, but it is still possible to use this algorithm right after the second epoch of the history.
 
-
-% We regard it as the good candidate for difficulty update algorithm, because:
-% \begin{enumerate}
-% \item{It should reduce profit of the attack, described in Section~\ref{sec:attack}. Calculations of the attacker profit are described in Section~\ref{sec:sim}}
-% \item{It leads to desired block rate for linear changes in the hash rate.
-% This means, that regarding block rate, linear algorithm is better than one of Bitcoin in all cases, except constant hash rate, when both provide the same result. }
-% \item{It is simple enough to use integer arithmetic for all computational steps with high fidelity.}
-% \end{enumerate}
-
 The next section provides an evaluation of the linear algorithm.
 
 \section{Evaluation}
 \label{sec:sim}
 
-We now present simulation results that show that the  method proposed in Section~\ref{sec:improved} outperforms Bitcoin's difficulty update algorithm.
-We will regard difficulty growth in this section, keeping in mind the fact, that it is closely related with network hash rate, which is usually considered in literature.
+In this section we present simulation results that show that the linear algorithm proposed in Section~\ref{sec:improved} outperforms Bitcoin's difficulty update algorithm in three experiments. The first experiment is about exponential difficulty growth, which is the worst case for the original algorithm, as previous study~\cite{kraft2015difficulty} shows. The second one is comparing two algorithm on real difficulty data from Bitcoin history. In the third experiment we do comparison of algorithms for the coin-hopping attack.   
 
 \subsection{Exponential Difficulty Growth}
 \label{sec:experiment}
-First, we observe exponential difficulty growth as it occures in practice in the Bitcoin network. Exponential difficulty growth is the absolutely worst case possible for Bitcoin~\cite{kraft2015difficulty}.
+First, we observe exponential difficulty growth, which occurs in practice in the Bitcoin network. Exponential difficulty growth is the absolutely worst case possible for Bitcoin~\cite{kraft2015difficulty}.
 For simplicity, we consider a situation where network hashrate is increasing by 10\% each epoch~(more complicated research of exponential difficulty growth can be found in~\cite{kraft2015difficulty}).
 Figure~\ref{fig:exp} presents how Bitcoin and linear algorithms perform over epochs.
 
