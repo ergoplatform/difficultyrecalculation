@@ -101,14 +101,14 @@ We consider the following attack involving an adversarial miner $\mathcal{A}$:
 
 \begin{itemize}
 \item There are at least 2 possible coins (\coinA{},\coinB{}) $\mathcal{A}$ can contribute to. Without a loss of generality, we assume that each of them provides about the same profitability of the mining activity.
-\item $\mathcal{A}$ is mining coin \coinB{} before the beginning of an epoch $A$. At the beginning of $A$ he switches to mine coin \coinA{}.
+\item $\mathcal{A}$ is mining coin \coinB{} before the beginning of an epoch $A$. At the beginning of $A$ he is switching to mine coin \coinA{}.
 \item Without the contribution of miner $\mathcal{A}$ the total mining power of the \coinB{} network for the epoch decreases.
-\item For an epoch $B$ right after epoch $A$, the difficulty of \coinB{} gets readjusted to a lower value. So $\mathcal{A}$ starts mining \coinB{} again with a lower difficulty.
+\item For an epoch $B$ right after epoch $A$, the difficulty of \coinB{} is to be readjusted to a lower value. So $\mathcal{A}$ starts mining \coinB{} again with a lower difficulty.
 \end{itemize}
 
 We call this strategy a {\em \attackname{}}.
 
-To calculate the profit the adversarial miner gains from this attack, we use Bitcoins' difficulty recalculation function and assume a  constant network hashrate (with respect to the rest of the network, without our adversarial miner).
+To calculate the profit the adversarial miner gains from this attack, we use Bitcoins' difficulty recalculation function and assume a  constant network hashrate (with respect to the rest of the network, without the adversarial miner).
 We denote the hashrate of miners not participating in the coin-hopping attack as $R_0$ in both \coinA{} and \coinB{}, and we denote the hashrate of the adversarial miner as $R_a=R_0\cdot p, 0 < p < 1 $.
 Before epoch $A$ the adversary is mining coin \coinB{}, thus the difficulty of the \coinB{} network  is $D_0 = (R_0+R_a) \cdot \texp$~(see Section 3.1 in~\cite{kraft2015difficulty}).
 During the epoch A the difficulty of the \coinB{} network is still $D_0$, and $\mathcal{A}$ switches to mine coin \coinA{} at a difficulty $D_1 = R_0 \cdot \texp$  calculated from honest miners hashrate $R_0$ only.
