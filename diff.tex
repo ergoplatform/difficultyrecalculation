@@ -38,8 +38,6 @@
   \and Ergo Platform 
   \and University of Applied Sciences Ruhr West \\\email{marc.jansen@hs-ruhrwest.de}}
 
-%\ead{dmitry.meshkov@iohk.io}
-
 \maketitle
 
 \begin{abstract}
@@ -58,7 +56,6 @@ We propose an alternative difficulty adjustment algorithm in order to reduce an 
 
 Blockchain systems have attracted significant amount of interest after the Bitcoin whitepaper~\cite{Nakamoto2008} was published in 2008.
 Bitcoin security relies on a distributed protocol which maintains a distributed ledger. In the protocol miners are trying to find a partial hash collision in order to generate a valid block by iterating over nonce field values. 
-%That is, for a given block $\block$~(with a random nonce included) in order for being valid, the condition $hash(\block) < T$ should hold, where {\em target} parameter $T$ specifies expected hardness of the block generation. This hardness can be also expressed via the {\em difficulty} parameter $D = \frac{1}{T}$.
 
 Alternative systems may rely on other types of computational puzzles rather than finding a partial hash collision, e.g.,~\cite{miller2014permacoin,biryukov2017equihash}. Nevertheless, all of them assume some algorithm that changes the difficulty of the puzzle dynamically. An algorithm for difficulty readjustment is required in order to make an open blockchain system working stable in the face of participants joining and leaving the system (resulting in constantly changing available computational power for solving the puzzles), and also to stabilize mean latency between blocks. 
 
@@ -125,8 +122,6 @@ If $\reward$ is block reward, the additional profit of the adversary is calculat
 \begin{equation}
 \begin{aligned}
 {\reward \cdot M \cdot { R_a \over R_0} - \reward \cdot M \cdot { R_a \over R_0 + R_a}}  
-%= {\reward \cdot M \cdot ( { R_a \over R_0} - {R_a \over R_0 + R_a})} = \\
-%= {\reward \cdot M \cdot { R_a \cdot (R_0 + R_a) + R_a \cdot R_0 \over R_0 \cdot (R_0 + R_a) }} = \\
 = {\reward \cdot M \cdot { R_a^2 \over R_0 \cdot (R_a + R_0) }} = \\
 = {\reward \cdot M \cdot {R_0^2 \cdot p^2 \over R_0 \cdot (R_0 \cdot p + R_0)}} 
 = {\reward \cdot M \cdot { p^2 \over 1+p }}
@@ -140,7 +135,6 @@ Remarkably, under such an attack the mean time between blocks in both chains \co
 \end{equation}
 which is bigger than the planned time $T$.
 
-%The next section provides a new algorithm for difficulty adjustment.
 
 \section{Improved Difficulty Adjustment}
 \label{sec:improved}
@@ -152,13 +146,8 @@ First, we state properties of an ideal difficulty update algorithm:
 \begin{enumerate}
 \item{It should be resistant to known types of attacks based on difficulty manipulation.}
 \item{It should lead to an almost constant desired block rate for random fluctuations in the network hashrate.}
-%\item{It should be simple enough to use integer arithmetic for all computational steps.}
 \end{enumerate}
 
-%Security is the most important feature of blockchain systems and should be regarded with highest priority.
-%Incorrect block rate is not considered a big problem in the Bitcoin community but it may be important for more advanced applications of blockchain systems.
-%Implementation of the \textit{ideal} difficulty update algorithm based solely on integer arithmetics is desired for a platform independent approach.
-%This rule is not required necessarily, since as mentioned in \cite{kraft2015difficulty}, it is possible to include non-integer algorithm parameters as part of the block, but it provides another way of difficulty manipulating to an attacker.
 
 We propose a difficulty adjustment algorithm based on the well-known linear least squares method\cite{lawson1974solving}, we name it {\em linear algorithm}. In the simplest case of pair linear regression $y=kx+b$, coefficients may be calculated as follows:
 
@@ -206,17 +195,10 @@ Difficulties calculated by the linear algorithm are also always lower than the r
 Mean delay between blocks when linear algorithm is used is about {\em 9 min 45 sec}, which is closer to the planned value. The algorithm currently used in the Bitcoin network has an average error of about 9.1\%, while our algorithm has an error of about 1.9\%.
 
 While a difficulty readjustment algorithm proposed in~\cite{kraft2015difficulty} leads to better results for exponential difficulty growth with a constant rate, we note that our algorithm is simpler and can be implemented with integer arithmetic only.
-%Moreover, exponential difficulty growth is the simplification of the difficulty growth law, and it may be incorrect to expect it in some situations.
 
 \subsection{Real World Data}
 
-We compare the real Bitcoin network data with difficulty values calculated by the algorithm used in Bitcoin, and we do the same with values calculated by the linear algorithm. %Results are shown in figure~\ref{fig:real_world_difficulty}.
-
-%\begin{figure}[h]
-%\center{\includegraphics[scale=0.5]{real_world_difficulty.png}}
-%\caption{Comparison of the real world difficulty data from the Bitcoin network}
-%\label{fig:real_world_difficulty}
-%\end{figure}
+We compare the real Bitcoin network data with difficulty values calculated by the algorithm used in Bitcoin, and we do the same with values calculated by the linear algorithm. 
 
 Results show that in average Bitcoin algorithm has an error of about 12.3\% while our approach has an error of about 8.4\%. Thus our approach performs about 33\% better than the approach currently used in the Bitcoin network.
 
@@ -237,15 +219,6 @@ The linear algorithm also leads to bigger than planned mean delay between blocks
 
 Thus the linear difficulty control algorithm, proposed in Section \ref{sec:improved} is better than the one used in Bitcoin for the \attackname{} scenario, both in terms of block rate and attacker's profit.
 
-
-
-%\section{Conclusion}
-%\label{sec:concl}
-%In this paper we analyze a new kind of attacks on the blockchain based on manipulating mining difficulty. This attack decreases computational power spent by an attacker for block mining while increasing mean time interval between blocks. It is especially favorable in situation, when the cost of computational resources invested into mining is around the expected reward and there are enough forks to switch mining between them.
-
-%To improve the stability of block times and decrease the attacker profit, we proposed an alternative difficulty update algorithm, based on linear regression. It was found that this algorithm performs better then the one used in Bitcoin both in terms of block rate and in terms of attacker profit, while it's still simple enough to be computed with integer arithmetic only.
-
-%\section*{Acknowledgments}
 
 \bibliographystyle{elsarticle-num}
 \bibliography{sources.bib}
