@@ -32,9 +32,11 @@
 
 \title{[Short Paper:] Revisiting Difficulty Control for Blockchain Systems}
 
+\author{Dmitry Meshkov\inst{1,2}, Alexander Chepurnoy\inst{1,2}, Marc Jansen\inst{3}}
 
-%\author{authors}
-%\institute{institutes}
+\institute{IOHK Research \\\email{\{dmitry.meshkov,alex.chepurnoy\}@iohk.io} 
+  \and Ergo Platform 
+  \and University of Applied Sciences Ruhr West \\\email{marc.jansen@hs-ruhrwest.de}}
 
 %\ead{dmitry.meshkov@iohk.io}
 
@@ -42,7 +44,7 @@
 
 \begin{abstract}
 
-The Bitcoin whitepaper~\cite{Nakamoto2008} states that the security of the system is guaranteed as long as honest miners control more than half of the current total computational power. The whitepaper assumes a static difficulty, thus it is equally hard to solve a cryptographic proof-of-work puzzle for any given moment of the system history. However, the real Bitcoin network is using an adaptive difficulty adjustment mechanism.  
+The Bitcoin whitepaper~\cite{Nakamoto2008} states that security of the system is guaranteed as long as honest miners control more than half of the current total computational power. The whitepaper assumes a static difficulty, thus it is equally hard to solve a cryptographic proof-of-work puzzle for any given moment of the system history. However, the real Bitcoin network is using an adaptive difficulty adjustment mechanism.  
 
 In this paper we introduce and analyze a new kind of attack on a mining difficulty retargeting function used in Bitcoin. A malicious miner is increasing his mining profits from the attack, named coin-hopping attack, and, as a side effect, an average delay between blocks is increasing.
 
