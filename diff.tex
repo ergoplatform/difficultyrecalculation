@@ -42,11 +42,11 @@
 
 \begin{abstract}
 
-The Bitcoin whitepaper~\cite{Nakamoto2008} states that security of the system is guaranteed as long as honest miners control more than half of the current total computational power. The whitepaper assumes a static difficulty, thus it is equally hard to solve a cryptographic proof-of-work puzzle for any given moment of the system history. However, the real Bitcoin network is using an adaptive difficulty adjustment mechanism.  
+The Bitcoin whitepaper~\cite{Nakamoto2008} states that security of the system is guaranteed as long as honest miners control more than half of the current total computational power. The whitepaper assumes a static difficulty, thus it is equally hard to solve a cryptographic proof-of-work puzzle for any given moment of system history. However, the real Bitcoin network is using an adaptive difficulty adjustment mechanism. 
 
-In this paper we introduce and analyze a new kind of attack on a mining difficulty retargeting function used in Bitcoin. A malicious miner is increasing his mining profits from the attack, named coin-hopping attack, and, as a side effect, an average delay between blocks is also increasing.
+In this paper we introduce and analyze a new kind of attack on the mining difficulty retargeting function used in Bitcoin which we call "coin-hopping." In a coin-hopping attack, a malicious miner increases his mining profits while at the same time increasing the average delay between blocks. 
 
-We propose an alternative difficulty adjustment algorithm in order to reduce an incentive to perform coin-hopping, and also to improve stability of inter-block delays. Finally, we evaluate the presented approach and show that the novel algorithm performs better than the original algorithm of Bitcoin.
+We propose an alternative difficulty adjustment algorithm in order to reduce the incentive to perform a coin-hopping attack, and also decrease inter-block delays. Finally, we evaluate our proposed approach and show how its novel algorithm performs better than the original algorithm of Bitcoin. 
 	
 \end{abstract}
 
@@ -57,15 +57,15 @@ We propose an alternative difficulty adjustment algorithm in order to reduce an 
 Blockchain systems have attracted significant amount of interest after the Bitcoin whitepaper~\cite{Nakamoto2008} was published in 2008.
 Bitcoin security relies on a distributed protocol which maintains a distributed ledger. In the protocol miners are trying to find a partial hash collision in order to generate a valid block by iterating over nonce field values. 
 
-Alternative systems may rely on other types of computational puzzles rather than finding a partial hash collision, e.g.,~\cite{miller2014permacoin,biryukov2017equihash}. Nevertheless, all of them assume some algorithm that changes the difficulty of the puzzle dynamically. An algorithm for difficulty readjustment is required in order to make an open blockchain system working stable in the face of participants joining and leaving the system (resulting in constantly changing available computational power for solving the puzzles), and also to stabilize mean latency between blocks. 
+Alternative systems may rely on other types of computational puzzles rather than finding a partial hash collision, e.g.,~\cite{miller2014permacoin,biryukov2017equihash}. Nevertheless, all of them assume some algorithm that changes the difficulty of the puzzle dynamically. An algorithm for difficulty readjustment is required in order to make an open blockchain system working stable in the face of participants joining and leaving the system (resulting in constantly changing available computational power for puzzle solving), and also to stabilize mean latency between blocks. 
 
 The difficulty readjustment algorithm in Bitcoin assumes that the total computational power involved in the mining process does not significantly change from epoch to epoch. In contrast, real networks show that a significant variance in computational power happens over long periods.
-For example, we show in this paper that due to continuous non-linear growth of computational power in the Bitcoin network a mean delay between blocks differs from an expected value by 7\%.
-Noteworthy, exponential growth of computational power, often observed in practice, is the absolutely worst case~(regarding the mean block delay divergence) for the Bitcoin's difficulty readjustment algorithm~\cite{kraft2015difficulty}.
+For example, as we show in this paper, due to continuous non-linear growth of computational power in the Bitcoin network the mean delay between blocks differs from the expected value by 7\%.
+Noteworthy, exponential growth of computational power, often observed in practice, is the absolute worst scenario~(regarding the mean block delay divergence) for Bitcoin's difficulty readjustment algorithm~\cite{kraft2015difficulty}.
  
-In this paper we also consider a new type of miner behavior with regards to difficulty readjustment which provides unfair advantage to the miner, and also makes inter-block delays worse. We call the discovered strategy the \attackname{} following the ``pool-hopping'' term raised in~\cite{rosenfeld2011analysis}. In this attack, an adversarial miner is switching from mining one coin to another in the beginning of an epoch, then he is switching back in the beginning of next epoch when difficulty becomes lower. We show how adversarial mining profit is increasing for Bitcoin's difficulty readjustment function, and how inter-block delay suffers from the \attackname{}.
+In this paper we also consider a new type of miner behavior with regards to difficulty readjustment which provides unfair advantage to the miner, and also makes inter-block delays worse. We call the discovered strategy the \attackname{} following the ``pool-hopping'' term raised in~\cite{rosenfeld2011analysis}. In this attack, an adversarial miner is switching from mining one coin to another in the beginning of an epoch, then he is switching back in the beginning of next epoch when difficulty becomes lower. We show how adversarial mining profit is increasing for Bitcoin's difficulty readjustment function, and how inter-block delays grow as a result of \attackname{}.
 
-As a solution for the significant variance in computational power and also in order to reduce incentive of the described coin-hopping strategy, we propose an alternative difficulty readjustment procedure. We show that the proposed solution is better suited for exponential growth of the total mining power. It also reduces profit and negative side-effects of the coin-hopping attack.
+As a solution for the significant variance in computational power and also in order to reduce incentive of the described coin-hopping strategy, we propose an alternative difficulty readjustment procedure. We show that the proposed solution is better suited for exponential growth of the total mining power. It also reduces profit and negative side-effects of coin-hopping attacks.
 
 \subsection{Related Work}
 
@@ -162,8 +162,8 @@ Difficulty of the $i-th$ epoch $D_i$ can be caclulated from the observed difficu
 
 $$
   \begin{cases}
-    k= {4\sum_{n=i-N}^{i-1} (D_n \cdot n) - 2 (2i-N-1) \sum_{n=i-N}^{i-1} D_n \over 4\sum_{n=i-N}^{i-1} (D_n) - N (2i-N-1)^2} \\
-    b= {2\sum_{n=i-N}^{i-1} D_n - N k (2i-N-1) \over 2N} \\
+    k= {4 \cdot \sum_{n=i-N}^{i-1} (D_n \cdot n) - 2 \cdot (2 \cdot i-N-1) \sum_{n=i-N}^{i-1} D_n \over 4 \cdot \sum_{n=i-N}^{i-1} (D_n) - N \cdot (2 \cdot i - N - 1)^2} \\
+    b= {2 \cdot \sum_{n=i-N}^{i-1} D_n - N \cdot k (2 \cdot i-N-1) \over {2 \cdot N}} \\
     D_i= k \cdot i + b
   \end{cases}
 $$
