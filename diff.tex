@@ -73,7 +73,7 @@ In this section we provide an overview of known formal and informal studies on d
 
 The Timejacking attack~\cite{timejacking2011} allows an attacker to first shift the network time at a victim node~(which is calculating network time by averaging timestamps it gets regularly from neighbors), and then force the victim node to reject a block with a specially crafted timestamp~(other nodes are accepting). The time wrapping attack~\cite{artforz2011} is exploiting the fact that Bitcoin is using difference in timestamps between last and first block of an epoch, not the last block of an epoch and the last block of a previous epoch. By using specially crafted timestamps for the last block of each epoch, an attacker can produce more blocks for a time window, with more work contributed to his chain. The difficulty raising attack, introduced in~\cite{bahack2013theoretical}, allows an attacker to discard $n$-depth block, for any $n$, and for any computational power of the attacker, with probability 1 if he is willing to wait long enough.
 
-The paper~\cite{kraft2015difficulty} is introducing an alternative difficulty readjustment function designed to work better than Bitcoin's not just for almost constant mining power but also when the power is growing exponentially with time. %We provide comparison with this function in the paper in one of the following sections.  
+The paper~\cite{kraft2015difficulty} is introducing an alternative difficulty readjustment function designed to work better than Bitcoin's not just for almost constant mining power but also when the power is growing exponentially with time. 
 
 \subsection{Structure of the Paper}
 
@@ -219,7 +219,6 @@ The linear algorithm also leads to bigger than planned mean delay between blocks
 
 Thus the linear difficulty control algorithm, proposed in Section \ref{sec:improved} is better than the one used in Bitcoin for the \attackname{} scenario, both in terms of block rate and attacker's profit.
 
-\newpage 
 
 \bibliographystyle{elsarticle-num}
 \bibliography{sources.bib}
